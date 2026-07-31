@@ -312,16 +312,16 @@ export function AuthScreen({
             ) : null}
             <label>
               Email address
-              <span className="auth-input"><Mail size={18} /><input type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="name@example.com" autoComplete="email" /></span>
+              <span className="auth-input"><Mail size={18} /><input id="email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="name@example.com" autoComplete="email" /></span>
             </label>
             <label>
               Password
-              <span className="auth-input"><LockKeyhole size={18} /><input type={showPassword ? "text" : "password"} value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Enter password" autoComplete={mode === "signin" ? "current-password" : "new-password"} /><button type="button" onClick={() => setShowPassword((current) => !current)} aria-label={showPassword ? "Hide password" : "Show password"}>{showPassword ? <EyeOff size={18} /> : <Eye size={18} />}</button></span>
+              <span className="auth-input"><LockKeyhole size={18} /><input id="password" type={showPassword ? "text" : "password"} value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Enter password" autoComplete={mode === "signin" ? "current-password" : "new-password"} /><button type="button" onClick={() => setShowPassword((current) => !current)} aria-label={showPassword ? "Hide password" : "Show password"}>{showPassword ? <EyeOff size={18} /> : <Eye size={18} />}</button></span>
             </label>
             {mode === "signup" ? (
               <label>
                 Confirm password
-                <span className="auth-input"><LockKeyhole size={18} /><input type={showPassword ? "text" : "password"} value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} placeholder="Repeat password" autoComplete="new-password" /></span>
+                <span className="auth-input"><LockKeyhole size={18} /><input id="confirm-password" type={showPassword ? "text" : "password"} value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} placeholder="Repeat password" autoComplete="new-password" /></span>
               </label>
             ) : null}
 
@@ -332,7 +332,7 @@ export function AuthScreen({
 
             {error ? <div className="auth-error" role="alert">{error}</div> : null}
 
-            <Button className="auth-submit" disabled={pending}>
+            <Button id="login-button" className="auth-submit" disabled={pending}>
               {pending ? "Please wait..." : mode === "signin" ? "Secure sign in" : "Create protected account"}
               {!pending ? <ArrowRight size={18} /> : null}
             </Button>

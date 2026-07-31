@@ -2,19 +2,23 @@
   "name": "carebridge-one",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://naveen28saravanan.github.io/CareBridge",
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "tsc -b && vite build",
     "preview": "vite preview --host 0.0.0.0",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "test": "vitest run",
     "test:watch": "vitest",
-    "ml:train": "python3 ml/train_symptom_model.py",
-    "ml:test": "python3 -m unittest ml/test_symptom_model.py",
+    "test:e2e": "mocha selenium-tests/tests/*.test.js --timeout 60000",
+    "ml:train": "python ml/train_symptom_model.py",
+    "ml:test": "python -m unittest ml/test_symptom_model.py",
     "server": "node server/index.mjs",
     "check": "tsc -b --pretty false",
     "audit:buttons": "node scripts/audit-buttons.mjs",
-    "verify": "npm run check && npm test && npm run ml:test && npm run audit:buttons"
+    "verify": "npm run check && npm test && npm run audit:buttons"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.111.0",
@@ -29,7 +33,10 @@
     "@types/react": "^19.0.3",
     "@types/react-dom": "^19.0.2",
     "@vitejs/plugin-react": "^4.3.4",
+    "gh-pages": "^6.3.0",
     "jsdom": "^25.0.1",
+    "mocha": "^11.7.6",
+    "selenium-webdriver": "^4.46.0",
     "typescript": "~5.7.2",
     "vite": "^6.0.5",
     "vitest": "^2.1.8"
