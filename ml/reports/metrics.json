@@ -1,0 +1,98 @@
+{
+  "datasetType": "synthetic-demonstration",
+  "seed": 20260727,
+  "sampleCount": 8400,
+  "trainCount": 6720,
+  "testCount": 1680,
+  "accuracy": 0.965476,
+  "macroF1": 0.965409,
+  "perClass": {
+    "allergy_pattern": {
+      "precision": 0.9214285714285714,
+      "recall": 0.9214285714285714,
+      "f1-score": 0.9214285714285714,
+      "support": 140.0
+    },
+    "asthma_pattern": {
+      "precision": 0.9859154929577465,
+      "recall": 1.0,
+      "f1-score": 0.9929078014184397,
+      "support": 140.0
+    },
+    "common_cold_pattern": {
+      "precision": 0.9481481481481482,
+      "recall": 0.9142857142857143,
+      "f1-score": 0.9309090909090909,
+      "support": 140.0
+    },
+    "dehydration_pattern": {
+      "precision": 1.0,
+      "recall": 0.9857142857142858,
+      "f1-score": 0.9928057553956835,
+      "support": 140.0
+    },
+    "ear_symptom_pattern": {
+      "precision": 0.951048951048951,
+      "recall": 0.9714285714285714,
+      "f1-score": 0.9611307420494699,
+      "support": 140.0
+    },
+    "eye_irritation_pattern": {
+      "precision": 0.9492753623188406,
+      "recall": 0.9357142857142857,
+      "f1-score": 0.9424460431654677,
+      "support": 140.0
+    },
+    "flu_like_pattern": {
+      "precision": 0.9787234042553191,
+      "recall": 0.9857142857142858,
+      "f1-score": 0.9822064056939501,
+      "support": 140.0
+    },
+    "gastroenteritis_pattern": {
+      "precision": 0.9716312056737588,
+      "recall": 0.9785714285714285,
+      "f1-score": 0.9750889679715302,
+      "support": 140.0
+    },
+    "migraine_pattern": {
+      "precision": 0.9927007299270073,
+      "recall": 0.9714285714285714,
+      "f1-score": 0.9819494584837545,
+      "support": 140.0
+    },
+    "musculoskeletal_pattern": {
+      "precision": 0.9647887323943662,
+      "recall": 0.9785714285714285,
+      "f1-score": 0.9716312056737588,
+      "support": 140.0
+    },
+    "skin_inflammation_pattern": {
+      "precision": 0.9571428571428572,
+      "recall": 0.9571428571428572,
+      "f1-score": 0.9571428571428572,
+      "support": 140.0
+    },
+    "urinary_pattern": {
+      "precision": 0.965034965034965,
+      "recall": 0.9857142857142858,
+      "f1-score": 0.9752650176678446,
+      "support": 140.0
+    },
+    "accuracy": 0.9654761904761905,
+    "macro avg": {
+      "precision": 0.9654865350275442,
+      "recall": 0.9654761904761905,
+      "f1-score": 0.9654093264167015,
+      "support": 1680.0
+    },
+    "weighted avg": {
+      "precision": 0.9654865350275444,
+      "recall": 0.9654761904761905,
+      "f1-score": 0.9654093264167015,
+      "support": 1680.0
+    }
+  },
+  "warning": "Metrics measure separation in synthetic holdout data only. They are not clinical accuracy, safety or effectiveness evidence.",
+  "trainedAt": "2026-07-27T00:43:49.042960+00:00"
+}

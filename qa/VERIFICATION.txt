@@ -1,0 +1,16 @@
+CareBridge One enhanced-source verification - 27 July 2026
+
+PASSED
+- Uploaded ZIP extracted successfully.
+- All TypeScript and TSX files passed TypeScript transpile syntax diagnostics.
+- AST button audit passed: no inert native button or Button component remains.
+- Node authentication API started successfully.
+- GET /api/health returned status ok.
+- Doctor role-bound login returned a valid doctor session.
+- Python symptom-model unit tests: 5 passed.
+- Enhanced PDF rendered to 7 pages and was visually inspected.
+
+NOT EXECUTED IN THIS SANDBOX
+- npm install / npm run build / Vitest, because the npm package registry was not reachable from the execution container and node_modules was not included in the uploaded ZIP.
+
+The project uses the unchanged package dependencies and package-lock. Run npm install, npm run verify and npm run build on a normal internet-connected development machine.

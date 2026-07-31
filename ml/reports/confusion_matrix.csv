@@ -1,0 +1,13 @@
+actual/predicted,allergy_pattern,asthma_pattern,common_cold_pattern,dehydration_pattern,ear_symptom_pattern,eye_irritation_pattern,flu_like_pattern,gastroenteritis_pattern,migraine_pattern,musculoskeletal_pattern,skin_inflammation_pattern,urinary_pattern
+allergy_pattern,129,0,5,0,0,2,0,0,0,1,3,0
+asthma_pattern,0,140,0,0,0,0,0,0,0,0,0,0
+common_cold_pattern,7,0,128,0,2,0,2,0,0,0,0,1
+dehydration_pattern,0,0,0,138,0,1,0,1,0,0,0,0
+ear_symptom_pattern,1,0,0,0,136,1,0,1,0,0,0,1
+eye_irritation_pattern,1,0,1,0,1,131,0,0,0,1,3,2
+flu_like_pattern,0,0,1,0,0,1,138,0,0,0,0,0
+gastroenteritis_pattern,0,0,0,0,0,0,1,137,1,1,0,0
+migraine_pattern,0,0,0,0,1,1,0,0,136,2,0,0
+musculoskeletal_pattern,0,0,0,0,1,0,0,1,0,137,0,1
+skin_inflammation_pattern,2,2,0,0,1,1,0,0,0,0,134,0
+urinary_pattern,0,0,0,0,1,0,0,1,0,0,0,138

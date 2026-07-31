@@ -1,0 +1,722 @@
+import { useMemo, useState } from "react";
+import {
+  Activity,
+  BarChart3,
+  Calendar,
+  Check,
+  CheckCircle2,
+  ChevronRight,
+  CircleDollarSign,
+  Clock3,
+  FileHeart,
+  FileText,
+  FlaskConical,
+  HeartPulse,
+  MessageCircle,
+  Paperclip,
+  Pill,
+  Plus,
+  Save,
+  Search,
+  Send,
+  ShieldCheck,
+  Star,
+  Stethoscope,
+  UserRound,
+  Users,
+  Video,
+} from "lucide-react";
+import { initialAppointments, initialRecords } from "../data/demo";
+import type { Appointment } from "../types";
+import {
+  Avatar,
+  Badge,
+  Button,
+  Card,
+  Metric,
+  Modal,
+  SectionHeading,
+  Toggle,
+} from "../components/ui";
+
+interface DoctorWorkspaceProps {
+  active: string;
+  onNavigate: (id: string) => void;
+}
+
+const patientRows = [
+  {
+    id: "pt-riya",
+    name: "Riya Sharma",
+    initials: "RS",
+    age: "24 years",
+    sex: "Female",
+    blood: "O+",
+    concern: "Fever and sore throat",
+    consent: true,
+    allergy: "Penicillin",
+  },
+  {
+    id: "pt-arjun",
+    name: "Arjun Mehta",
+    initials: "AM",
+    age: "38 years",
+    sex: "Male",
+    blood: "B+",
+    concern: "Routine follow-up",
+    consent: true,
+    allergy: "None recorded",
+  },
+  {
+    id: "pt-neha",
+    name: "Neha Iyer",
+    initials: "NI",
+    age: "31 years",
+    sex: "Female",
+    blood: "A+",
+    concern: "Review laboratory report",
+    consent: true,
+    allergy: "Sulfa drugs",
+  },
+];
+
+function TodayDashboard({
+  online,
+  setOnline,
+  onNavigate,
+}: {
+  online: boolean;
+  setOnline: (value: boolean) => void;
+  onNavigate: (id: string) => void;
+}) {
+  const [callOpen, setCallOpen] = useState(false);
+  const queue = [
+    { time: "10:30 AM", patient: "Riya Sharma", type: "Video", reason: "Fever and sore throat" },
+    { time: "11:15 AM", patient: "Arjun Mehta", type: "Follow-up", reason: "Review care plan" },
+    { time: "12:00 PM", patient: "Neha Iyer", type: "Video", reason: "Lab report review" },
+    { time: "4:30 PM", patient: "Vikram Singh", type: "Video", reason: "New concern" },
+  ];
+
+  return (
+    <div className="page-stack">
+      <section className="doctor-hero">
+        <div className="doctor-hero__identity">
+          <Avatar initials="AK" size="large" tone="teal" />
+          <div>
+            <p>Good morning,</p>
+            <h1>Dr. Ananya Kumar</h1>
+            <span>
+              <ShieldCheck size={16} /> Verified General Physician
+            </span>
+          </div>
+        </div>
+        <Toggle checked={online} onChange={setOnline} label={online ? "Online" : "Offline"} />
+      </section>
+
+      <div className="metric-grid">
+        <Metric label="Appointments today" value="8" icon={<Calendar size={21} />} />
+        <Metric
+          label="Reports to review"
+          value="2"
+          icon={<FileText size={21} />}
+          tone="amber"
+        />
+        <Metric
+          label="Follow-up due"
+          value="1"
+          icon={<Activity size={21} />}
+          tone="green"
+        />
+        <Metric label="Patient rating" value="4.9" icon={<Star size={21} />} tone="green" />
+      </div>
+
+      <div className="doctor-dashboard-grid">
+        <Card className="next-consultation">
+          <Badge tone="blue">Next appointment</Badge>
+          <div className="next-consultation__patient">
+            <Avatar initials="RS" size="large" />
+            <div>
+              <h2>Riya Sharma</h2>
+              <p>10:30 AM • Video consultation</p>
+              <span>Fever and sore throat</span>
+            </div>
+          </div>
+          <div className="consent-line">
+            <ShieldCheck size={17} />
+            <span>Patient consent is active for this consultation</span>
+          </div>
+          <Button icon={<Video size={18} />} onClick={() => setCallOpen(true)}>
+            Open consultation
+          </Button>
+        </Card>
+
+        <Card>
+          <SectionHeading
+            title="Today’s schedule"
+            action={
+              <button className="text-button" onClick={() => onNavigate("patients")}>
+                View queue
+              </button>
+            }
+          />
+          <div className="schedule-list">
+            {queue.map((item, index) => (
+              <article key={`${item.time}-${item.patient}`} className={index === 0 ? "is-next" : ""}>
+                <span>{item.time}</span>
+                <div>
+                  <strong>{item.patient}</strong>
+                  <small>
+                    {item.type} • {item.reason}
+                  </small>
+                </div>
+                {item.type === "Video" ? <Video size={17} /> : <MessageCircle size={17} />}
+              </article>
+            ))}
+          </div>
+        </Card>
+      </div>
+
+      <SectionHeading title="Quick actions" />
+      <div className="quick-action-grid">
+        {[
+          ["patients", "Patient queue", <Users size={21} />, "Review permitted summaries"],
+          ["notes", "Clinical note", <FileHeart size={21} />, "Structured and autosaved"],
+          ["prescriptions", "Prescription", <Pill size={21} />, "Clinician-only builder"],
+          ["messages", "Secure messages", <MessageCircle size={21} />, "Follow-up conversations"],
+        ].map(([id, label, icon, note]) => (
+          <button key={id as string} className="quick-action" onClick={() => onNavigate(id as string)}>
+            <span>{icon}</span>
+            <div>
+              <strong>{label}</strong>
+              <small>{note}</small>
+            </div>
+            <ChevronRight size={18} />
+          </button>
+        ))}
+      </div>
+
+      <Modal open={callOpen} title="Secure consultation" onClose={() => setCallOpen(false)} wide>
+        <div className="video-room">
+          <div className="video-room__stage">
+            <span className="video-room__avatar">RS</span>
+            <h2>Riya Sharma</h2>
+            <p>Demo consultation room</p>
+            <Badge tone="amber">No live media connection</Badge>
+          </div>
+          <aside>
+            <h3>Pre-consultation summary</h3>
+            <dl className="facts-list">
+              <div>
+                <dt>Concern</dt>
+                <dd>Fever and sore throat</dd>
+              </div>
+              <div>
+                <dt>Duration</dt>
+                <dd>Since yesterday</dd>
+              </div>
+              <div>
+                <dt>Allergy</dt>
+                <dd className="critical-text">Penicillin</dd>
+              </div>
+              <div>
+                <dt>Shared records</dt>
+                <dd>3 documents</dd>
+              </div>
+            </dl>
+            <Card tone="blue" className="inline-alert">
+              <ShieldCheck size={18} />
+              <span>Production calls require short-lived WebRTC room tokens.</span>
+            </Card>
+            <Button onClick={() => setCallOpen(false)}>End demo room</Button>
+          </aside>
+        </div>
+      </Modal>
+    </div>
+  );
+}
+
+function PatientQueue({ onOpenNotes }: { onOpenNotes: () => void }) {
+  const [selectedId, setSelectedId] = useState("pt-riya");
+  const [query, setQuery] = useState("");
+  const selected = patientRows.find((patient) => patient.id === selectedId) ?? patientRows[0];
+  const visible = useMemo(
+    () =>
+      patientRows.filter((patient) =>
+        patient.name.toLowerCase().includes(query.toLowerCase()),
+      ),
+    [query],
+  );
+  return (
+    <div className="page-stack">
+      <SectionHeading
+        title="Patient queue"
+        subtitle="Only information shared through active consent is visible."
+        action={<Badge tone="green">Consent-scoped access</Badge>}
+      />
+      <div className="patient-queue-layout">
+        <Card className="patient-directory">
+          <label className="search-field">
+            <Search size={18} />
+            <input
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Search today’s patients"
+            />
+          </label>
+          <div className="patient-directory__list">
+            {visible.map((patient) => (
+              <button
+                key={patient.id}
+                className={selectedId === patient.id ? "is-active" : ""}
+                onClick={() => setSelectedId(patient.id)}
+              >
+                <Avatar initials={patient.initials} />
+                <div>
+                  <strong>{patient.name}</strong>
+                  <small>{patient.concern}</small>
+                </div>
+                <ChevronRight size={17} />
+              </button>
+            ))}
+          </div>
+        </Card>
+
+        <div className="page-stack">
+          <Card className="patient-summary-card">
+            <div className="patient-summary-card__header">
+              <Avatar initials={selected.initials} size="large" />
+              <div>
+                <h2>{selected.name}</h2>
+                <p>
+                  {selected.age} • {selected.sex} • {selected.blood}
+                </p>
+              </div>
+              <Badge tone="green">
+                <ShieldCheck size={14} /> Consent active
+              </Badge>
+            </div>
+            {selected.allergy !== "None recorded" ? (
+              <div className="allergy-alert">
+                <span>!</span>
+                <strong>{selected.allergy} allergy</strong>
+              </div>
+            ) : null}
+            <div className="patient-fact-grid">
+              <div>
+                <span>Chief concern</span>
+                <strong>{selected.concern}</strong>
+              </div>
+              <div>
+                <span>Duration</span>
+                <strong>Since yesterday</strong>
+              </div>
+              <div>
+                <span>Last consultation</span>
+                <strong>22 Jul 2026</strong>
+              </div>
+            </div>
+          </Card>
+
+          <Card>
+            <SectionHeading
+              title="Recent patient-entered values"
+              action={<Badge tone="amber">Patient entered</Badge>}
+            />
+            <div className="metric-grid metric-grid--three">
+              <Metric label="Heart rate" value="76 bpm" icon={<HeartPulse size={19} />} />
+              <Metric label="SpO₂" value="98%" icon={<Activity size={19} />} />
+              <Metric label="Temperature" value="38.1 °C" icon={<Activity size={19} />} tone="amber" />
+            </div>
+          </Card>
+
+          <Card>
+            <SectionHeading title="Shared records" />
+            <div className="compact-list">
+              {initialRecords.slice(0, 3).map((record) => (
+                <button key={record.id} onClick={() => window.alert(`Opened shared demo record: ${record.title}`)}>
+                  <FileText size={18} />
+                  <div>
+                    <strong>{record.title}</strong>
+                    <small>{record.date}</small>
+                  </div>
+                  <ChevronRight size={17} />
+                </button>
+              ))}
+            </div>
+          </Card>
+          <div className="button-row">
+            <Button variant="secondary" icon={<MessageCircle size={18} />} onClick={() => window.alert("Secure patient messaging opened in the Messages workspace.")}>
+              Message patient
+            </Button>
+            <Button icon={<FileHeart size={18} />} onClick={onOpenNotes}>
+              Open consultation note
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ClinicalNotes() {
+  const [saved, setSaved] = useState(true);
+  const [symptoms, setSymptoms] = useState(
+    "Enter the patient-reported symptoms and relevant history.",
+  );
+  const [assessment, setAssessment] = useState(
+    "Enter the clinician’s assessment after evaluation.",
+  );
+  const [instructions, setInstructions] = useState(
+    "Enter reviewed care instructions and warning signs.",
+  );
+  const [followUp, setFollowUp] = useState("In 3 days");
+
+  const update = (setter: (value: string) => void, value: string) => {
+    setter(value);
+    setSaved(false);
+  };
+
+  return (
+    <div className="page-stack">
+      <SectionHeading
+        title="Consultation note"
+        subtitle="Structured clinician-authored documentation."
+        action={<Badge tone={saved ? "green" : "amber"}>{saved ? "Saved" : "Unsaved"}</Badge>}
+      />
+      <Card tone="blue" className="selected-doctor">
+        <Avatar initials="RS" size="large" />
+        <div>
+          <h3>Riya Sharma</h3>
+          <p>24 years • Female • O+</p>
+          <Badge tone="red">Penicillin allergy</Badge>
+        </div>
+        <Badge tone="green">Consent active</Badge>
+      </Card>
+      <Card className="clinical-note-form">
+        <label>
+          Symptoms and history
+          <textarea value={symptoms} onChange={(event) => update(setSymptoms, event.target.value)} />
+        </label>
+        <label>
+          Clinical assessment
+          <textarea
+            value={assessment}
+            onChange={(event) => update(setAssessment, event.target.value)}
+          />
+        </label>
+        <label>
+          Care instructions
+          <textarea
+            value={instructions}
+            onChange={(event) => update(setInstructions, event.target.value)}
+          />
+        </label>
+        <div className="clinical-actions">
+          <button onClick={() => window.alert("Medicine entry added to the draft note. Final prescribing remains clinician-controlled.")}>
+            <Pill size={20} /> Add medicine
+          </button>
+          <button onClick={() => window.alert("Laboratory order entry added to the draft note.")}>
+            <FlaskConical size={20} /> Add lab test
+          </button>
+          <button onClick={() => window.alert("Attachment picker opened. Production uploads require malware scanning and encrypted storage.")}>
+            <Paperclip size={20} /> Add attachment
+          </button>
+        </div>
+        <label>
+          Follow-up
+          <select value={followUp} onChange={(event) => setFollowUp(event.target.value)}>
+            <option>In 3 days</option>
+            <option>In 1 week</option>
+            <option>In 2 weeks</option>
+            <option>As needed</option>
+          </select>
+        </label>
+        <Card tone="blue" className="inline-alert">
+          <ShieldCheck size={18} />
+          <span>Only verified clinicians may finalise and sign this note.</span>
+        </Card>
+        <div className="button-row button-row--end">
+          <Button variant="secondary" onClick={() => window.alert("Clinical note preview opened with guidance-only and consent labels.")}>Preview</Button>
+          <Button
+            icon={<Save size={18} />}
+            onClick={() => {
+              setSaved(true);
+              window.alert("Demo clinical note saved locally.");
+            }}
+          >
+            Save draft
+          </Button>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+function PrescriptionBuilder() {
+  const [medicine, setMedicine] = useState("");
+  const [strength, setStrength] = useState("");
+  const [instructions, setInstructions] = useState("");
+  const [medicines, setMedicines] = useState<
+    Array<{ medicine: string; strength: string; instructions: string }>
+  >([]);
+  const [confirmed, setConfirmed] = useState(false);
+
+  const add = () => {
+    if (!medicine.trim() || !instructions.trim()) return;
+    setMedicines((current) => [...current, { medicine, strength, instructions }]);
+    setMedicine("");
+    setStrength("");
+    setInstructions("");
+  };
+
+  return (
+    <div className="page-stack">
+      <SectionHeading
+        title="Digital prescription"
+        subtitle="Clinician-only demonstration builder with explicit review."
+        action={<Badge tone="green">Licence verified</Badge>}
+      />
+      <Card tone="critical" className="inline-alert">
+        <ShieldCheck size={19} />
+        <span>
+          The application never suggests a medicine or dosage. The verified clinician must
+          enter, review and sign every item.
+        </span>
+      </Card>
+      <div className="two-column-grid">
+        <Card className="prescription-form">
+          <h3>Add prescription item</h3>
+          <label>
+            Medicine name
+            <input value={medicine} onChange={(event) => setMedicine(event.target.value)} />
+          </label>
+          <label>
+            Strength/form
+            <input
+              value={strength}
+              onChange={(event) => setStrength(event.target.value)}
+              placeholder="Clinician entry"
+            />
+          </label>
+          <label>
+            Instructions
+            <textarea
+              value={instructions}
+              onChange={(event) => setInstructions(event.target.value)}
+              placeholder="Clinician-authored instructions"
+            />
+          </label>
+          <Button icon={<Plus size={18} />} onClick={add}>
+            Add item
+          </Button>
+        </Card>
+
+        <Card className="prescription-preview">
+          <span className="prescription-preview__brand">CAREBRIDGE ONE</span>
+          <h2>Prescription draft</h2>
+          <div className="selected-doctor">
+            <Avatar initials="RS" />
+            <div>
+              <strong>Riya Sharma</strong>
+              <p>24 years • Penicillin allergy</p>
+            </div>
+          </div>
+          {medicines.length === 0 ? (
+            <div className="empty-prescription">
+              <Pill size={32} />
+              <p>No medicines added.</p>
+            </div>
+          ) : (
+            <ol className="prescription-items">
+              {medicines.map((item, index) => (
+                <li key={`${item.medicine}-${index}`}>
+                  <strong>
+                    {item.medicine} {item.strength}
+                  </strong>
+                  <span>{item.instructions}</span>
+                </li>
+              ))}
+            </ol>
+          )}
+          <label className="confirm-check">
+            <input
+              type="checkbox"
+              checked={confirmed}
+              onChange={(event) => setConfirmed(event.target.checked)}
+            />
+            I reviewed the patient, allergies and every prescription item.
+          </label>
+          <Button
+            icon={<Send size={18} />}
+            disabled={!confirmed || medicines.length === 0}
+            onClick={() => window.alert("Demo prescription signed and shared.")}
+          >
+            Sign and share
+          </Button>
+        </Card>
+      </div>
+    </div>
+  );
+}
+
+function DoctorMessages() {
+  const [message, setMessage] = useState("");
+  const [sent, setSent] = useState<string[]>([]);
+  return (
+    <div className="page-stack">
+      <SectionHeading
+        title="Secure messages"
+        subtitle="Follow-up conversations remain within the care thread."
+      />
+      <div className="message-layout">
+        <Card className="thread-list">
+          {patientRows.map((patient, index) => (
+            <button key={patient.id} className={index === 0 ? "is-active" : ""} onClick={() => window.alert(`Opened secure thread for ${patient.name}.`)}>
+              <Avatar initials={patient.initials} />
+              <div>
+                <strong>{patient.name}</strong>
+                <small>{index === 0 ? "Thank you, doctor." : patient.concern}</small>
+              </div>
+              {index === 0 ? <Badge tone="blue">1</Badge> : null}
+            </button>
+          ))}
+        </Card>
+        <Card className="message-thread">
+          <header>
+            <Avatar initials="RS" />
+            <div>
+              <strong>Riya Sharma</strong>
+              <small>Follow-up thread • Consent active</small>
+            </div>
+          </header>
+          <div className="message-thread__body">
+            <div className="chat-bubble">
+              <p>I have uploaded the laboratory report for review.</p>
+              <small>9:18 AM</small>
+            </div>
+            <div className="chat-bubble chat-bubble--doctor">
+              <p>The report is visible. I will review it during the scheduled follow-up.</p>
+              <small>9:24 AM</small>
+            </div>
+            {sent.map((text, index) => (
+              <div key={`${text}-${index}`} className="chat-bubble chat-bubble--doctor">
+                <p>{text}</p>
+                <small>Now</small>
+              </div>
+            ))}
+          </div>
+          <footer>
+            <button className="icon-button" onClick={() => window.alert("Secure attachment picker opened. Demo files are not uploaded.")}>
+              <Paperclip size={18} />
+            </button>
+            <input
+              value={message}
+              onChange={(event) => setMessage(event.target.value)}
+              placeholder="Write a follow-up message"
+            />
+            <button
+              className="send-button"
+              onClick={() => {
+                if (!message.trim()) return;
+                setSent((current) => [...current, message.trim()]);
+                setMessage("");
+              }}
+            >
+              <Send size={18} />
+            </button>
+          </footer>
+        </Card>
+      </div>
+    </div>
+  );
+}
+
+function DoctorProfile() {
+  const [mfa, setMfa] = useState(true);
+  const [loginAlerts, setLoginAlerts] = useState(true);
+  const [autoAccept, setAutoAccept] = useState(false);
+  return (
+    <div className="page-stack">
+      <SectionHeading title="Professional profile and reports" />
+      <div className="profile-grid">
+        <Card className="doctor-profile-card">
+          <Avatar initials="AK" size="large" tone="teal" />
+          <h2>Dr. Ananya Kumar</h2>
+          <p>General Physician • 12 years</p>
+          <Badge tone="green">
+            <ShieldCheck size={14} /> Licence verified
+          </Badge>
+          <dl className="facts-list">
+            <div>
+              <dt>Registration</dt>
+              <dd>TNMC-DEMO-28471</dd>
+            </div>
+            <div>
+              <dt>Languages</dt>
+              <dd>English, Tamil, Hindi</dd>
+            </div>
+            <div>
+              <dt>Video fee</dt>
+              <dd>₹499</dd>
+            </div>
+          </dl>
+          <Button variant="outline" onClick={() => window.alert("Professional profile editing opened. Licence fields require verifier approval.")}>Edit professional profile</Button>
+        </Card>
+        <div className="page-stack">
+          <div className="metric-grid metric-grid--three">
+            <Metric label="Consultations" value="248" icon={<Stethoscope size={20} />} />
+            <Metric label="Patient rating" value="4.9" icon={<Star size={20} />} tone="green" />
+            <Metric label="Demo earnings" value="₹48,400" icon={<CircleDollarSign size={20} />} />
+          </div>
+          <Card>
+            <h3>Security and practice settings</h3>
+            <div className="setting-list">
+              <Toggle checked={mfa} onChange={setMfa} label="Multi-factor authentication" />
+              <Toggle checked={loginAlerts} onChange={setLoginAlerts} label="Login alerts" />
+              <Toggle checked={autoAccept} onChange={setAutoAccept} label="Accept new patients automatically" />
+            </div>
+          </Card>
+          <Card>
+            <h3>Invoices and performance</h3>
+            <div className="compact-list">
+              <button onClick={() => window.alert("Monthly fictional performance analytics opened.")}>
+                <BarChart3 size={18} />
+                <div>
+                  <strong>Monthly performance</strong>
+                  <small>Fictional analytics</small>
+                </div>
+                <ChevronRight size={17} />
+              </button>
+              <button onClick={() => window.alert("Demo settlement reports opened. No real payment gateway is connected.")}>
+                <FileText size={18} />
+                <div>
+                  <strong>Settlement reports</strong>
+                  <small>Demo invoices only</small>
+                </div>
+                <ChevronRight size={17} />
+              </button>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function DoctorWorkspace({ active, onNavigate }: DoctorWorkspaceProps) {
+  const [online, setOnline] = useState(true);
+  switch (active) {
+    case "patients":
+      return <PatientQueue onOpenNotes={() => onNavigate("notes")} />;
+    case "notes":
+      return <ClinicalNotes />;
+    case "prescriptions":
+      return <PrescriptionBuilder />;
+    case "messages":
+      return <DoctorMessages />;
+    case "profile":
+      return <DoctorProfile />;
+    default:
+      return <TodayDashboard online={online} setOnline={setOnline} onNavigate={onNavigate} />;
+  }
+}
