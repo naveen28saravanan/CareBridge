@@ -25,6 +25,7 @@ import { AuthScreen } from "./auth/AuthScreen";
 import { authService } from "./auth/authService";
 import type { AuthSession } from "./auth/types";
 import { Shell, type NavItem } from "./components/Shell";
+import { ToastProvider } from "./components/Toast";
 import { getTranslator, languageOptions } from "./i18n";
 import type { LanguageCode, Role, ThemeMode } from "./types";
 import { DoctorWorkspace } from "./workspaces/DoctorWorkspace";
@@ -156,39 +157,41 @@ export default function App() {
   };
 
   return (
-    <Shell
-      user={session.user}
-      role={role}
-      roleLabel={t(role)}
-      active={active}
-      navItems={navItems}
-      onNavigate={navigate}
-      themeMode={themeMode}
-      onThemeModeChange={setThemeMode}
-      language={language}
-      onLanguageChange={setLanguage}
-      t={t}
-      mobileMenuOpen={mobileMenuOpen}
-      onMobileMenuChange={setMobileMenuOpen}
-      onSignOut={() => {
-        authService.signOut();
-        setSession(null);
-        setMobileMenuOpen(false);
-      }}
-    >
-      {role === "patient" ? (
-        <PatientWorkspace
-          active={active}
-          language={language}
-          displayName={session.user.displayName}
-          userId={session.user.id}
-          onNavigate={navigate}
-        />
-      ) : role === "doctor" ? (
-        <DoctorWorkspace active={active} onNavigate={navigate} />
-      ) : (
-        <OperationsWorkspace active={active} onNavigate={navigate} />
-      )}
-    </Shell>
+    <ToastProvider>
+      <Shell
+        user={session.user}
+        role={role}
+        roleLabel={t(role)}
+        active={active}
+        navItems={navItems}
+        onNavigate={navigate}
+        themeMode={themeMode}
+        onThemeModeChange={setThemeMode}
+        language={language}
+        onLanguageChange={setLanguage}
+        t={t}
+        mobileMenuOpen={mobileMenuOpen}
+        onMobileMenuChange={setMobileMenuOpen}
+        onSignOut={() => {
+          authService.signOut();
+          setSession(null);
+          setMobileMenuOpen(false);
+        }}
+      >
+        {role === "patient" ? (
+          <PatientWorkspace
+            active={active}
+            language={language}
+            displayName={session.user.displayName}
+            userId={session.user.id}
+            onNavigate={navigate}
+          />
+        ) : role === "doctor" ? (
+          <DoctorWorkspace active={active} onNavigate={navigate} />
+        ) : (
+          <OperationsWorkspace active={active} onNavigate={navigate} />
+        )}
+      </Shell>
+    </ToastProvider>
   );
 }

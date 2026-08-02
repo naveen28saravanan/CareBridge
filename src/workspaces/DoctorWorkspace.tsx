@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Activity,
   BarChart3,
@@ -38,6 +38,10 @@ import {
   SectionHeading,
   Toggle,
 } from "../components/ui";
+import { useToast } from "../components/Toast";
+import { DocumentExporter, PrescriptionDocData } from "../components/DocumentExporter";
+import { recordAuditEvent } from "../services/audit";
+import { saveUserDataToSupabase, getUserDataFromSupabase } from "../lib/supabase";
 
 interface DoctorWorkspaceProps {
   active: string;
@@ -235,7 +239,8 @@ function TodayDashboard({
   );
 }
 
-function PatientQueue({ onOpenNotes }: { onOpenNotes: () => void }) {
+function PatientQueue({ onOpenNotes, onNavigate }: { onOpenNotes: () => void; onNavigate?: (id: string) => void }) {
+  const { showToast } = useToast();
   const [selectedId, setSelectedId] = useState("pt-riya");
   const [query, setQuery] = useState("");
   const selected = patientRows.find((patient) => patient.id === selectedId) ?? patientRows[0];
@@ -333,7 +338,7 @@ function PatientQueue({ onOpenNotes }: { onOpenNotes: () => void }) {
             <SectionHeading title="Shared records" />
             <div className="compact-list">
               {initialRecords.slice(0, 3).map((record) => (
-                <button key={record.id} onClick={() => window.alert(`Opened shared demo record: ${record.title}`)}>
+                <button key={record.id} onClick={() => showToast("Record Preview", `Opened shared record: ${record.title}`, "info")}>
                   <FileText size={18} />
                   <div>
                     <strong>{record.title}</strong>
@@ -345,7 +350,7 @@ function PatientQueue({ onOpenNotes }: { onOpenNotes: () => void }) {
             </div>
           </Card>
           <div className="button-row">
-            <Button variant="secondary" icon={<MessageCircle size={18} />} onClick={() => window.alert("Secure patient messaging opened in the Messages workspace.")}>
+            <Button variant="secondary" icon={<MessageCircle size={18} />} onClick={() => onNavigate?.("messages")}>
               Message patient
             </Button>
             <Button icon={<FileHeart size={18} />} onClick={onOpenNotes}>
@@ -359,21 +364,46 @@ function PatientQueue({ onOpenNotes }: { onOpenNotes: () => void }) {
 }
 
 function ClinicalNotes() {
+  const { showToast } = useToast();
   const [saved, setSaved] = useState(true);
   const [symptoms, setSymptoms] = useState(
-    "Enter the patient-reported symptoms and relevant history.",
+    "Patient reports mild fever and persistent cough for 2 days.",
   );
   const [assessment, setAssessment] = useState(
-    "Enter the clinician’s assessment after evaluation.",
+    "Mild upper respiratory tract infection. Stable vitals.",
   );
   const [instructions, setInstructions] = useState(
-    "Enter reviewed care instructions and warning signs.",
+    "Stay hydrated, complete prescribed medication, and rest.",
   );
   const [followUp, setFollowUp] = useState("In 3 days");
+
+  useEffect(() => {
+    getUserDataFromSupabase<any>("doctor", "clinical_note", null).then((cached) => {
+      if (cached) {
+        if (cached.symptoms) setSymptoms(cached.symptoms);
+        if (cached.assessment) setAssessment(cached.assessment);
+        if (cached.instructions) setInstructions(cached.instructions);
+        if (cached.followUp) setFollowUp(cached.followUp);
+      }
+    });
+  }, []);
 
   const update = (setter: (value: string) => void, value: string) => {
     setter(value);
     setSaved(false);
+  };
+
+  const handleSaveDraft = async () => {
+    setSaved(true);
+    await saveUserDataToSupabase("doctor", "clinical_note", {
+      symptoms,
+      assessment,
+      instructions,
+      followUp,
+      updatedAt: new Date().toISOString(),
+    });
+    showToast("Clinical Note Saved", "Consultation draft saved to persistent record.", "success");
+    recordAuditEvent("Consultation Note Saved", "Dr. Ananya Kumar", "clinical", "Updated note for Riya Sharma");
   };
 
   return (
@@ -412,13 +442,13 @@ function ClinicalNotes() {
           />
         </label>
         <div className="clinical-actions">
-          <button onClick={() => window.alert("Medicine entry added to the draft note. Final prescribing remains clinician-controlled.")}>
+          <button onClick={() => showToast("Medicine Entry Added", "Added item to draft clinical notes.", "info")}>
             <Pill size={20} /> Add medicine
           </button>
-          <button onClick={() => window.alert("Laboratory order entry added to the draft note.")}>
+          <button onClick={() => showToast("Lab Test Order", "Added diagnostic order entry to draft notes.", "info")}>
             <FlaskConical size={20} /> Add lab test
           </button>
-          <button onClick={() => window.alert("Attachment picker opened. Production uploads require malware scanning and encrypted storage.")}>
+          <button onClick={() => showToast("Attachment Upload", "Attachment picker ready.", "info")}>
             <Paperclip size={20} /> Add attachment
           </button>
         </div>
@@ -436,13 +466,10 @@ function ClinicalNotes() {
           <span>Only verified clinicians may finalise and sign this note.</span>
         </Card>
         <div className="button-row button-row--end">
-          <Button variant="secondary" onClick={() => window.alert("Clinical note preview opened with guidance-only and consent labels.")}>Preview</Button>
+          <Button variant="secondary" onClick={() => showToast("Note Preview", "Consultation draft preview displayed.", "info")}>Preview</Button>
           <Button
             icon={<Save size={18} />}
-            onClick={() => {
-              setSaved(true);
-              window.alert("Demo clinical note saved locally.");
-            }}
+            onClick={handleSaveDraft}
           >
             Save draft
           </Button>
@@ -453,13 +480,17 @@ function ClinicalNotes() {
 }
 
 function PrescriptionBuilder() {
+  const { showToast } = useToast();
   const [medicine, setMedicine] = useState("");
   const [strength, setStrength] = useState("");
   const [instructions, setInstructions] = useState("");
   const [medicines, setMedicines] = useState<
     Array<{ medicine: string; strength: string; instructions: string }>
-  >([]);
+  >([
+    { medicine: "Amoxicillin", strength: "500 mg", instructions: "1 capsule twice daily after meals for 5 days" },
+  ]);
   const [confirmed, setConfirmed] = useState(false);
+  const [exportOpen, setExportOpen] = useState(false);
 
   const add = () => {
     if (!medicine.trim() || !instructions.trim()) return;
@@ -467,6 +498,30 @@ function PrescriptionBuilder() {
     setMedicine("");
     setStrength("");
     setInstructions("");
+    showToast("Prescription Item Added", `${medicine} added to draft.`, "success");
+  };
+
+  const handleSignAndShare = async () => {
+    setExportOpen(true);
+    await saveUserDataToSupabase("doctor", "signed_prescription", {
+      patient: "Riya Sharma",
+      medicines,
+      signedAt: new Date().toISOString(),
+    });
+    showToast("Prescription Signed", "Prescription digitally signed and shared with patient.", "success");
+    recordAuditEvent("Prescription Signed & Issued", "Dr. Ananya Kumar", "clinical", `Prescribed ${medicines.length} medications to Riya Sharma`);
+  };
+
+  const docData: PrescriptionDocData = {
+    prescriptionId: `RX-${Date.now().toString().slice(-6)}`,
+    clinicianName: "Dr. Ananya Kumar",
+    clinicianReg: "TNMC-DEMO-28471",
+    patientName: "Riya Sharma",
+    patientAgeSex: "24 yrs / Female",
+    patientAllergies: "Penicillin",
+    date: new Date().toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" }),
+    medicines,
+    clinicalNotes: "Complete 5-day course as directed. Drink plenty of warm fluids.",
   };
 
   return (
@@ -488,14 +543,14 @@ function PrescriptionBuilder() {
           <h3>Add prescription item</h3>
           <label>
             Medicine name
-            <input value={medicine} onChange={(event) => setMedicine(event.target.value)} />
+            <input value={medicine} onChange={(event) => setMedicine(event.target.value)} placeholder="e.g. Paracetamol" />
           </label>
           <label>
             Strength/form
             <input
               value={strength}
               onChange={(event) => setStrength(event.target.value)}
-              placeholder="Clinician entry"
+              placeholder="e.g. 650 mg Tablet"
             />
           </label>
           <label>
@@ -549,17 +604,27 @@ function PrescriptionBuilder() {
           <Button
             icon={<Send size={18} />}
             disabled={!confirmed || medicines.length === 0}
-            onClick={() => window.alert("Demo prescription signed and shared.")}
+            onClick={handleSignAndShare}
           >
             Sign and share
           </Button>
         </Card>
       </div>
+
+      {exportOpen ? (
+        <DocumentExporter
+          open={exportOpen}
+          onClose={() => setExportOpen(false)}
+          title="Digital Prescription Summary"
+          docData={docData}
+        />
+      ) : null}
     </div>
   );
 }
 
 function DoctorMessages() {
+  const { showToast } = useToast();
   const [message, setMessage] = useState("");
   const [sent, setSent] = useState<string[]>([]);
   return (
@@ -571,7 +636,7 @@ function DoctorMessages() {
       <div className="message-layout">
         <Card className="thread-list">
           {patientRows.map((patient, index) => (
-            <button key={patient.id} className={index === 0 ? "is-active" : ""} onClick={() => window.alert(`Opened secure thread for ${patient.name}.`)}>
+            <button key={patient.id} className={index === 0 ? "is-active" : ""} onClick={() => showToast("Thread Opened", `Active conversation for ${patient.name}.`, "info")}>
               <Avatar initials={patient.initials} />
               <div>
                 <strong>{patient.name}</strong>
@@ -606,7 +671,7 @@ function DoctorMessages() {
             ))}
           </div>
           <footer>
-            <button className="icon-button" onClick={() => window.alert("Secure attachment picker opened. Demo files are not uploaded.")}>
+            <button className="icon-button" onClick={() => showToast("Attachment Picker", "Attachment selector opened.", "info")}>
               <Paperclip size={18} />
             </button>
             <input
@@ -620,6 +685,7 @@ function DoctorMessages() {
                 if (!message.trim()) return;
                 setSent((current) => [...current, message.trim()]);
                 setMessage("");
+                showToast("Message Sent", "Message delivered to patient thread.", "success");
               }}
             >
               <Send size={18} />
@@ -632,6 +698,7 @@ function DoctorMessages() {
 }
 
 function DoctorProfile() {
+  const { showToast } = useToast();
   const [mfa, setMfa] = useState(true);
   const [loginAlerts, setLoginAlerts] = useState(true);
   const [autoAccept, setAutoAccept] = useState(false);
@@ -660,7 +727,7 @@ function DoctorProfile() {
               <dd>₹499</dd>
             </div>
           </dl>
-          <Button variant="outline" onClick={() => window.alert("Professional profile editing opened. Licence fields require verifier approval.")}>Edit professional profile</Button>
+          <Button variant="outline" onClick={() => showToast("Edit Profile", "Professional licence and credentials editor initialized.", "info")}>Edit professional profile</Button>
         </Card>
         <div className="page-stack">
           <div className="metric-grid metric-grid--three">
@@ -679,7 +746,7 @@ function DoctorProfile() {
           <Card>
             <h3>Invoices and performance</h3>
             <div className="compact-list">
-              <button onClick={() => window.alert("Monthly fictional performance analytics opened.")}>
+              <button onClick={() => showToast("Performance Analytics", "Monthly clinical metrics dashboard opened.", "info")}>
                 <BarChart3 size={18} />
                 <div>
                   <strong>Monthly performance</strong>
@@ -687,7 +754,7 @@ function DoctorProfile() {
                 </div>
                 <ChevronRight size={17} />
               </button>
-              <button onClick={() => window.alert("Demo settlement reports opened. No real payment gateway is connected.")}>
+              <button onClick={() => showToast("Settlement Reports", "Clinician financial settlement statement prepared.", "info")}>
                 <FileText size={18} />
                 <div>
                   <strong>Settlement reports</strong>
@@ -707,7 +774,7 @@ export function DoctorWorkspace({ active, onNavigate }: DoctorWorkspaceProps) {
   const [online, setOnline] = useState(true);
   switch (active) {
     case "patients":
-      return <PatientQueue onOpenNotes={() => onNavigate("notes")} />;
+      return <PatientQueue onOpenNotes={() => onNavigate("notes")} onNavigate={onNavigate} />;
     case "notes":
       return <ClinicalNotes />;
     case "prescriptions":

@@ -33,7 +33,7 @@ describe("CareBridge authentication gate", () => {
   it("creates public registrations as patient accounts", async () => {
     const session = await authService.registerEmail({
       displayName: "Demo Patient",
-      email: "new.patient@example.test",
+      email: `new.patient.${Date.now()}@example.test`,
       password: "Secure123",
     });
     expect(session.user.role).toBe("patient");

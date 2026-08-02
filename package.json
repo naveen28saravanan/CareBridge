@@ -18,6 +18,7 @@
     "server": "node server/index.mjs",
     "check": "tsc -b --pretty false",
     "audit:buttons": "node scripts/audit-buttons.mjs",
+    "db:setup": "node scripts/setup-db.mjs",
     "verify": "npm run check && npm test && npm run audit:buttons"
   },
   "dependencies": {

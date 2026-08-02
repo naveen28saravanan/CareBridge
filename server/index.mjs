@@ -9,8 +9,15 @@ const dataDir = resolve(__dirname, "data");
 const accountsPath = resolve(dataDir, "accounts.json");
 const PORT = Number(process.env.CAREBRIDGE_API_PORT || 8787);
 const ORIGIN = process.env.CAREBRIDGE_WEB_ORIGIN || "http://localhost:5173";
+const ALLOWED_ORIGINS = new Set([
+  ORIGIN,
+  "http://localhost:5173",
+  "http://localhost:4173",
+  "http://localhost:8787",
+  ...(process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(",") : [])
+]);
 const SESSION_HOURS = Number(process.env.CAREBRIDGE_SESSION_HOURS || 8);
-const DEV_OTP = process.env.CAREBRIDGE_DEV_OTP !== "false";
+const DEV_OTP = process.env.CAREBRIDGE_DEV_OTP === "true" || process.env.NODE_ENV === "development";
 
 mkdirSync(dataDir, { recursive: true });
 
@@ -21,7 +28,7 @@ const rateLimits = new Map();
 function hashPassword(password, salt = randomBytes(16).toString("hex")) {
   return {
     salt,
-    hash: pbkdf2Sync(password, salt, 180_000, 32, "sha256").toString("hex"),
+    hash: pbkdf2Sync(password, salt, 600_000, 32, "sha256").toString("hex"),
   };
 }
 
@@ -32,10 +39,14 @@ function passwordsMatch(password, account) {
 }
 
 function loadAccounts() {
+  const patientPassword = process.env.SEED_PATIENT_PASSWORD || "Patient@123";
+  const doctorPassword = process.env.SEED_DOCTOR_PASSWORD || "Doctor@123";
+  const adminPassword = process.env.SEED_ADMIN_PASSWORD || "Admin@123";
+
   const seed = [
-    ["demo_patient", "Riya Sharma", "patient@carebridge.demo", "Patient@123", "patient"],
-    ["demo_doctor", "Dr. Ananya Kumar", "doctor@carebridge.demo", "Doctor@123", "doctor"],
-    ["demo_operations", "Operations Admin", "admin@carebridge.demo", "Admin@123", "operations"],
+    ["demo_patient", "Riya Sharma", "patient@carebridge.demo", patientPassword, "patient"],
+    ["demo_doctor", "Dr. Ananya Kumar", "doctor@carebridge.demo", doctorPassword, "doctor"],
+    ["demo_operations", "Operations Admin", "admin@carebridge.demo", adminPassword, "operations"],
   ].map(([id, displayName, email, password, role]) => {
     const result = hashPassword(password);
     return {
@@ -72,10 +83,11 @@ function persistAccounts() {
 }
 
 function headers(req, extra = {}) {
-  const requestOrigin = req?.headers?.origin || ORIGIN;
+  const incomingOrigin = req?.headers?.origin;
+  const allowOrigin = incomingOrigin && ALLOWED_ORIGINS.has(incomingOrigin) ? incomingOrigin : ORIGIN;
   return {
     "Content-Type": "application/json; charset=utf-8",
-    "Access-Control-Allow-Origin": requestOrigin,
+    "Access-Control-Allow-Origin": allowOrigin,
     "Access-Control-Allow-Headers": "Content-Type, Authorization",
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
     "Access-Control-Allow-Credentials": "true",
@@ -263,9 +275,13 @@ const server = createServer(async (req, res) => {
         return sendRes( 401, { message: "Incorrect password for this email account." });
       }
 
-      if (account.role !== role && !account.seeded) {
-        account.role = role;
-        persistAccounts();
+      if (account.role !== role) {
+        if (!account.seeded) {
+          account.role = role;
+          persistAccounts();
+        } else {
+          return sendRes(403, { message: "This account is not authorized for the requested role." });
+        }
       }
       sendRes( 200, issueSession(account));
       return;

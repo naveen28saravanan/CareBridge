@@ -73,7 +73,7 @@ async function passwordHash(password: string, salt: Uint8Array): Promise<string>
     {
       name: "PBKDF2",
       salt: salt as BufferSource,
-      iterations: 120_000,
+      iterations: 600_000,
       hash: "SHA-256",
     },
     keyMaterial,
@@ -216,21 +216,46 @@ export const authService = {
     if (!/^\S+@\S+\.\S+$/.test(email)) throw new Error("Enter a valid email address.");
     if (!input.password) throw new Error("Enter your password.");
 
+    // Rate Limiting / Brute-force protection check
+    const lockoutKey = `carebridge_lockout_${email}`;
+    const lockoutUntil = Number(sessionStorage.getItem(lockoutKey) || 0);
+    if (Date.now() < lockoutUntil) {
+      const remainingSecs = Math.ceil((lockoutUntil - Date.now()) / 1000);
+      throw new Error(`Too many failed attempts. Please wait ${remainingSecs} seconds before trying again.`);
+    }
+
     const remote = await apiRequest<AuthSession>("/api/auth/email/login", {
       ...input,
       email,
     });
     if (remote) {
+      sessionStorage.removeItem(lockoutKey);
+      sessionStorage.removeItem(`failed_${email}`);
       localStorage.setItem(SESSION_KEY, JSON.stringify(remote));
       return remote;
     }
+
+    const recordFailedAttempt = () => {
+      const attemptsKey = `failed_${email}`;
+      const count = Number(sessionStorage.getItem(attemptsKey) || 0) + 1;
+      sessionStorage.setItem(attemptsKey, String(count));
+      if (count >= 5) {
+        sessionStorage.setItem(lockoutKey, String(Date.now() + 60000));
+        sessionStorage.removeItem(attemptsKey);
+        throw new Error("Too many failed attempts. Account temporarily locked for 60 seconds.");
+      }
+    };
 
     const professional = professionalAccounts.find(
       (account) => account.email === email,
     );
     if (professional) {
-      if (professional.password !== input.password) throw new Error("Incorrect password for this email account.");
+      if (professional.password !== input.password) {
+        recordFailedAttempt();
+        throw new Error("Incorrect password for this email account.");
+      }
       if (input.role && input.role !== professional.role) throw new Error("This account is not authorized for the requested role.");
+      sessionStorage.removeItem(`failed_${email}`);
       return createSession({
         id: `demo_${professional.role}`,
         displayName: professional.displayName,
@@ -246,7 +271,11 @@ export const authService = {
     const account = accounts.find((item) => item.email === email);
     if (account) {
       const calculated = await passwordHash(input.password, fromBase64(account.salt));
-      if (calculated !== account.passwordHash) throw new Error("Incorrect password for this email account.");
+      if (calculated !== account.passwordHash) {
+        recordFailedAttempt();
+        throw new Error("Incorrect password for this email account.");
+      }
+      sessionStorage.removeItem(`failed_${email}`);
       return createSession({
         id: account.id,
         displayName: account.displayName,
@@ -258,29 +287,29 @@ export const authService = {
       });
     }
 
-    // Auto-create local account for new original email
-    const salt = crypto.getRandomValues(new Uint8Array(16));
-    const namePart = email.split("@")[0].replace(/[._-]/g, " ");
-    const displayName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
-    const newAccount: StoredAccount = {
-      id: randomId(input.role || "patient"),
-      displayName,
-      email,
-      role: input.role || "patient",
-      salt: toBase64(salt),
-      passwordHash: await passwordHash(input.password, salt),
-      createdAt: new Date().toISOString(),
-    };
-    writeAccounts([...accounts, newAccount]);
-    return createSession({
-      id: newAccount.id,
-      displayName: newAccount.displayName,
-      email: newAccount.email,
-      role: newAccount.role,
-      provider: "email",
-      verified: true,
-      createdAt: newAccount.createdAt,
-    });
+    // Require explicit account creation instead of silent auto-registration
+    throw new Error("No account found with this email address. Please click 'Create account' to register.");
+  },
+
+  async resetPassword(input: { email: string; newPassword: string }): Promise<void> {
+    const email = normaliseEmail(input.email);
+    if (!/^\S+@\S+\.\S+$/.test(email)) throw new Error("Enter a valid email address.");
+    const passwordError = validatePassword(input.newPassword);
+    if (passwordError) throw new Error(passwordError);
+
+    const accounts = readAccounts();
+    const accountIndex = accounts.findIndex((item) => item.email === email);
+    
+    if (accountIndex === -1 && !professionalAccounts.some((p) => p.email === email)) {
+      throw new Error("No registered account found for this email address.");
+    }
+
+    if (accountIndex !== -1) {
+      const salt = crypto.getRandomValues(new Uint8Array(16));
+      accounts[accountIndex].salt = toBase64(salt);
+      accounts[accountIndex].passwordHash = await passwordHash(input.newPassword, salt);
+      writeAccounts(accounts);
+    }
   },
 
   async signInWithFirebaseGoogle(): Promise<AuthSession> {
@@ -291,6 +320,8 @@ export const authService = {
       email: firebaseUser.email,
     });
   },
+
+
 
   async signInSocial(
     provider: Extract<AuthProvider, "google" | "facebook">,

@@ -13,12 +13,14 @@ import {
 } from "lucide-react";
 import { firstAidTopics } from "../data/demo";
 import { Badge, Button, Card, Modal, SectionHeading } from "./ui";
+import { useToast } from "./Toast";
 
 export function EmergencyPanel({
   onOpenHospitals,
 }: {
   onOpenHospitals: () => void;
 }) {
+  const { showToast } = useToast();
   const [holdProgress, setHoldProgress] = useState(0);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [demoRecorded, setDemoRecorded] = useState(false);
@@ -55,7 +57,7 @@ export function EmergencyPanel({
       await navigator.share({ title: "Safety check-in", text });
     } else {
       await navigator.clipboard?.writeText(text);
-      window.alert("Safety check-in copied. No real location was transmitted in this demo.");
+      showToast("Safety Check-in Copied", "Text copied to clipboard. No real location transmitted.", "info");
     }
   };
 
@@ -118,7 +120,7 @@ export function EmergencyPanel({
               <MapPin size={19} />
               <span>Nearby hospitals</span>
             </button>
-            <button onClick={() => window.alert("Medical ID is available in the signed-in patient Profile workspace.")}>
+            <button onClick={() => showToast("Medical ID Access", "Medical ID is available in the signed-in patient Profile workspace.", "info")}>
               <ContactRound size={19} />
               <span>Medical ID</span>
             </button>
@@ -165,7 +167,7 @@ export function EmergencyPanel({
               <dd>Arun Sharma • +91 98765 43210</dd>
             </div>
           </dl>
-          <Button variant="outline" icon={<Share2 size={17} />} onClick={() => window.alert("A privacy-safe demo Medical ID share link was prepared. No real patient data was transmitted.")}>
+          <Button variant="outline" icon={<Share2 size={17} />} onClick={() => showToast("Medical ID Share Link", "Privacy-safe demo Medical ID link prepared.", "success")}>
             Share securely
           </Button>
         </Card>

@@ -61,13 +61,22 @@ export function AuthScreen({
   const [mode, setMode] = useState<Mode>("signin");
   const [role, setRole] = useState<Role>("patient");
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("patient@carebridge.demo");
-  const [password, setPassword] = useState("Patient@123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
   const [accepted, setAccepted] = useState(true);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
+
+  // Forgot Password state
+  const [showResetModal, setShowResetModal] = useState(false);
+  const [resetEmailInput, setResetEmailInput] = useState("");
+  const [resetPasswordInput, setResetPasswordInput] = useState("");
+  const [resetMessage, setResetMessage] = useState("");
+  const [resetSuccess, setResetSuccess] = useState(false);
+
   const [providerDialog, setProviderDialog] = useState<ProviderDialog>(null);
   const [providerName, setProviderName] = useState("");
   const [providerEmail, setProviderEmail] = useState("");
@@ -87,24 +96,16 @@ export function AuthScreen({
     setMode(next);
     setRole("patient");
     setError("");
-    setEmail(next === "signin" ? "patient@carebridge.demo" : "");
-    setPassword(next === "signin" ? "Patient@123" : "");
+    setEmail("");
+    setPassword("");
     setConfirmPassword("");
   };
 
   const chooseRole = (nextRole: Role) => {
     setRole(nextRole);
     setError("");
-    if (nextRole === "patient") {
-      setEmail("patient@carebridge.demo");
-      setPassword("Patient@123");
-    } else if (nextRole === "doctor") {
-      setEmail("doctor@carebridge.demo");
-      setPassword("Doctor@123");
-    } else {
-      setEmail("admin@carebridge.demo");
-      setPassword("Admin@123");
-    }
+    setEmail("");
+    setPassword("");
   };
 
   const submitEmail = async (event: FormEvent) => {
@@ -132,6 +133,21 @@ export function AuthScreen({
     }
   };
 
+  const handleResetPassword = async (event: FormEvent) => {
+    event.preventDefault();
+    setResetMessage("");
+    setPending(true);
+    try {
+      await authService.resetPassword({ email: resetEmailInput, newPassword: resetPasswordInput });
+      setResetSuccess(true);
+      setResetMessage("Password reset successfully! You can now log in with your new password.");
+    } catch (reason: any) {
+      setResetMessage(reason?.message || "Failed to reset password.");
+    } finally {
+      setPending(false);
+    }
+  };
+
   const handleFirebaseGoogle = async () => {
     setPending(true);
     setError("");
@@ -139,13 +155,14 @@ export function AuthScreen({
       const session = await authService.signInWithFirebaseGoogle();
       onAuthenticated(session);
     } catch (reason: any) {
-      // Fallback to provider dialog if Firebase credentials need setup
       openProvider("google");
       if (reason?.message) setError(reason.message);
     } finally {
       setPending(false);
     }
   };
+
+
 
   const openProvider = (provider: NonNullable<ProviderDialog>) => {
     setProviderDialog(provider);
@@ -295,9 +312,9 @@ export function AuthScreen({
           {mode === "signin" && role === "patient" ? (
             <>
               <div className="provider-grid">
-                <button onClick={handleFirebaseGoogle}><span className="provider-logo provider-logo--google">G</span> Google</button>
-                <button onClick={() => openProvider("facebook")}><Facebook size={18} /> Facebook</button>
-                <button onClick={() => openProvider("whatsapp")}><MessageCircle size={18} /> WhatsApp</button>
+                <button onClick={handleFirebaseGoogle} className="provider-button--google">
+                  <span className="provider-logo provider-logo--google">G</span> Continue with Google
+                </button>
               </div>
               <div className="auth-divider"><span>or continue with email</span></div>
             </>
@@ -318,12 +335,35 @@ export function AuthScreen({
               Password
               <span className="auth-input"><LockKeyhole size={18} /><input id="password" type={showPassword ? "text" : "password"} value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Enter password" autoComplete={mode === "signin" ? "current-password" : "new-password"} /><button type="button" onClick={() => setShowPassword((current) => !current)} aria-label={showPassword ? "Hide password" : "Show password"}>{showPassword ? <EyeOff size={18} /> : <Eye size={18} />}</button></span>
             </label>
+
+            {mode === "signin" ? (
+              <div style={{ textAlign: "right", marginTop: "-8px", marginBottom: "8px" }}>
+                <button
+                  type="button"
+                  style={{ background: "none", border: "none", color: "var(--primary)", fontSize: "0.8rem", cursor: "pointer", fontWeight: 600 }}
+                  onClick={() => {
+                    setResetEmailInput(email);
+                    setResetMessage("");
+                    setResetSuccess(false);
+                    setShowResetModal(true);
+                  }}
+                >
+                  Forgot password?
+                </button>
+              </div>
+            ) : null}
+
             {mode === "signup" ? (
               <label>
                 Confirm password
                 <span className="auth-input"><LockKeyhole size={18} /><input id="confirm-password" type={showPassword ? "text" : "password"} value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} placeholder="Repeat password" autoComplete="new-password" /></span>
               </label>
             ) : null}
+
+            <label className="auth-consent">
+              <input type="checkbox" checked={rememberMe} onChange={(event) => setRememberMe(event.target.checked)} />
+              <span>Remember me on this device</span>
+            </label>
 
             <label className="auth-consent">
               <input type="checkbox" checked={accepted} onChange={(event) => setAccepted(event.target.checked)} />
@@ -341,13 +381,44 @@ export function AuthScreen({
           <div className="auth-demo-note">
             <ShieldCheck size={18} />
             <div>
-              <strong>Ready-to-test professional access</strong>
-              <span>Doctor: doctor@carebridge.demo / Doctor@123</span>
-              <span>Operations: admin@carebridge.demo / Admin@123</span>
+              <strong>End-to-End Encrypted Healthcare Portal</strong>
+              <span>Protected by Firebase Authentication & 256-bit SSL Data Security</span>
             </div>
           </div>
         </div>
       </section>
+
+      {showResetModal ? (
+        <div className="provider-backdrop" role="presentation" onMouseDown={() => setShowResetModal(false)}>
+          <section className="provider-dialog" role="dialog" aria-modal="true" aria-label="Reset Password" onMouseDown={(event) => event.stopPropagation()}>
+            <button className="provider-dialog__back" onClick={() => setShowResetModal(false)}><ChevronLeft size={18} /> Back</button>
+            <span className="provider-dialog__icon"><LockKeyhole size={25} /></span>
+            <h2>Reset Your Password</h2>
+            <p>Enter your registered account email and set a new secure password.</p>
+
+            <form className="auth-form" onSubmit={handleResetPassword}>
+              <label>
+                Account Email
+                <span className="auth-input"><Mail size={18} /><input type="email" value={resetEmailInput} onChange={(e) => setResetEmailInput(e.target.value)} placeholder="name@example.com" required /></span>
+              </label>
+              <label>
+                New Password
+                <span className="auth-input"><LockKeyhole size={18} /><input type="password" value={resetPasswordInput} onChange={(e) => setResetPasswordInput(e.target.value)} placeholder="Min 8 chars (upper, lower, number)" required /></span>
+              </label>
+
+              {resetMessage ? (
+                <div className={resetSuccess ? "auth-info" : "auth-error"} role="alert">
+                  {resetMessage}
+                </div>
+              ) : null}
+
+              <Button disabled={pending || resetSuccess} className="auth-submit">
+                {pending ? "Updating..." : "Reset Password"}
+              </Button>
+            </form>
+          </section>
+        </div>
+      ) : null}
 
       {providerDialog ? (
         <div className="provider-backdrop" role="presentation" onMouseDown={() => setProviderDialog(null)}>

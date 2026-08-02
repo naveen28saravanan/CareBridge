@@ -24,7 +24,7 @@ describe("CareBridge E2E Selenium Test Suite", function () {
   });
 
   it("should load the login page and authenticate successfully", async function () {
-    const appUrl = process.env.TEST_APP_URL || "https://naveen28saravanan.github.io/CareBridge/";
+    const appUrl = process.env.TEST_APP_URL || "http://localhost:4173/CareBridge/";
     await driver.get(appUrl);
 
     // Wait for the login screen to render
@@ -43,6 +43,6 @@ describe("CareBridge E2E Selenium Test Suite", function () {
     await loginButton.click();
 
     // Verify successful authentication by checking page transition
-    await driver.wait(until.elementLocated(By.className("shell-header")), 15000);
+    await driver.wait(until.elementLocated(By.className("topbar")), 15000);
   });
 });

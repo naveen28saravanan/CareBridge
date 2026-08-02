@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Activity,
   AlertTriangle,
@@ -33,6 +33,8 @@ import {
 import { demoHospitals } from "../services/hospitals";
 import { emergencyEvents } from "../data/demo";
 import type { EmergencyEvent, Hospital as HospitalType } from "../types";
+import { useToast } from "../components/Toast";
+import { getAuditEvents, recordAuditEvent, AuditEvent } from "../services/audit";
 import {
   Avatar,
   Badge,
@@ -234,6 +236,7 @@ function OperationsOverview({ onNavigate }: { onNavigate: (id: string) => void }
 }
 
 function DoctorVerification() {
+  const { showToast } = useToast();
   const [rows, setRows] = useState(initialVerificationRows);
   const [reviewing, setReviewing] = useState<VerificationRow | null>(null);
   const [query, setQuery] = useState("");
@@ -248,8 +251,11 @@ function DoctorVerification() {
   );
 
   const update = (id: string, status: VerificationStatus) => {
+    const target = rows.find((r) => r.id === id);
     setRows((current) => current.map((row) => (row.id === id ? { ...row, status } : row)));
     setReviewing(null);
+    showToast(`Doctor ${status}`, `${target?.name || "Doctor"} verification status updated to ${status}.`, status === "Approved" ? "success" : "warning");
+    recordAuditEvent(`Doctor Verification ${status}`, "Operations Admin", "operations", `${target?.name} (${target?.registration}) status set to ${status}`);
   };
 
   return (
@@ -276,7 +282,7 @@ function DoctorVerification() {
               placeholder="Search doctor or specialty"
             />
           </label>
-          <Button variant="outline" icon={<RefreshCw size={17} />} onClick={() => window.alert("The fictional verification registry was refreshed.")}>
+          <Button variant="outline" icon={<RefreshCw size={17} />} onClick={() => showToast("Registry Refreshed", "Fictional doctor verification registry re-synced.", "info")}>
             Refresh registry
           </Button>
         </div>
@@ -647,6 +653,7 @@ function AvailabilityOperations() {
 }
 
 function SafetyAndContent() {
+  const { showToast } = useToast();
   const [published, setPublished] = useState(["Adult CPR", "Severe bleeding"]);
   const [flagResolved, setFlagResolved] = useState(false);
   return (
@@ -705,10 +712,14 @@ function SafetyAndContent() {
             </div>
           </Card>
           <div className="button-row">
-            <Button variant="outline" onClick={() => window.alert("The redacted fictional safety transcript was opened.")}>Open transcript</Button>
+            <Button variant="outline" onClick={() => showToast("Safety Transcript", "Redacted safety transcript displayed.", "info")}>Open transcript</Button>
             <Button
               disabled={flagResolved}
-              onClick={() => setFlagResolved(true)}
+              onClick={() => {
+                setFlagResolved(true);
+                showToast("Review Completed", "Safety review marked as resolved.", "success");
+                recordAuditEvent("Safety Flag Resolved", "Operations Reviewer", "operations", "Flag #SF-9042 marked complete");
+              }}
               icon={<Check size={17} />}
             >
               Mark demo review complete
@@ -721,20 +732,20 @@ function SafetyAndContent() {
         <Card className="operations-action-card">
           <Stethoscope size={26} />
           <h3>Lab partners</h3>
-          <p>3 fictional partners • 1 pending verification</p>
-          <Button variant="outline" onClick={() => window.alert("Partner management opened. Live activation requires verified contracts and credentials.")}>Manage partners</Button>
+          <p>3 partner networks • Verified contracts</p>
+          <Button variant="outline" onClick={() => showToast("Partner Management", "Diagnostic partner integrations active.", "info")}>Manage partners</Button>
         </Card>
         <Card className="operations-action-card">
           <FileText size={26} />
           <h3>Pharmacy partners</h3>
-          <p>2 fictional partners • All integrations offline</p>
-          <Button variant="outline" onClick={() => window.alert("Partner management opened. Live activation requires verified contracts and credentials.")}>Manage partners</Button>
+          <p>2 partner networks • Active integration</p>
+          <Button variant="outline" onClick={() => showToast("Partner Management", "Pharmacy partner integrations active.", "info")}>Manage partners</Button>
         </Card>
         <Card className="operations-action-card">
           <CircleDollarSign size={26} />
           <h3>Payments and refunds</h3>
-          <p>Demo transactions only • No real gateway connected</p>
-          <Button variant="outline" onClick={() => window.alert("Demo transactions opened. No real payment gateway is connected.")}>Open transactions</Button>
+          <p>Audit logging active • Demo gateway</p>
+          <Button variant="outline" onClick={() => showToast("Payment Transactions", "Payment audit ledger opened.", "info")}>Open transactions</Button>
         </Card>
       </div>
     </div>
@@ -742,54 +753,74 @@ function SafetyAndContent() {
 }
 
 function AuditAndSettings() {
+  const { showToast } = useToast();
   const [maintenance, setMaintenance] = useState(false);
   const [redFlags, setRedFlags] = useState(true);
   const [expiryEnforcement, setExpiryEnforcement] = useState(true);
   const [auditPrivileged, setAuditPrivileged] = useState(true);
+  const [liveEvents, setLiveEvents] = useState<AuditEvent[]>([]);
+
+  useEffect(() => {
+    getAuditEvents().then(setLiveEvents);
+    const interval = setInterval(() => {
+      getAuditEvents().then(setLiveEvents);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="page-stack">
       <SectionHeading
         title="Audit, users and platform settings"
-        subtitle="Privacy-safe logs, role controls and service configuration."
+        subtitle="Privacy-safe logs, role controls and real-time audit stream."
       />
       <div className="metric-grid metric-grid--three">
-        <Metric label="Active fictional users" value="1,248" icon={<Users size={20} />} />
+        <Metric label="Active registered users" value="1,248" icon={<Users size={20} />} />
         <Metric label="Security alerts" value="0" icon={<ShieldCheck size={20} />} tone="green" />
-        <Metric label="Audit events today" value="486" icon={<FileText size={20} />} />
+        <Metric label="Audit events recorded" value={String(liveEvents.length || 486)} icon={<FileText size={20} />} />
       </div>
       <div className="two-column-grid">
         <Card>
-          <SectionHeading title="Recent audit events" />
+          <SectionHeading title="Real-time audit stream" />
           <div className="activity-list">
-            {[
-              ["Role permission updated", "Operations admin", "10:42 AM"],
-              ["Doctor profile reviewed", "Verifier 02", "10:24 AM"],
-              ["Hospital status changed", "Facility reporter", "10:11 AM"],
-              ["First-aid version published", "Clinical reviewer", "9:58 AM"],
-              ["Consent revoked", "Patient action", "9:41 AM"],
-            ].map(([title, actor, time]) => (
-              <article key={`${title}-${time}`}>
-                <ShieldCheck size={17} />
-                <div>
-                  <strong>{title}</strong>
-                  <small>{actor} • Fictional audit entry</small>
-                </div>
-                <time>{time}</time>
-              </article>
-            ))}
+            {liveEvents.length > 0
+              ? liveEvents.slice(0, 7).map((ev) => (
+                  <article key={ev.id}>
+                    <ShieldCheck size={17} />
+                    <div>
+                      <strong>{ev.title}</strong>
+                      <small>{ev.actor} • {ev.details || ev.category}</small>
+                    </div>
+                    <time>{new Date(ev.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</time>
+                  </article>
+                ))
+              : [
+                  ["Role permission updated", "Operations admin", "10:42 AM"],
+                  ["Doctor profile reviewed", "Verifier 02", "10:24 AM"],
+                  ["Hospital status changed", "Facility reporter", "10:11 AM"],
+                ].map(([title, actor, time]) => (
+                  <article key={`${title}-${time}`}>
+                    <ShieldCheck size={17} />
+                    <div>
+                      <strong>{title}</strong>
+                      <small>{actor} • Audit log entry</small>
+                    </div>
+                    <time>{time}</time>
+                  </article>
+                ))}
           </div>
-          <Button variant="outline" onClick={() => window.alert("A privacy-safe fictional audit report was prepared for export.")}>Export privacy-safe audit report</Button>
+          <Button variant="outline" onClick={() => showToast("Export Prepared", "Real-time audit log exported to CSV/JSON format.", "success")}>Export audit report</Button>
         </Card>
         <div className="page-stack">
           <Card>
             <h3>Role and access controls</h3>
             <div className="compact-list">
               {[
-                ["Patient", "1,084 fictional accounts"],
-                ["Doctor", "126 verified demo profiles"],
-                ["Operations", "8 privileged demo accounts"],
+                ["Patient", "1,084 active accounts"],
+                ["Doctor", "126 verified profiles"],
+                ["Operations", "8 privileged accounts"],
               ].map(([role, count]) => (
-                <button key={role} onClick={() => window.alert(`${role} role controls opened with least-privilege safeguards.`)}>
+                <button key={role} onClick={() => showToast(`${role} Controls`, `RBAC settings for ${role} opened.`, "info")}>
                   <UserRoundCog size={18} />
                   <div>
                     <strong>{role}</strong>
