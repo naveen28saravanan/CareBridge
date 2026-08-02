@@ -152,7 +152,7 @@ export function AuthScreen({
     setPending(true);
     setError("");
     try {
-      const session = await authService.signInWithFirebaseGoogle();
+      const session = await authService.signInWithFirebaseGoogle(role);
       onAuthenticated(session);
     } catch (reason: any) {
       openProvider("google");
@@ -167,7 +167,13 @@ export function AuthScreen({
   const openProvider = (provider: NonNullable<ProviderDialog>) => {
     setProviderDialog(provider);
     setProviderName("");
-    setProviderEmail(provider === "google" ? "user@gmail.com" : "");
+    const defaultEmail =
+      role === "doctor"
+        ? "doctor@carebridge.demo"
+        : role === "operations"
+        ? "ops@carebridge.demo"
+        : "user@gmail.com";
+    setProviderEmail(provider === "google" ? defaultEmail : "");
     setPhone("+91 ");
     setOtp("");
     setOtpSent(false);
@@ -185,6 +191,7 @@ export function AuthScreen({
       const session = await authService.signInSocial(providerDialog, {
         displayName: targetName,
         email: targetEmail,
+        role,
       });
       onAuthenticated(session);
     } catch (reason) {
@@ -309,7 +316,7 @@ export function AuthScreen({
             </div>
           ) : null}
 
-          {mode === "signin" && role === "patient" ? (
+          {mode === "signin" ? (
             <>
               <div className="provider-grid">
                 <button onClick={handleFirebaseGoogle} className="provider-button--google">
@@ -372,7 +379,7 @@ export function AuthScreen({
 
             {error ? <div className="auth-error" role="alert">{error}</div> : null}
 
-            <Button id="login-button" className="auth-submit" disabled={pending}>
+            <Button id="login-button" type="submit" className="auth-submit" disabled={pending}>
               {pending ? "Please wait..." : mode === "signin" ? "Secure sign in" : "Create protected account"}
               {!pending ? <ArrowRight size={18} /> : null}
             </Button>

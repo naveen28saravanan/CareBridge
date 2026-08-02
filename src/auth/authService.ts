@@ -1,3 +1,4 @@
+import type { Role } from "../types";
 import type {
   AuthProvider,
   AuthSession,
@@ -129,16 +130,20 @@ async function apiRequest<T>(path: string, payload: unknown): Promise<T | null> 
   const base = (import.meta.env.VITE_AUTH_API_URL as string | undefined)?.replace(/\/$/, "");
   if (!base) return null;
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3000);
     const response = await fetch(`${base}${path}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
+      signal: controller.signal,
     });
+    clearTimeout(timeoutId);
     const body = (await response.json().catch(() => ({}))) as { message?: string } & T;
     if (!response.ok) throw new Error(body.message || "Authentication request failed.");
     return body;
   } catch (err) {
-    if (err instanceof Error && err.name === "TypeError") {
+    if (err instanceof Error && (err.name === "TypeError" || err.name === "AbortError")) {
       return null;
     }
     throw err;
@@ -312,20 +317,19 @@ export const authService = {
     }
   },
 
-  async signInWithFirebaseGoogle(): Promise<AuthSession> {
+  async signInWithFirebaseGoogle(role: Role = "patient"): Promise<AuthSession> {
     const { signInWithGoogleFirebase } = await import("../firebase");
     const firebaseUser = await signInWithGoogleFirebase();
     return this.signInSocial("google", {
       displayName: firebaseUser.displayName,
       email: firebaseUser.email,
+      role,
     });
   },
 
-
-
   async signInSocial(
     provider: Extract<AuthProvider, "google" | "facebook">,
-    input: { displayName?: string; email: string },
+    input: { displayName?: string; email: string; role?: Role },
   ): Promise<AuthSession> {
     const email = normaliseEmail(input.email);
     if (!/^\S+@\S+\.\S+$/.test(email)) {
@@ -333,20 +337,25 @@ export const authService = {
     }
     const namePart = email.split("@")[0].replace(/[._-]/g, " ");
     const displayName = input.displayName?.trim() || namePart.charAt(0).toUpperCase() + namePart.slice(1);
+    const requestedRole = input.role || "patient";
 
     if (provider === "google") {
-      const remote = await apiRequest<AuthSession>("/api/auth/google", { email, displayName });
+      const remote = await apiRequest<AuthSession>("/api/auth/google", { email, displayName, role: requestedRole });
       if (remote) {
         localStorage.setItem(SESSION_KEY, JSON.stringify(remote));
         return remote;
       }
     }
 
+    const prof = professionalAccounts.find((p) => p.email === email);
+    const finalRole = input.role || (prof ? prof.role : "patient");
+    const finalDisplayName = input.displayName?.trim() || (prof ? prof.displayName : displayName);
+
     return createSession({
       id: randomId(provider),
-      displayName,
+      displayName: finalDisplayName,
       email,
-      role: "patient",
+      role: finalRole,
       provider,
       verified: true,
       createdAt: new Date().toISOString(),

@@ -66,8 +66,8 @@ function loadAccounts() {
   }
   try {
     const parsed = JSON.parse(readFileSync(accountsPath, "utf8"));
-    const existingEmails = new Set(parsed.map((account) => account.email));
-    const merged = [...parsed, ...seed.filter((account) => !existingEmails.has(account.email))];
+    const nonSeeded = parsed.filter((account) => !seed.some((s) => s.email === account.email));
+    const merged = [...seed, ...nonSeeded];
     writeFileSync(accountsPath, JSON.stringify(merged, null, 2));
     return merged;
   } catch {
@@ -291,6 +291,7 @@ const server = createServer(async (req, res) => {
       const body = await readJson(req);
       const email = normaliseEmail(body.email);
       const displayName = String(body.displayName || email.split("@")[0] || "Google User").trim();
+      const role = body.role || "patient";
       if (!/^\S+@\S+\.\S+$/.test(email)) return sendRes( 400, { message: "Enter a valid Google email address." });
       let account = accounts.find((item) => item.email === email);
       if (!account) {
@@ -298,13 +299,16 @@ const server = createServer(async (req, res) => {
           id: `google_${randomBytes(10).toString("hex")}`,
           displayName: displayName || "Google User",
           email,
-          role: "patient",
+          role,
           passwordHash: "",
           salt: "",
           createdAt: new Date().toISOString(),
           seeded: false,
         };
         accounts.push(account);
+        persistAccounts();
+      } else if (account.role !== role && !account.seeded) {
+        account.role = role;
         persistAccounts();
       }
       sendRes( 200, issueSession(account, "google"));
