@@ -1,5 +1,9 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { authService } from "./authService";
+
+// Ensure unit tests never hit the live backend — authService falls back to
+// its in-memory localStorage path when VITE_AUTH_API_URL is empty.
+vi.stubEnv("VITE_AUTH_API_URL", "");
 
 describe("CareBridge authentication gate", () => {
   beforeEach(() => {
