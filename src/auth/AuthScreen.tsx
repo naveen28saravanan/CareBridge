@@ -155,7 +155,6 @@ export function AuthScreen({
       const session = await authService.signInWithFirebaseGoogle(role);
       onAuthenticated(session);
     } catch (reason: any) {
-      openProvider("google");
       if (reason?.message) setError(reason.message);
     } finally {
       setPending(false);
