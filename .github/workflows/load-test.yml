@@ -29,13 +29,13 @@ jobs:
           npm ci
           npm run build
           node server/index.mjs &
-          npx vite preview --port 4173 &
+          npx vite preview --host 0.0.0.0 --port 4173 &
           sleep 5
 
       - name: Run k6 Load Test Suite (Strict Threshold Verification)
         env:
-          BASE_URL: "http://localhost:4173/"
-          API_URL: "http://localhost:8787"
+          BASE_URL: "http://127.0.0.1:4173/"
+          API_URL: "http://127.0.0.1:8787"
         run: |
           mkdir -p reports/k6
           k6 run --out json=reports/k6/summary.json load-tests/k6-suite.js

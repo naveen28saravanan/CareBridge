@@ -379,8 +379,8 @@ const server = createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, () => {
-  console.log(`CareBridge authentication API running at http://localhost:${PORT}`);
+server.listen(PORT, "0.0.0.0", () => {
+  console.log(`CareBridge authentication API running at http://0.0.0.0:${PORT}`);
   console.log(`Allowed web origin: ${ORIGIN}`);
   console.log(`Development WhatsApp OTP: ${DEV_OTP ? "enabled (123456)" : "disabled"}`);
 });
