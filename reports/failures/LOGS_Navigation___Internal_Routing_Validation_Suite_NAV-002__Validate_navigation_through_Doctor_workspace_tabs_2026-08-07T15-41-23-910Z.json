@@ -1,0 +1,8 @@
+{
+  "testTitle": "Navigation & Internal Routing Validation Suite NAV-002: Validate navigation through Doctor workspace tabs",
+  "error": "Timeout of 60000ms exceeded. For async tests and hooks, ensure \"done()\" is called; if returning a Promise, ensure it resolves. (C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\tests\\navigation.test.js)",
+  "stack": "Error: Timeout of 60000ms exceeded. For async tests and hooks, ensure \"done()\" is called; if returning a Promise, ensure it resolves. (C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\tests\\navigation.test.js)\n    at listOnTimeout (node:internal/timers:605:17)\n    at process.processTimers (node:internal/timers:541:7)",
+  "currentUrl": "N/A",
+  "consoleLogs": [],
+  "timestamp": "2026-08-07T15-41-23-910Z"
+}

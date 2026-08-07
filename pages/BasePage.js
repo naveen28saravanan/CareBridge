@@ -65,7 +65,13 @@ export class BasePage {
   async switchLanguage(languageCode) {
     const selectLocator = 'label.auth-language select, select[aria-label="Language"]';
     if (await this.isElementVisible(selectLocator)) {
-      await this.utils.type(selectLocator, languageCode);
+      await this.driver.executeScript(`
+        const sel = document.querySelector('label.auth-language select, select[aria-label="Language"]');
+        if (sel) {
+          sel.value = '${languageCode}';
+          sel.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      `);
     }
   }
 

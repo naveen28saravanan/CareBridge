@@ -58,12 +58,12 @@ jobs:
         run: |
           npx vite preview --port 4173 --host 0.0.0.0 &
           sleep 4
-          echo "Web application server running at http://localhost:4173/CareBridge/"
+          echo "Web application server running at http://localhost:4173/"
 
       - name: 8. Run Production Selenium E2E Automation Suite
         run: npm run test:e2e
         env:
-          TEST_APP_URL: http://localhost:4173/CareBridge/
+          TEST_APP_URL: http://localhost:4173/
           BROWSER: chrome
           HEADLESS: true
 

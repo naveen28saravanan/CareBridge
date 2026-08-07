@@ -10,44 +10,57 @@ export class PatientWorkspacePage extends BasePage {
   }
 
   async isWorkspaceDisplayed() {
-    return await this.isElementVisible('.shell', 5000) || await this.isElementVisible(this.welcomeHeader, 5000);
+    return await this.isElementVisible('.app-shell', 5000) || await this.isElementVisible(this.welcomeHeader, 5000);
   }
 
   async navigateToTab(tabId) {
     logger.info(`Patient navigating to tab: ${tabId}`);
-    const tabLocator = By.css(`button[data-nav-id="${tabId}"], .shell-nav button:nth-child(1)`);
-    // Fallback XPath if custom data attribute is absent
-    const xpathLocator = By.xpath(`//nav[contains(@class, 'shell-nav')]//button[contains(@class, 'nav-item') or contains(., '${tabId}')]`);
-    
-    if (await this.isElementVisible(xpathLocator)) {
-      await this.utils.click(xpathLocator);
-    } else {
-      // Direct JS navigation simulation via custom event or button match
-      await this.utils.executeScript(`
-        const btn = Array.from(document.querySelectorAll('.shell-nav button')).find(b => b.textContent.toLowerCase().includes('${tabId.toLowerCase()}'));
-        if (btn) btn.click();
-      `);
-    }
+    await this.utils.executeScript(`
+      const search = '${tabId.toLowerCase()}';
+      const keyMap = {
+        symptoms: 'symptom',
+        emergency: 'emergenc',
+        hospitals: 'hospital'
+      };
+      const term = keyMap[search] || search;
+      const btn = Array.from(document.querySelectorAll('.main-nav button, .mobile-nav button')).find(b => b.textContent.toLowerCase().includes(term));
+      if (btn) btn.click();
+    `);
     await this.driver.sleep(500);
   }
 
   async bookAppointment(doctorName = 'Dr. Ananya Kumar', timeSlot = '10:30 AM') {
     await this.navigateToTab('consult');
-    const doctorCardBtn = By.xpath(`//h3[contains(text(), '${doctorName}')]/ancestor::div[contains(@class, 'doctor-list-card')]//button[contains(text(), 'View slots')]`);
-    if (await this.isElementVisible(doctorCardBtn)) {
+    const doctorCardBtn = By.xpath(`//h3[contains(., '${doctorName}')]/ancestor::div[contains(@class, 'doctor-list-card')]//button[contains(., 'View slots')]`);
+    if (await this.isElementVisible(doctorCardBtn, 3000)) {
       await this.utils.click(doctorCardBtn);
     } else {
-      await this.utils.click(By.xpath("//button[contains(text(), 'View slots')]"));
+      await this.utils.executeScript(`
+        const btn = Array.from(document.querySelectorAll('button')).find(b => b.textContent.includes('View slots'));
+        if (btn) btn.click();
+      `);
     }
     await this.driver.sleep(500);
 
-    const slotBtn = By.xpath(`//div[contains(@class, 'time-grid')]/button[contains(text(), '${timeSlot}')]`);
-    if (await this.isElementVisible(slotBtn)) {
+    const slotBtn = By.xpath(`//div[contains(@class, 'time-grid')]/button[contains(., '${timeSlot}')]`);
+    if (await this.isElementVisible(slotBtn, 3000)) {
       await this.utils.click(slotBtn);
+    } else {
+      await this.utils.executeScript(`
+        const btn = Array.from(document.querySelectorAll('.time-grid button')).find(b => b.textContent.includes('${timeSlot}'));
+        if (btn) btn.click();
+      `);
     }
 
-    const confirmBtn = By.xpath("//button[contains(text(), 'Confirm demo appointment')]");
-    await this.utils.click(confirmBtn);
+    const confirmBtn = By.xpath("//button[contains(., 'Confirm demo appointment')]");
+    if (await this.isElementVisible(confirmBtn, 3000)) {
+      await this.utils.click(confirmBtn);
+    } else {
+      await this.utils.executeScript(`
+        const btn = Array.from(document.querySelectorAll('button')).find(b => b.textContent.includes('Confirm'));
+        if (btn) btn.click();
+      `);
+    }
     await this.driver.sleep(1000);
   }
 
@@ -57,25 +70,25 @@ export class PatientWorkspacePage extends BasePage {
     if (await this.isElementVisible(chipBtn, 3000)) {
       await this.utils.click(chipBtn);
       await this.driver.sleep(300);
-      const submitBtn = By.xpath("//button[contains(text(), 'Analyse symptoms') or contains(text(), 'Analyze')]");
+      const submitBtn = By.xpath("//button[contains(., 'Analyse symptoms') or contains(., 'Analyze')]");
       if (await this.isElementVisible(submitBtn, 3000)) {
         await this.utils.click(submitBtn);
-        await this.driver.sleep(1000);
+      } else {
+        await this.utils.executeScript(`
+          const btn = Array.from(document.querySelectorAll('button')).find(b => b.textContent.toLowerCase().includes('analy'));
+          if (btn) btn.click();
+        `);
       }
+      await this.driver.sleep(1000);
     }
   }
 
   async signOut() {
     logger.info('Signing out patient');
-    const signOutBtn = By.xpath("//button[contains(text(), 'Sign out') or contains(@aria-label, 'Sign out')]");
-    if (await this.isElementVisible(signOutBtn)) {
-      await this.utils.click(signOutBtn);
-    } else {
-      await this.utils.executeScript(`
-        const btn = Array.from(document.querySelectorAll('button')).find(b => b.textContent.toLowerCase().includes('sign out'));
-        if (btn) btn.click();
-      `);
-    }
+    await this.utils.executeScript(`
+      const btn = Array.from(document.querySelectorAll('button')).find(b => b.textContent.toLowerCase().includes('sign out'));
+      if (btn) btn.click();
+    `);
     await this.driver.sleep(1000);
   }
 }

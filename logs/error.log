@@ -382,3 +382,73 @@ Wait timed out after 10264ms
 [2026-08-03 09:47:51] [ERROR]: TEST FAILED: Navigation & Internal Routing Validation Suite NAV-002: Validate navigation through Doctor workspace tabs
 [2026-08-03 09:47:51] [ERROR]: Reason: expected false to be true
 [2026-08-03 09:47:51] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-07 20:22:53] [ERROR]: TEST FAILED: Authentication & Session Management Suite AUTH-006: Validate session persistence on page refresh
+[2026-08-07 20:22:53] [ERROR]: Reason: expected false to be true
+[2026-08-07 20:22:53] [ERROR]: URL: http://localhost:4173/
+[2026-08-07 20:23:04] [ERROR]: Element not visible/located: By(css selector, #signup-name) - Waiting for element to be located By(css selector, #signup-name)
+Wait timed out after 5019ms
+[2026-08-07 20:23:04] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-002: Dynamic email input format validation on Signup form
+[2026-08-07 20:23:04] [ERROR]: Reason: Waiting for element to be located By(css selector, #signup-name)
+Wait timed out after 5019ms
+[2026-08-07 20:23:04] [ERROR]: URL: http://localhost:4173/
+[2026-08-07 20:23:12] [ERROR]: Element not visible/located: By(css selector, #signup-name) - Waiting for element to be located By(css selector, #signup-name)
+Wait timed out after 5056ms
+[2026-08-07 20:23:12] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-003: Dynamic password mismatch validation on Signup form
+[2026-08-07 20:23:12] [ERROR]: Reason: Waiting for element to be located By(css selector, #signup-name)
+Wait timed out after 5056ms
+[2026-08-07 20:23:12] [ERROR]: URL: http://localhost:4173/
+[2026-08-07 20:23:48] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-004: Dynamic validation of Patient Symptom Intake form
+[2026-08-07 20:23:48] [ERROR]: Reason: expected false to be true
+[2026-08-07 20:23:48] [ERROR]: URL: http://localhost:4173/
+[2026-08-07 20:25:31] [ERROR]: TEST FAILED: Authentication & Session Management Suite AUTH-006: Validate session persistence on page refresh
+[2026-08-07 20:25:31] [ERROR]: Reason: expected false to be true
+[2026-08-07 20:25:31] [ERROR]: URL: http://localhost:4173/
+[2026-08-07 20:26:08] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-003: Dynamic password mismatch validation on Signup form
+[2026-08-07 20:26:08] [ERROR]: Reason: expected '' to include 'Passwords do not match'
+[2026-08-07 20:26:08] [ERROR]: URL: http://localhost:4173/
+[2026-08-07 20:27:53] [ERROR]: TEST FAILED: Authentication & Session Management Suite AUTH-006: Validate session persistence on page refresh
+[2026-08-07 20:27:53] [ERROR]: Reason: expected false to be true
+[2026-08-07 20:27:53] [ERROR]: URL: http://localhost:4173/
+[2026-08-07 20:28:29] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-003: Dynamic password mismatch validation on Signup form
+[2026-08-07 20:28:29] [ERROR]: Reason: expected '' to include 'Passwords do not match'
+[2026-08-07 20:28:29] [ERROR]: URL: http://localhost:4173/
+[2026-08-07 20:30:48] [ERROR]: TEST FAILED: Authentication & Session Management Suite AUTH-006: Validate session persistence on page refresh
+[2026-08-07 20:30:48] [ERROR]: Reason: expected false to be true
+[2026-08-07 20:30:48] [ERROR]: URL: http://localhost:4173/
+[2026-08-07 20:31:18] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-003: Dynamic password mismatch validation on Signup form
+[2026-08-07 20:31:18] [ERROR]: Reason: expected '' to include 'Passwords do not match'
+[2026-08-07 20:31:18] [ERROR]: URL: http://localhost:4173/
+[2026-08-07 20:33:41] [ERROR]: Element not visible/located: By(xpath, //button[contains(text(), 'Save draft')]) - Waiting for element to be located By(xpath, //button[contains(text(), 'Save draft')])
+Wait timed out after 10244ms
+[2026-08-07 20:33:41] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-005: Dynamic validation of Doctor Clinical Notes form
+[2026-08-07 20:33:41] [ERROR]: Reason: Waiting for element to be located By(xpath, //button[contains(text(), 'Save draft')])
+Wait timed out after 10244ms
+[2026-08-07 20:33:41] [ERROR]: URL: http://localhost:4173/
+[2026-08-07 20:33:58] [ERROR]: Element not visible/located: By(xpath, //button[contains(text(), 'Add item')]) - Waiting for element to be located By(xpath, //button[contains(text(), 'Add item')])
+Wait timed out after 10236ms
+[2026-08-07 20:33:58] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-006: Dynamic validation of Doctor Prescription Builder form
+[2026-08-07 20:33:58] [ERROR]: Reason: Waiting for element to be located By(xpath, //button[contains(text(), 'Add item')])
+Wait timed out after 10236ms
+[2026-08-07 20:33:58] [ERROR]: URL: http://localhost:4173/
+[2026-08-07 20:34:31] [ERROR]: Element not visible/located: By(xpath, //button[contains(text(), 'View slots')]) - Waiting for element to be located By(xpath, //button[contains(text(), 'View slots')])
+Wait timed out after 10262ms
+[2026-08-07 20:34:31] [ERROR]: TEST FAILED: End-to-End Multi-Role Healthcare Workflow Suite E2E-001: Execute complete End-to-End patient consultation workflow
+[2026-08-07 20:34:31] [ERROR]: Reason: Waiting for element to be located By(xpath, //button[contains(text(), 'View slots')])
+Wait timed out after 10262ms
+[2026-08-07 20:34:31] [ERROR]: URL: http://localhost:4173/
+[2026-08-07 20:40:38] [ERROR]: TEST FAILED: Navigation & Internal Routing Validation Suite NAV-004: Validate browser refresh, back, and forward navigation
+[2026-08-07 20:40:38] [ERROR]: Reason: expected false to be true
+[2026-08-07 20:40:38] [ERROR]: URL: data:,
+[2026-08-07 20:41:09] [ERROR]: TEST FAILED: UI & Interactive Elements Validation Suite UI-005: Validate Operations Doctor Verification Data Table and Review Modal
+[2026-08-07 20:41:09] [ERROR]: Reason: expected false to be true
+[2026-08-07 20:41:09] [ERROR]: URL: http://localhost:4173/
+[2026-08-07 20:45:18] [ERROR]: Element not visible/located: By(xpath, //button[contains(., 'Approve demo profile')]) - Waiting for element to be located By(xpath, //button[contains(., 'Approve demo profile')])
+Wait timed out after 10297ms
+[2026-08-07 20:45:18] [ERROR]: TEST FAILED: End-to-End Multi-Role Healthcare Workflow Suite E2E-001: Execute complete End-to-End patient consultation workflow
+[2026-08-07 20:45:18] [ERROR]: Reason: Waiting for element to be located By(xpath, //button[contains(., 'Approve demo profile')])
+Wait timed out after 10297ms
+[2026-08-07 20:45:18] [ERROR]: URL: http://localhost:4173/
+[2026-08-07 21:11:24] [ERROR]: Failed to capture screenshot or URL: invalid session id
+[2026-08-07 21:11:24] [ERROR]: TEST FAILED: Navigation & Internal Routing Validation Suite NAV-002: Validate navigation through Doctor workspace tabs
+[2026-08-07 21:11:24] [ERROR]: Reason: Timeout of 60000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\tests\navigation.test.js)
+[2026-08-07 21:11:24] [ERROR]: URL: N/A

@@ -1,0 +1,8 @@
+{
+  "testTitle": "End-to-End Multi-Role Healthcare Workflow Suite E2E-001: Execute complete End-to-End patient consultation workflow",
+  "error": "Waiting for element to be located By(xpath, //button[contains(text(), 'View slots')])\nWait timed out after 10262ms",
+  "stack": "TimeoutError: Waiting for element to be located By(xpath, //button[contains(text(), 'View slots')])\nWait timed out after 10262ms\n    at C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\node_modules\\selenium-webdriver\\lib\\webdriver.js:929:22\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+  "currentUrl": "http://localhost:4173/",
+  "consoleLogs": [],
+  "timestamp": "2026-08-07T15-04-31-273Z"
+}

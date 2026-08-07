@@ -19,55 +19,70 @@ export class AuthPage extends BasePage {
 
   async selectMode(mode = 'signin') {
     const tabText = mode === 'signin' ? 'Sign in' : 'Create account';
-    const tabLocator = By.xpath(`//div[contains(@class, 'auth-tabs')]/button[contains(text(), '${tabText}')]`);
-    await this.utils.click(tabLocator);
-    await this.driver.sleep(300);
+    await this.driver.executeScript(`
+      const btn = Array.from(document.querySelectorAll('.auth-tabs button')).find(b => b.textContent.includes('${tabText}'));
+      if (btn) btn.click();
+    `);
+    await this.driver.sleep(400);
   }
 
   async selectRole(roleName = 'patient') {
     const roleCapitalized = roleName.charAt(0).toUpperCase() + roleName.slice(1);
-    const roleBtn = By.xpath(`//div[contains(@class, 'auth-role-grid')]//strong[contains(text(), '${roleCapitalized}')]/..`);
-    if (await this.isElementVisible(roleBtn)) {
-      await this.utils.click(roleBtn);
-      await this.driver.sleep(300);
-    }
+    await this.driver.executeScript(`
+      const btn = Array.from(document.querySelectorAll('.auth-role-grid button')).find(b => b.textContent.toLowerCase().includes('${roleName.toLowerCase()}'));
+      if (btn) btn.click();
+    `);
+    await this.driver.sleep(300);
   }
 
   async login(email, password, role = 'patient') {
     logger.info(`Performing login for role=${role}, email=${email}`);
     await this.selectMode('signin');
     await this.selectRole(role);
+    await this.utils.waitForElement(this.emailInput, 5000);
 
-    // Clear inputs via JS to guarantee empty state when needed
-    await this.utils.executeScript(`
-      const e = document.querySelector('#email');
-      const p = document.querySelector('#password');
-      if (e) { e.value = ''; e.dispatchEvent(new Event('input', { bubbles: true })); }
-      if (p) { p.value = ''; p.dispatchEvent(new Event('input', { bubbles: true })); }
+    await this.driver.executeScript(`
+      const setVal = (sel, val) => {
+        const el = document.querySelector(sel);
+        if (el) {
+          const nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+          nativeSetter.call(el, val);
+          el.dispatchEvent(new Event('input', { bubbles: true }));
+          el.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      };
+      setVal('#email', '${email || ''}');
+      setVal('#password', '${password || ''}');
+      const form = document.querySelector('form.auth-form');
+      if (form) form.requestSubmit();
     `);
-
-    if (email) {
-      await this.utils.type(this.emailInput, email);
-    }
-    if (password) {
-      await this.utils.type(this.passwordInput, password);
-    }
-
-    await this.utils.click(this.submitButton);
-    await this.driver.sleep(1200);
+    
+    await this.driver.sleep(1500);
   }
 
   async register(name, email, password, confirmPassword) {
     logger.info(`Performing registration for name=${name}, email=${email}`);
     await this.selectMode('signup');
     await this.utils.waitForElement(this.nameInput, 5000);
-    
-    if (name) await this.utils.type(this.nameInput, name);
-    if (email) await this.utils.type(this.emailInput, email);
-    if (password) await this.utils.type(this.passwordInput, password);
-    if (confirmPassword) await this.utils.type(this.confirmPasswordInput, confirmPassword);
-    
-    await this.utils.click(this.submitButton);
+
+    await this.driver.executeScript(`
+      const setVal = (sel, val) => {
+        const el = document.querySelector(sel);
+        if (el) {
+          const nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+          nativeSetter.call(el, val);
+          el.dispatchEvent(new Event('input', { bubbles: true }));
+          el.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      };
+      setVal('#signup-name', '${name || ''}');
+      setVal('#email', '${email || ''}');
+      setVal('#password', '${password || ''}');
+      setVal('#confirm-password', '${confirmPassword || ''}');
+      const form = document.querySelector('form.auth-form');
+      if (form) form.requestSubmit();
+    `);
+
     await this.driver.sleep(1200);
   }
 

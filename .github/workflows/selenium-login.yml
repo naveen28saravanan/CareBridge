@@ -69,7 +69,7 @@ jobs:
       - name: Run Selenium E2E tests
         run: npm run test:e2e
         env:
-          TEST_APP_URL: http://localhost:4173/CareBridge/
+          TEST_APP_URL: http://localhost:4173/
 
       - name: Publish test summary
         if: always()

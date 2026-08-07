@@ -1,7 +1,7 @@
 import path from 'path';
 
 export const config = {
-  baseUrl: process.env.TEST_APP_URL || 'http://localhost:4173/CareBridge/',
+  baseUrl: process.env.TEST_APP_URL || 'http://localhost:4173/',
   browser: process.env.BROWSER || 'chrome',
   headless: process.env.HEADLESS !== 'false',
   implicitWaitMs: 5000,

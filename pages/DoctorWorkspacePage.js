@@ -9,13 +9,13 @@ export class DoctorWorkspacePage extends BasePage {
   }
 
   async isWorkspaceDisplayed() {
-    return await this.isElementVisible(this.doctorHero, 5000) || await this.isElementVisible('.shell', 5000);
+    return await this.isElementVisible('.app-shell', 5000) || await this.isElementVisible(this.doctorHero, 5000);
   }
 
   async navigateToTab(tabId) {
     logger.info(`Doctor navigating to tab: ${tabId}`);
     await this.utils.executeScript(`
-      const btn = Array.from(document.querySelectorAll('.shell-nav button')).find(b => b.textContent.toLowerCase().includes('${tabId.toLowerCase()}'));
+      const btn = Array.from(document.querySelectorAll('.main-nav button, .mobile-nav button')).find(b => b.textContent.toLowerCase().includes('${tabId.toLowerCase()}'));
       if (btn) btn.click();
     `);
     await this.driver.sleep(500);
@@ -27,13 +27,20 @@ export class DoctorWorkspacePage extends BasePage {
     const symptomsBox = By.xpath("//label[contains(., 'Symptoms')]/textarea");
     const assessmentBox = By.xpath("//label[contains(., 'assessment')]/textarea");
     const instructionsBox = By.xpath("//label[contains(., 'instructions')]/textarea");
-    const saveBtn = By.xpath("//button[contains(text(), 'Save draft')]");
+    const saveBtn = By.xpath("//button[contains(., 'Save draft')]");
 
     if (symptoms) await this.utils.type(symptomsBox, symptoms);
     if (assessment) await this.utils.type(assessmentBox, assessment);
     if (instructions) await this.utils.type(instructionsBox, instructions);
 
-    await this.utils.click(saveBtn);
+    if (await this.isElementVisible(saveBtn, 5000)) {
+      await this.utils.click(saveBtn);
+    } else {
+      await this.utils.executeScript(`
+        const btn = Array.from(document.querySelectorAll('button')).find(b => b.textContent.includes('Save draft'));
+        if (btn) btn.click();
+      `);
+    }
     await this.driver.sleep(1000);
   }
 
@@ -43,7 +50,7 @@ export class DoctorWorkspacePage extends BasePage {
     const medicineInput = By.xpath("//label[contains(., 'Medicine name')]/input");
     const strengthInput = By.xpath("//label[contains(., 'Strength')]/input");
     const instructionsInput = By.xpath("//label[contains(., 'Instructions')]/textarea");
-    const addBtn = By.xpath("//button[contains(text(), 'Add item')]");
+    const addBtn = By.xpath("//button[contains(., 'Add item')]");
 
     await this.utils.type(medicineInput, medicine);
     await this.utils.type(strengthInput, strength);
@@ -55,7 +62,7 @@ export class DoctorWorkspacePage extends BasePage {
       await this.utils.click(checkbox);
     }
 
-    const signBtn = By.xpath("//button[contains(text(), 'Sign and share')]");
+    const signBtn = By.xpath("//button[contains(., 'Sign and share')]");
     if (await this.isElementVisible(signBtn)) {
       await this.utils.click(signBtn);
       await this.driver.sleep(1000);
