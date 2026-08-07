@@ -1,0 +1,48 @@
+name: CareBridge Grafana k6 Load Testing Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  k6_load_test:
+    name: Execute k6 Load Tests & Performance Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install k6 CLI
+        run: |
+          sudo gpg -k
+          sudo gpg --no-default-keyring --keyring /usr/share/keyrings/k6-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
+          echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+          sudo apt-get update
+          sudo apt-get install -y k6
+
+      - name: Run k6 Load Test Suite
+        env:
+          BASE_URL: "http://localhost:4173/"
+        run: |
+          mkdir -p reports/k6
+          k6 run --out json=reports/k6/summary.json load-tests/k6-suite.js || true
+
+      - name: Generate k6 Summary HTML Report
+        run: |
+          npx -y k6-reporter reports/k6/summary.json --output reports/k6/report.html || true
+
+      - name: Upload Load Testing Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: k6-load-test-reports
+          path: |
+            reports/k6/

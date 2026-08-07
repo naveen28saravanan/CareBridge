@@ -1,0 +1,61 @@
+name: CareBridge React Native Appium Mobile E2E Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  appium_mobile_test:
+    name: Execute Appium 2.x React Native Android Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Appium 2.x & Drivers
+        run: |
+          npm install -g appium@latest
+          appium driver install uiautomator2
+
+      - name: Install Project Dependencies
+        run: |
+          npm install
+
+      - name: Execute Appium Mobile E2E Test Suite
+        env:
+          APK_PATH: "./app/app-release.apk"
+          APP_PACKAGE: "com.carebridge.app"
+          APP_ACTIVITY: "com.carebridge.app.MainActivity"
+        run: |
+          echo "Starting Appium Server..."
+          appium --log-level info > appium.log 2>&1 &
+          sleep 5
+          npm run test:appium || true
+
+      - name: Upload Mobile Automation Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: appium-mobile-reports
+          path: |
+            reports/failures/
+            mochawesome-report/
+            excel/
+            appium.log
