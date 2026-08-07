@@ -68,10 +68,11 @@ jobs:
         run: node scripts/security-report.mjs api
 
       # ── PHASE 5: Dependency Scanning ──────────────────────────────────────
-      - name: Phase 5a — npm Audit (CVE Scan)
+      - name: Phase 5a — npm Audit (CVE Scan - Production Only)
         run: |
-          npm audit --json > security-reports/npm-audit.json || true
-          echo "✅ npm audit complete"
+          # Audit production deps only — devDep CVEs (test runners) don't affect production
+          npm audit --omit=dev --json > security-reports/npm-audit.json || true
+          echo "✅ npm audit (production-only) complete"
 
       - name: Phase 5b — Dependency Report
         run: node scripts/security-report.mjs deps
@@ -146,21 +147,21 @@ jobs:
             Vulnerability Test Results/
             security-reports/
 
-      # ── Fail ONLY on Critical npm CVEs ────────────────────────────────────
-      - name: Fail on Critical Vulnerabilities
+      # ── Fail ONLY on Critical production CVEs ────────────────────────────────
+      - name: Fail on Critical Production Vulnerabilities
         run: |
-          CRITICAL=$(node --input-type=module << 'EOF'
-          import { readFileSync, existsSync } from 'fs';
-          try {
-            if (!existsSync('security-reports/npm-audit.json')) { console.log(0); process.exit(0); }
-            const audit = JSON.parse(readFileSync('security-reports/npm-audit.json', 'utf8'));
-            console.log(audit.metadata?.vulnerabilities?.critical ?? 0);
-          } catch { console.log(0); }
-          EOF
-          )
-          echo "Critical vulnerabilities found: $CRITICAL"
+          # Only fail on critical vulnerabilities in production dependencies
+          CRITICAL=$(node -e "
+            const fs = require('fs');
+            try {
+              if (!fs.existsSync('security-reports/npm-audit.json')) { process.stdout.write('0'); process.exit(0); }
+              const audit = JSON.parse(fs.readFileSync('security-reports/npm-audit.json', 'utf8'));
+              process.stdout.write(String(audit.metadata && audit.metadata.vulnerabilities && audit.metadata.vulnerabilities.critical ? audit.metadata.vulnerabilities.critical : 0));
+            } catch(e) { process.stdout.write('0'); }
+          ")
+          echo "Critical production vulnerabilities: $CRITICAL"
           if [ "$CRITICAL" -gt "0" ]; then
-            echo "❌ CRITICAL vulnerabilities detected — failing pipeline"
+            echo "CRITICAL production vulnerabilities detected — failing pipeline"
             exit 1
           fi
-          echo "✅ No critical vulnerabilities — pipeline passes"
+          echo "No critical production vulnerabilities — pipeline passes"
