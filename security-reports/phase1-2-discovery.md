@@ -1,5 +1,5 @@
 # Phase 1 & 2 — Backend Discovery & API Inventory
-Generated: 2026-08-02T12:42:59.086Z
+Generated: 2026-08-07T18:38:01.247Z
 
 ## Stack Identification
 | Property | Value |
@@ -15,7 +15,9 @@ Generated: 2026-08-02T12:42:59.086Z
 | Session | In-memory Map + localStorage fallback |
 | ML Engine | Python (ml/symptom_model.json) |
 
-## Dependencies (5 production)
+## Dependencies (7 production)
+- @capacitor/android: ^8.5.0
+- @capacitor/core: ^8.5.0
 - @supabase/supabase-js: ^2.111.0
 - firebase: ^12.17.0
 - lucide-react: ^0.468.0

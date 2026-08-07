@@ -1,5 +1,5 @@
 # 🛡️ CareBridge Security Assessment — Full Summary
-Generated: 2026-08-02T12:42:59.474Z
+Generated: 2026-08-07T18:38:01.247Z
 
 ## Executive Summary
 | Phase | Area | Result |

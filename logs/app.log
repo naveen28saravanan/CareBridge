@@ -2080,3 +2080,164 @@ Wait timed out after 10297ms)
 [2026-08-07 22:08:02] [INFO]: [AI Mobile Scanner] Discovered 151 interactive React Native widgets.
 [2026-08-07 22:08:02] [INFO]: [AI Mobile Scanner] Scanning React Native workspace source code for interactive widgets...
 [2026-08-07 22:08:02] [INFO]: [AI Mobile Scanner] Discovered 151 interactive React Native widgets.
+[2026-08-07 22:09:53] [INFO]: ================================================================
+[2026-08-07 22:09:53] [INFO]:    CAREBRIDGE E2E ENTERPRISE AUTOMATION SUITE STARTED           
+[2026-08-07 22:09:53] [INFO]:    Target Base URL: http://localhost:4173/
+[2026-08-07 22:09:53] [INFO]:    Browser: chrome (Headless: true)
+[2026-08-07 22:09:53] [INFO]: ================================================================
+[2026-08-07 22:09:53] [INFO]: Initializing WebDriver session (chrome, headless=true)
+[2026-08-07 22:09:56] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:09:58] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:09:59] [INFO]: Performing login for role=patient, email=
+[2026-08-07 22:10:02] [INFO]: [Authentication & Session Management Suite AUTH-001: Validate login with empty email field] Test Execution - PASSED (Completed successfully)
+[2026-08-07 22:10:02] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:10:03] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:10:04] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-07 22:10:06] [INFO]: [Authentication & Session Management Suite AUTH-002: Validate login with empty password field] Test Execution - PASSED (Completed successfully)
+[2026-08-07 22:10:06] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:10:07] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:10:08] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-07 22:10:10] [INFO]: [Authentication & Session Management Suite AUTH-003: Validate login with invalid credentials] Test Execution - PASSED (Completed successfully)
+[2026-08-07 22:10:10] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:10:12] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:10:13] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-07 22:10:15] [INFO]: [Authentication & Session Management Suite AUTH-004: Validate successful Patient authentication flow] Test Execution - PASSED (Completed successfully)
+[2026-08-07 22:10:15] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:10:16] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:10:17] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-07 22:10:19] [INFO]: Signing out patient
+[2026-08-07 22:10:21] [INFO]: [Authentication & Session Management Suite AUTH-005: Validate Patient logout flow] Test Execution - PASSED (Completed successfully)
+[2026-08-07 22:10:21] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:10:22] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:10:23] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-07 22:10:25] [INFO]: Refreshing page
+[2026-08-07 22:10:27] [INFO]: Signing out patient
+[2026-08-07 22:10:28] [INFO]: [Authentication & Session Management Suite AUTH-006: Validate session persistence on page refresh] Test Execution - PASSED (Completed successfully)
+[2026-08-07 22:10:28] [INFO]: RouteScanner discovered 53 dynamic form input rules from React source.
+[2026-08-07 22:10:28] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:10:29] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:10:30] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-001: Validate discovered React routes configuration exists] Test Execution - PASSED (Completed successfully)
+[2026-08-07 22:10:30] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:10:31] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:10:32] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:10:33] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:10:34] [INFO]: Performing registration for name=Test User, email=invalid-email
+[2026-08-07 22:10:36] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:10:37] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:10:38] [INFO]: Performing registration for name=Test User, email=user@
+[2026-08-07 22:10:40] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:10:41] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:10:41] [INFO]: Performing registration for name=Test User, email=@domain.com
+[2026-08-07 22:10:43] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:10:44] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:10:45] [INFO]: Performing registration for name=Test User, email=user@domain..com
+[2026-08-07 22:10:47] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-002: Dynamic email input format validation on Signup form] Test Execution - PASSED (Completed successfully)
+[2026-08-07 22:10:47] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:10:48] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:10:49] [INFO]: Performing registration for name=Test User, email=valid@carebridge.demo
+[2026-08-07 22:10:51] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-003: Dynamic password mismatch validation on Signup form] Test Execution - PASSED (Completed successfully)
+[2026-08-07 22:10:51] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:10:52] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:10:53] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-07 22:10:55] [INFO]: Patient navigating to tab: symptoms
+[2026-08-07 22:10:58] [INFO]: Signing out patient
+[2026-08-07 22:10:59] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-004: Dynamic validation of Patient Symptom Intake form] Test Execution - PASSED (Completed successfully)
+[2026-08-07 22:10:59] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:11:00] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:11:01] [INFO]: Performing login for role=doctor, email=doctor@carebridge.demo
+[2026-08-07 22:11:03] [INFO]: Doctor navigating to tab: notes
+[2026-08-07 22:11:06] [INFO]: Signing out doctor
+[2026-08-07 22:11:07] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-005: Dynamic validation of Doctor Clinical Notes form] Test Execution - PASSED (Completed successfully)
+[2026-08-07 22:11:07] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:11:08] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:11:09] [INFO]: Performing login for role=doctor, email=doctor@carebridge.demo
+[2026-08-07 22:11:11] [INFO]: Doctor navigating to tab: prescriptions
+[2026-08-07 22:11:15] [INFO]: Signing out doctor
+[2026-08-07 22:11:16] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-006: Dynamic validation of Doctor Prescription Builder form] Test Execution - PASSED (Completed successfully)
+[2026-08-07 22:11:16] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:11:17] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:11:18] [INFO]: Performing login for role=operations, email=admin@carebridge.demo
+[2026-08-07 22:11:20] [INFO]: Operations navigating to tab: hospitals
+[2026-08-07 22:11:26] [INFO]: Signing out operations admin
+[2026-08-07 22:11:27] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-007: Dynamic validation of Operations Hospital ICU form] Test Execution - PASSED (Completed successfully)
+[2026-08-07 22:11:27] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:11:28] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:11:29] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:11:30] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-07 22:11:32] [INFO]: Patient navigating to tab: consult
+[2026-08-07 22:11:40] [INFO]: Patient navigating to tab: symptoms
+[2026-08-07 22:11:43] [INFO]: Signing out patient
+[2026-08-07 22:11:44] [INFO]: Performing login for role=doctor, email=doctor@carebridge.demo
+[2026-08-07 22:11:46] [INFO]: Doctor navigating to tab: notes
+[2026-08-07 22:11:50] [INFO]: Doctor navigating to tab: prescriptions
+[2026-08-07 22:11:54] [INFO]: Signing out doctor
+[2026-08-07 22:11:55] [INFO]: Performing login for role=operations, email=admin@carebridge.demo
+[2026-08-07 22:11:57] [INFO]: Operations navigating to tab: doctors
+[2026-08-07 22:12:00] [INFO]: Operations navigating to tab: hospitals
+[2026-08-07 22:12:05] [INFO]: Signing out operations admin
+[2026-08-07 22:12:07] [INFO]: [End-to-End Multi-Role Healthcare Workflow Suite E2E-001: Execute complete End-to-End patient consultation workflow] Test Execution - PASSED (Completed successfully)
+[2026-08-07 22:12:07] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:12:08] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:12:09] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-07 22:12:11] [INFO]: Patient navigating to tab: home
+[2026-08-07 22:12:12] [INFO]: Patient navigating to tab: consult
+[2026-08-07 22:12:12] [INFO]: Patient navigating to tab: records
+[2026-08-07 22:12:13] [INFO]: Patient navigating to tab: profile
+[2026-08-07 22:12:14] [INFO]: Patient navigating to tab: chat
+[2026-08-07 22:12:14] [INFO]: Signing out patient
+[2026-08-07 22:12:15] [INFO]: [Navigation & Internal Routing Validation Suite NAV-001: Validate navigation through all Patient workspace links] Test Execution - PASSED (Completed successfully)
+[2026-08-07 22:12:15] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:12:16] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:12:17] [INFO]: Performing login for role=doctor, email=doctor@carebridge.demo
+[2026-08-07 22:12:19] [INFO]: Doctor navigating to tab: today
+[2026-08-07 22:12:20] [INFO]: Doctor navigating to tab: patients
+[2026-08-07 22:12:21] [INFO]: Doctor navigating to tab: messages
+[2026-08-07 22:12:21] [INFO]: Doctor navigating to tab: prescriptions
+[2026-08-07 22:12:22] [INFO]: Signing out doctor
+[2026-08-07 22:12:23] [INFO]: [Navigation & Internal Routing Validation Suite NAV-002: Validate navigation through Doctor workspace tabs] Test Execution - PASSED (Completed successfully)
+[2026-08-07 22:12:23] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:12:24] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:12:25] [INFO]: Performing login for role=operations, email=admin@carebridge.demo
+[2026-08-07 22:12:27] [INFO]: Operations navigating to tab: overview
+[2026-08-07 22:12:27] [INFO]: Operations navigating to tab: doctors
+[2026-08-07 22:12:28] [INFO]: Operations navigating to tab: emergencies
+[2026-08-07 22:12:29] [INFO]: Operations navigating to tab: hospitals
+[2026-08-07 22:12:29] [INFO]: Signing out operations admin
+[2026-08-07 22:12:30] [INFO]: [Navigation & Internal Routing Validation Suite NAV-003: Validate navigation through Operations workspace tabs] Test Execution - PASSED (Completed successfully)
+[2026-08-07 22:12:30] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:12:31] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:12:32] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-07 22:12:35] [INFO]: Patient navigating to tab: consult
+[2026-08-07 22:12:35] [INFO]: Refreshing page
+[2026-08-07 22:12:36] [INFO]: Navigating back in browser history
+[2026-08-07 22:12:38] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:12:39] [INFO]: [Navigation & Internal Routing Validation Suite NAV-004: Validate browser refresh, back, and forward navigation] Test Execution - PASSED (Completed successfully)
+[2026-08-07 22:12:39] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:12:40] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:12:42] [INFO]: [UI & Interactive Elements Validation Suite UI-001: Validate Theme Toggle (Dark / Light mode)] Test Execution - PASSED (Completed successfully)
+[2026-08-07 22:12:42] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:12:43] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:12:44] [INFO]: [UI & Interactive Elements Validation Suite UI-002: Validate Language Selector Dropdown] Test Execution - PASSED (Completed successfully)
+[2026-08-07 22:12:44] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:12:45] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:12:53] [INFO]: [UI & Interactive Elements Validation Suite UI-003: Validate Forgot Password Modal open and close] Test Execution - PASSED (Completed successfully)
+[2026-08-07 22:12:53] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:12:54] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:12:55] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-07 22:12:57] [INFO]: Patient navigating to tab: consult
+[2026-08-07 22:12:58] [INFO]: Signing out patient
+[2026-08-07 22:12:59] [INFO]: [UI & Interactive Elements Validation Suite UI-004: Validate Doctor Search Bar filtering in Patient Workspace] Test Execution - PASSED (Completed successfully)
+[2026-08-07 22:12:59] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:13:01] [INFO]: Navigating to URL: http://localhost:4173/
+[2026-08-07 22:13:01] [INFO]: Performing login for role=operations, email=admin@carebridge.demo
+[2026-08-07 22:13:04] [INFO]: Operations navigating to tab: doctors
+[2026-08-07 22:13:04] [INFO]: Signing out operations admin
+[2026-08-07 22:13:05] [INFO]: [UI & Interactive Elements Validation Suite UI-005: Validate Operations Doctor Verification Data Table and Review Modal] Test Execution - PASSED (Completed successfully)
+[2026-08-07 22:13:05] [INFO]: Closing driver instance...
+[2026-08-07 22:13:05] [INFO]: Closing WebDriver session
+[2026-08-07 22:13:06] [INFO]: Generating final Excel report (E2E_Report.xlsx)...
+[2026-08-07 22:13:06] [INFO]: Excel E2E Report generated successfully at C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\excel\E2E_Report.xlsx
+[2026-08-07 22:13:06] [INFO]: E2E_Report.xlsx successfully saved to: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\excel\E2E_Report.xlsx
+[2026-08-07 22:13:06] [INFO]: ================================================================
+[2026-08-07 22:13:06] [INFO]:    CAREBRIDGE E2E ENTERPRISE AUTOMATION SUITE FINISHED          
+[2026-08-07 22:13:06] [INFO]: ================================================================

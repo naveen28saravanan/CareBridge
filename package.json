@@ -27,7 +27,8 @@
     "server": "node server/index.mjs",
     "check": "tsc -b --pretty false",
     "audit:buttons": "node scripts/audit-buttons.mjs",
-    "verify": "npm run check && npm test && npm run audit:buttons"
+    "verify": "npm run check && npm test && npm run audit:buttons",
+    "security": "node scripts/generate-security-reports.mjs"
   },
   "dependencies": {
     "@capacitor/android": "^8.5.0",
