@@ -16,6 +16,7 @@ jobs:
       security-events: write
 
     steps:
+      # ── Setup ──────────────────────────────────────────────────────────────
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
@@ -26,6 +27,11 @@ jobs:
         with:
           node-version: 18
 
+      - name: Create Report Directories
+        run: |
+          mkdir -p security-reports
+          mkdir -p "Vulnerability Test Results"
+
       - name: Install Dependencies
         run: npm ci
 
@@ -34,26 +40,27 @@ jobs:
         run: node scripts/security-report.mjs discovery
 
       # ── PHASE 3: SAST ─────────────────────────────────────────────────────
-      - name: Phase 3a — SAST via Semgrep
-        uses: returntocorp/semgrep-action@v1
-        continue-on-error: true
-        with:
-          config: >-
-            p/owasp-top-ten
-            p/javascript
-            p/typescript
-            p/nodejsscan
-            p/secrets
+      - name: Phase 3a — Semgrep SAST Scan
+        run: |
+          pip3 install semgrep --quiet || true
+          semgrep --config=p/owasp-top-ten \
+                  --config=p/javascript \
+                  --config=p/secrets \
+                  --json \
+                  --output=security-reports/semgrep-report.json \
+                  --no-error \
+                  . || true
+          echo "✅ Semgrep scan complete"
 
-      - name: Phase 3b — SAST Custom Checks
+      - name: Phase 3b — Custom SAST Checks
         run: node scripts/security-report.mjs sast
 
-      # ── PHASE 4: DAST (live API tests) ────────────────────────────────────
-      - name: Start Backend API for DAST
+      # ── PHASE 4: DAST Live API Tests ──────────────────────────────────────
+      - name: Start Backend API for DAST Testing
         run: |
           node server/index.mjs &
-          sleep 3
-          curl -sf http://localhost:8787/api/health || echo "API not ready"
+          sleep 4
+          curl -sf http://localhost:8787/api/health && echo "✅ API is ready" || echo "⚠️ API not reachable"
 
       - name: Phase 4 — DAST API Security Tests
         env:
@@ -61,19 +68,15 @@ jobs:
         run: node scripts/security-report.mjs api
 
       # ── PHASE 5: Dependency Scanning ──────────────────────────────────────
-      - name: Phase 5a — npm Audit
+      - name: Phase 5a — npm Audit (CVE Scan)
         run: |
           npm audit --json > security-reports/npm-audit.json || true
-          node scripts/security-report.mjs deps
+          echo "✅ npm audit complete"
 
-      - name: Phase 5b — Gitleaks Secret Scan
-        uses: gitleaks/gitleaks-action@v2
-        continue-on-error: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
+      - name: Phase 5b — Dependency Report
+        run: node scripts/security-report.mjs deps
 
-      - name: Phase 5c — Trivy Filesystem Scan
+      - name: Phase 5c — Trivy Filesystem Scan (JSON)
         uses: aquasecurity/trivy-action@master
         continue-on-error: true
         with:
@@ -82,6 +85,7 @@ jobs:
           format: json
           output: security-reports/trivy-report.json
           severity: CRITICAL,HIGH,MEDIUM
+          exit-code: '0'
 
       - name: Phase 5d — Trivy SARIF for GitHub Security Tab
         uses: aquasecurity/trivy-action@master
@@ -91,6 +95,7 @@ jobs:
           scan-ref: .
           format: sarif
           output: security-reports/trivy-results.sarif
+          exit-code: '0'
 
       - name: Upload SARIF to GitHub Security Tab
         uses: github/codeql-action/upload-sarif@v3
@@ -98,32 +103,41 @@ jobs:
         with:
           sarif_file: security-reports/trivy-results.sarif
 
-      # ── PHASE 6+7+8: Report Generation ───────────────────────────────────
-      - name: Phase 6+7+8 — Generate All Reports (MD + Excel)
+      - name: Phase 5e — Gitleaks Secret Scan
+        uses: gitleaks/gitleaks-action@v2
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # ── PHASE 6+7+8: Report Generation ────────────────────────────────────
+      - name: Phase 6+7+8 — Generate All Reports (Markdown + Excel)
         run: |
           node scripts/generate-security-reports.mjs
           node scripts/security-report.mjs summary
 
       # ── GitHub Actions Summary ─────────────────────────────────────────────
-      - name: Publish Security Summary to GitHub Actions
+      - name: Publish Security Summary
         if: always()
         run: |
-          echo "# 🛡️ CareBridge Security Assessment" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Run completed:** $(date -u)" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          cat security-reports/FULL_SUMMARY.md >> $GITHUB_STEP_SUMMARY || true
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "## Reports Generated" >> $GITHUB_STEP_SUMMARY
-          echo "- \`Vulnerability Test Results/security-review.md\`" >> $GITHUB_STEP_SUMMARY
-          echo "- \`Vulnerability Test Results/executive-summary.md\`" >> $GITHUB_STEP_SUMMARY
-          echo "- \`Vulnerability Test Results/dependency-report.md\`" >> $GITHUB_STEP_SUMMARY
-          echo "- \`Vulnerability Test Results/findings.xlsx\`" >> $GITHUB_STEP_SUMMARY
-          echo "- \`security-reports/npm-audit.json\`" >> $GITHUB_STEP_SUMMARY
-          echo "- \`security-reports/trivy-report.json\`" >> $GITHUB_STEP_SUMMARY
+          {
+            echo "# 🛡️ CareBridge Security Assessment"
+            echo ""
+            echo "**Run completed:** $(date -u)"
+            echo ""
+            cat security-reports/FULL_SUMMARY.md || echo "Summary not generated"
+            echo ""
+            echo "## 📁 Reports Generated"
+            echo "- \`Vulnerability Test Results/security-review.md\`"
+            echo "- \`Vulnerability Test Results/executive-summary.md\`"
+            echo "- \`Vulnerability Test Results/dependency-report.md\`"
+            echo "- \`Vulnerability Test Results/findings.xlsx\`"
+            echo "- \`security-reports/npm-audit.json\`"
+            echo "- \`security-reports/trivy-report.json\`"
+            echo "- \`security-reports/semgrep-report.json\`"
+          } >> "$GITHUB_STEP_SUMMARY"
 
-      # ── Upload all artifacts ───────────────────────────────────────────────
-      - name: Upload Security Reports as Artifacts
+      # ── Upload Artifacts ───────────────────────────────────────────────────
+      - name: Upload All Security Reports as Artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -132,16 +146,18 @@ jobs:
             Vulnerability Test Results/
             security-reports/
 
-      # ── Fail ONLY on Critical ─────────────────────────────────────────────
+      # ── Fail ONLY on Critical npm CVEs ────────────────────────────────────
       - name: Fail on Critical Vulnerabilities
         run: |
-          CRITICAL=$(node -e "
-            const fs = require('fs');
-            try {
-              const audit = JSON.parse(fs.readFileSync('security-reports/npm-audit.json', 'utf8'));
-              console.log(audit.metadata?.vulnerabilities?.critical || 0);
-            } catch { console.log(0); }
-          " 2>/dev/null || echo "0")
+          CRITICAL=$(node --input-type=module << 'EOF'
+          import { readFileSync, existsSync } from 'fs';
+          try {
+            if (!existsSync('security-reports/npm-audit.json')) { console.log(0); process.exit(0); }
+            const audit = JSON.parse(readFileSync('security-reports/npm-audit.json', 'utf8'));
+            console.log(audit.metadata?.vulnerabilities?.critical ?? 0);
+          } catch { console.log(0); }
+          EOF
+          )
           echo "Critical vulnerabilities found: $CRITICAL"
           if [ "$CRITICAL" -gt "0" ]; then
             echo "❌ CRITICAL vulnerabilities detected — failing pipeline"

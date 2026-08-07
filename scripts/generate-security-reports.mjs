@@ -6,16 +6,16 @@
 import { writeFileSync, mkdirSync, readFileSync, existsSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import { createRequire } from "node:module";
-
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = resolve(__dirname, "..");
 const outDir = resolve(root, "Vulnerability Test Results");
 mkdirSync(outDir, { recursive: true });
 
-const require = createRequire(import.meta.url);
-let ExcelJS;
-try { ExcelJS = require("exceljs"); } catch { ExcelJS = null; }
+let ExcelJS = null;
+try {
+  const mod = await import("exceljs");
+  ExcelJS = mod.default ?? mod;
+} catch { /* exceljs not available — skip Excel output */ }
 
 const now = new Date().toISOString();
 const apiUrl = process.env.TEST_API_URL || "http://localhost:8787";
