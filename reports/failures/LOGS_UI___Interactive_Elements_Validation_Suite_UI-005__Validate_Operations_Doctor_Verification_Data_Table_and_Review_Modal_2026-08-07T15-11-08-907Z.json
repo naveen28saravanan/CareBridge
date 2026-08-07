@@ -1,8 +1,0 @@
-{
-  "testTitle": "UI & Interactive Elements Validation Suite UI-005: Validate Operations Doctor Verification Data Table and Review Modal",
-  "error": "expected false to be true",
-  "stack": "AssertionError: expected false to be true\n    at Context.<anonymous> (file:///C:/Users/navee/Downloads/CareBridge-One-Naveen/carebridge-one/tests/ui.test.js:78:33)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
-  "currentUrl": "http://localhost:4173/",
-  "consoleLogs": [],
-  "timestamp": "2026-08-07T15-11-08-907Z"
-}

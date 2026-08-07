@@ -1,8 +1,0 @@
-{
-  "testTitle": "Dynamic Form Validation & Route Discovery Suite FORM-DYN-006: Dynamic validation of Doctor Prescription Builder form",
-  "error": "Waiting for element to be located By(xpath, //button[contains(text(), 'Add item')])\nWait timed out after 10236ms",
-  "stack": "TimeoutError: Waiting for element to be located By(xpath, //button[contains(text(), 'Add item')])\nWait timed out after 10236ms\n    at C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\node_modules\\selenium-webdriver\\lib\\webdriver.js:929:22\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
-  "currentUrl": "http://localhost:4173/",
-  "consoleLogs": [],
-  "timestamp": "2026-08-07T15-03-58-301Z"
-}
