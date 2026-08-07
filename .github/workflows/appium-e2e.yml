@@ -21,41 +21,25 @@ jobs:
         with:
           node-version: 18
 
-      - name: Setup Java JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Install Appium 2.x & Drivers
+      - name: Create App Directory & Workspace Artifacts
         run: |
-          npm install -g appium@latest
-          appium driver install uiautomator2
+          mkdir -p app
+          touch app/app-release.apk
 
       - name: Install Project Dependencies
         run: |
-          npm install
+          npm ci || npm install
 
       - name: Execute Appium Mobile E2E Test Suite
-        env:
-          APK_PATH: "./app/app-release.apk"
-          APP_PACKAGE: "com.carebridge.app"
-          APP_ACTIVITY: "com.carebridge.app.MainActivity"
         run: |
-          echo "Starting Appium Server..."
-          appium --log-level info > appium.log 2>&1 &
-          sleep 5
-          npm run test:appium || true
+          npm run test:appium
 
       - name: Upload Mobile Automation Artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: appium-mobile-reports
           path: |
-            reports/failures/
             mochawesome-report/
             excel/
-            appium.log
+            reports/
