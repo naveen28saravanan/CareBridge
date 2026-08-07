@@ -21,16 +21,21 @@ jobs:
         with:
           node-version: 18
 
-      - name: Create App Directory & Workspace Artifacts
-        run: |
-          mkdir -p app
-          touch app/app-release.apk
+      - name: Setup Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
-      - name: Install Project Dependencies
-        run: |
-          npm ci || npm install
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
 
-      - name: Execute Appium Mobile E2E Test Suite
+      - name: Build Android Web & Capacitor Assets
+        run: |
+          npm ci
+          npm run build
+
+      - name: Execute Appium Mobile E2E Test Suite (Strict Assertion Mode)
         run: |
           npm run test:appium
 
