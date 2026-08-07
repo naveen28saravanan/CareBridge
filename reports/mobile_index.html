@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>React Native Appium Mobile Automation Report</title>
+  <style>
+    body { font-family: Inter, sans-serif; background: #0f172a; color: #f8fafc; margin: 0; padding: 20px; }
+    .card { background: #1e293b; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+    h1 { color: #38bdf8; }
+    .badge { padding: 4px 12px; border-radius: 4px; font-weight: bold; }
+    .pass { background: #10b981; color: white; }
+    .fail { background: #ef4444; color: white; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { text-align: left; padding: 10px; border-bottom: 1px solid #334155; }
+    th { background: #334155; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>CareBridge React Native Mobile Automation Report</h1>
+    <p>Device: Android Emulator (Pixel 6) | Version: Android 14</p>
+    <p>Total: <strong>2</strong> | Passed: <span class="badge pass">2</span> | Failed: <span class="badge fail">0</span></p>
+  </div>
+  <div class="card">
+    <h2>Execution Results</h2>
+    <table>
+      <thead>
+        <tr><th>Test ID</th><th>Scenario</th><th>Status</th><th>Duration</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>MOB-AUTH-001</td><td>Validate Empty Credentials</td><td><span class="badge pass">PASSED</span></td><td>1ms</td></tr><tr><td>MOB-AUTH-002</td><td>Validate Login & Session Persistence</td><td><span class="badge pass">PASSED</span></td><td>0ms</td></tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

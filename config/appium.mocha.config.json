@@ -1,0 +1,17 @@
+{
+  "diff": true,
+  "extension": ["js"],
+  "package": "./package.json",
+  "reporter": "mochawesome",
+  "reporter-option": [
+    "reportDir=mochawesome-report",
+    "reportFilename=appium_mochawesome",
+    "quiet=false",
+    "overwrite=true",
+    "html=true",
+    "json=true"
+  ],
+  "slow": "75",
+  "timeout": "120000",
+  "ui": "bdd"
+}

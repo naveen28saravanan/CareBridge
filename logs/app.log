@@ -2049,3 +2049,8 @@ Wait timed out after 10297ms)
 [2026-08-07 21:16:23] [INFO]: ================================================================
 [2026-08-07 21:16:23] [INFO]:    CAREBRIDGE E2E ENTERPRISE AUTOMATION SUITE FINISHED          
 [2026-08-07 21:16:23] [INFO]: ================================================================
+[2026-08-07 21:43:24] [INFO]: [AI Mobile Scanner] Scanning React Native workspace source code for interactive widgets...
+[2026-08-07 21:43:24] [INFO]: [AI Mobile Scanner] Discovered 151 interactive React Native widgets.
+[2026-08-07 21:43:24] [INFO]: [AI Mobile Scanner] Generating automated test scenarios from discovered widgets...
+[2026-08-07 21:43:24] [INFO]: Excel Mobile E2E Report saved to: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\excel\React_native_E2E_Report.xlsx
+[2026-08-07 21:43:24] [INFO]: HTML Mobile Report saved to: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\mobile_index.html
