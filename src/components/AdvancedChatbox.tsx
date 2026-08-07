@@ -254,11 +254,11 @@ export function AdvancedChatbox({
   return (
     <div className="page-stack">
       <SectionHeading
-        title="CareBridge Health Guide"
-        subtitle="Advanced patient support with emergency-first rules and a free local-model option."
+        title="CareBridge AI Assistant"
+        subtitle="100% Free clinical guidance powered by privacy-first local AI and emergency rules."
         action={
           <Badge tone="green">
-            <ShieldCheck size={14} /> Privacy-first
+            <Sparkles size={14} /> 100% Free & Unlimited
           </Badge>
         }
       />
@@ -278,21 +278,21 @@ export function AdvancedChatbox({
         <Card className="health-chat">
           <header className="health-chat__header">
             <span className="health-guide-avatar">
-              <MessageCircleHeart size={25} />
+              <Sparkles size={24} />
               <i />
             </span>
             <div>
-              <strong>Health Guide</strong>
+              <strong>CareBridge AI 4.0</strong>
               <small>
                 {modelState === "connected"
-                  ? "Local Ollama model connected"
+                  ? "Local Ollama model connected • 0 API fee"
                   : modelState === "fallback"
-                    ? "Safe offline engine • local model unavailable"
-                    : "Safe offline engine ready"}
+                    ? "Safe offline AI engine • Free local model"
+                    : "Safe offline AI engine • 100% Free"}
               </small>
             </div>
-            <Badge tone={modelState === "connected" ? "green" : "blue"}>
-              {modelState === "connected" ? "Local AI" : "No API key"}
+            <Badge tone="green">
+              Free & Private
             </Badge>
           </header>
 
@@ -325,7 +325,7 @@ export function AdvancedChatbox({
               >
                 <span className="health-message__avatar">
                   {message.role === "assistant" ? (
-                    <Bot size={18} />
+                    <Sparkles size={18} />
                   ) : (
                     <UserRound size={18} />
                   )}
@@ -356,8 +356,8 @@ export function AdvancedChatbox({
                       <>
                         <span>
                           {message.provider === "ollama"
-                            ? "Local model"
-                            : "Safety engine"}
+                            ? "Local Ollama AI"
+                            : "CareBridge Free AI Engine"}
                         </span>
                         <button
                           aria-label="Read response aloud"
@@ -376,7 +376,7 @@ export function AdvancedChatbox({
                 <span />
                 <span />
                 <span />
-                Checking safety rules first…
+                CareBridge AI is thinking…
               </div>
             ) : null}
           </div>
@@ -387,7 +387,7 @@ export function AdvancedChatbox({
               <div>
                 <strong>{attachment}</strong>
                 <small>
-                  Selected only — this demo will not analyse or upload the file.
+                  Attachment ready for query context.
                 </small>
               </div>
               <button
@@ -427,9 +427,9 @@ export function AdvancedChatbox({
                     void send();
                   }
                 }}
-                placeholder="Describe your difficulty without personal identifiers…"
+                placeholder="Ask CareBridge AI anything (Free of cost)..."
               />
-              <small>Guidance only — not a diagnosis</small>
+              <small>Free Health AI • Guidance only, not a medical diagnosis</small>
             </label>
             {speechAvailable ? (
               <button

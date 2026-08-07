@@ -1,0 +1,920 @@
+{
+  "stats": {
+    "suites": 5,
+    "tests": 23,
+    "passes": 4,
+    "pending": 0,
+    "failures": 19,
+    "start": "2026-08-03T04:09:39.676Z",
+    "end": "2026-08-03T04:13:29.926Z",
+    "duration": 230250,
+    "testsRegistered": 23,
+    "passPercent": 17.391304347826086,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "533b3983-2f80-4b2d-b711-81de971faa48",
+      "title": "",
+      "fullFile": "",
+      "file": "",
+      "beforeHooks": [
+        {
+          "title": "\"before all\" hook: beforeAll in \"{root}\"",
+          "fullTitle": "\"before all\" hook: beforeAll in \"{root}\"",
+          "timedOut": false,
+          "duration": 7,
+          "state": null,
+          "speed": null,
+          "pass": false,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "setSuiteStartTime(new Date());\nlogger.info('================================================================');\nlogger.info('   CAREBRIDGE E2E ENTERPRISE AUTOMATION SUITE STARTED           ');\nlogger.info(`   Target Base URL: ${config.baseUrl}`);\nlogger.info(`   Browser: ${config.browser} (Headless: ${config.headless})`);\nlogger.info('================================================================');",
+          "err": {},
+          "uuid": "a24215e0-b5af-4e0e-ac13-d87287f719d7",
+          "parentUUID": "533b3983-2f80-4b2d-b711-81de971faa48",
+          "isHook": true,
+          "skipped": false
+        },
+        {
+          "title": "\"before each\" hook: beforeEach in \"{root}\"",
+          "fullTitle": "\"before each\" hook: beforeEach in \"{root}\"",
+          "timedOut": false,
+          "duration": 0,
+          "state": null,
+          "speed": null,
+          "pass": false,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "this.testStartTime = new Date();",
+          "err": {},
+          "uuid": "ce9f2fba-62d2-476b-a880-b32314ac484e",
+          "parentUUID": "533b3983-2f80-4b2d-b711-81de971faa48",
+          "isHook": true,
+          "skipped": false
+        }
+      ],
+      "afterHooks": [
+        {
+          "title": "\"after all\" hook: afterAll in \"{root}\"",
+          "fullTitle": "\"after all\" hook: afterAll in \"{root}\"",
+          "timedOut": false,
+          "duration": 208,
+          "state": null,
+          "speed": null,
+          "pass": false,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "logger.info('Closing driver instance...');\nawait driverManager.quitDriver();\nlogger.info('Generating final Excel report (E2E_Report.xlsx)...');\ntry {\n  const reportPath = await generateExcelReport();\n  logger.info(`E2E_Report.xlsx successfully saved to: ${reportPath}`);\n} catch (err) {\n  logger.error(`Error generating Excel report: ${err.message}`);\n}\nlogger.info('================================================================');\nlogger.info('   CAREBRIDGE E2E ENTERPRISE AUTOMATION SUITE FINISHED          ');\nlogger.info('================================================================');",
+          "err": {},
+          "uuid": "35383a1f-738d-4b00-9737-61d5b7052e23",
+          "parentUUID": "533b3983-2f80-4b2d-b711-81de971faa48",
+          "isHook": true,
+          "skipped": false
+        },
+        {
+          "title": "\"after each\" hook: afterEach in \"{root}\"",
+          "fullTitle": "\"after each\" hook: afterEach in \"{root}\"",
+          "timedOut": false,
+          "duration": 356,
+          "state": null,
+          "speed": null,
+          "pass": false,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "const testTitle = this.currentTest.fullTitle();\nconst duration = Math.round((new Date() - this.testStartTime) / 1000);\nconst testState = this.currentTest.state === 'passed' ? 'PASSED' : this.currentTest.state === 'failed' ? 'FAILED' : 'SKIPPED';\n\n// Extract module name from suite\nconst moduleName = this.currentTest.parent ? this.currentTest.parent.title : 'General';\nconst testId = `TC-${Math.floor(1000 + Math.random() * 9000)}`;\nif (testState === 'FAILED') {\n  const driver = driverManager.driver;\n  const error = this.currentTest.err || new Error('Test failed with unknown error');\n  await handleTestFailure(driver, testTitle, error, config.browser);\n  logStep(testTitle, 'Test Execution', 'FAILED', error.message);\n} else {\n  logStep(testTitle, 'Test Execution', 'PASSED', 'Completed successfully');\n}\nrecordTestCaseResult({\n  id: testId,\n  module: moduleName,\n  scenarioName: this.currentTest.title,\n  browser: config.browser,\n  status: testState,\n  startTime: this.testStartTime.toLocaleTimeString(),\n  endTime: new Date().toLocaleTimeString(),\n  duration: `${duration}s`\n});",
+          "err": {},
+          "uuid": "fe19844d-c646-4402-9948-8d700111e168",
+          "parentUUID": "533b3983-2f80-4b2d-b711-81de971faa48",
+          "isHook": true,
+          "skipped": false
+        }
+      ],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "7586c2d9-491f-4c6f-8141-574e3caf0624",
+          "title": "Authentication & Session Management Suite",
+          "fullFile": "C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\tests\\auth.test.js",
+          "file": "\\tests\\auth.test.js",
+          "beforeHooks": [
+            {
+              "title": "\"before all\" hook in \"Authentication & Session Management Suite\"",
+              "fullTitle": "Authentication & Session Management Suite \"before all\" hook in \"Authentication & Session Management Suite\"",
+              "timedOut": false,
+              "duration": 739,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "driver = await driverManager.getDriver(config.browser, config.headless);\nauthPage = new AuthPage(driver);\npatientPage = new PatientWorkspacePage(driver);",
+              "err": {},
+              "uuid": "8e41b95b-d15a-4292-981f-dc65b6bf1867",
+              "parentUUID": "7586c2d9-491f-4c6f-8141-574e3caf0624",
+              "isHook": true,
+              "skipped": false
+            },
+            {
+              "title": "\"before each\" hook in \"Authentication & Session Management Suite\"",
+              "fullTitle": "Authentication & Session Management Suite \"before each\" hook in \"Authentication & Session Management Suite\"",
+              "timedOut": false,
+              "duration": 1137,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await authPage.open();",
+              "err": {},
+              "uuid": "cd0117b2-20f8-4a28-9951-c32d44cf7d75",
+              "parentUUID": "7586c2d9-491f-4c6f-8141-574e3caf0624",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "AUTH-001: Validate login with empty email field",
+              "fullTitle": "Authentication & Session Management Suite AUTH-001: Validate login with empty email field",
+              "timedOut": false,
+              "duration": 3343,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await authPage.login('', 'Password123!', 'patient');\nconst isAuthStillVisible = await authPage.isAuthScreenDisplayed();\nexpect(isAuthStillVisible).to.be.true;",
+              "err": {},
+              "uuid": "f5525b4d-af69-493e-9a50-e3b790552edc",
+              "parentUUID": "7586c2d9-491f-4c6f-8141-574e3caf0624",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "AUTH-002: Validate login with empty password field",
+              "fullTitle": "Authentication & Session Management Suite AUTH-002: Validate login with empty password field",
+              "timedOut": false,
+              "duration": 3241,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await authPage.login('patient@carebridge.demo', '', 'patient');\nconst isAuthStillVisible = await authPage.isAuthScreenDisplayed();\nexpect(isAuthStillVisible).to.be.true;",
+              "err": {},
+              "uuid": "667026f1-56cc-4f0a-8932-e87458d7a732",
+              "parentUUID": "7586c2d9-491f-4c6f-8141-574e3caf0624",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "AUTH-003: Validate login with invalid credentials",
+              "fullTitle": "Authentication & Session Management Suite AUTH-003: Validate login with invalid credentials",
+              "timedOut": false,
+              "duration": 8595,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "await authPage.login('wrong@carebridge.demo', 'WrongPassword123', 'patient');\nconst isAuthStillVisible = await authPage.isAuthScreenDisplayed();\nexpect(isAuthStillVisible).to.be.true;",
+              "err": {
+                "message": "AssertionError: expected false to be true",
+                "estack": "AssertionError: expected false to be true\n    at Context.<anonymous> (file:///C:/Users/navee/Downloads/CareBridge-One-Naveen/carebridge-one/tests/auth.test.js:41:37)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+                "diff": "- false\n+ true\n"
+              },
+              "uuid": "8341e487-daa3-49b7-9a33-8e20b08494e7",
+              "parentUUID": "7586c2d9-491f-4c6f-8141-574e3caf0624",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "AUTH-004: Validate successful Patient authentication flow",
+              "fullTitle": "Authentication & Session Management Suite AUTH-004: Validate successful Patient authentication flow",
+              "timedOut": false,
+              "duration": 10249,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const patientUser = authData.validUsers.patient;\nawait authPage.login(patientUser.email, patientUser.password, 'patient');\nconst isWorkspaceVisible = await patientPage.isWorkspaceDisplayed();\nexpect(isWorkspaceVisible).to.be.true;",
+              "err": {
+                "message": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10244ms",
+                "estack": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10244ms\n    at C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\node_modules\\selenium-webdriver\\lib\\webdriver.js:929:22\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+                "diff": null
+              },
+              "uuid": "c643ee85-d466-41ab-807a-5496dcc0bb4e",
+              "parentUUID": "7586c2d9-491f-4c6f-8141-574e3caf0624",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "AUTH-005: Validate Patient logout flow",
+              "fullTitle": "Authentication & Session Management Suite AUTH-005: Validate Patient logout flow",
+              "timedOut": false,
+              "duration": 10290,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const patientUser = authData.validUsers.patient;\nawait authPage.login(patientUser.email, patientUser.password, 'patient');\nawait patientPage.isWorkspaceDisplayed();\nawait patientPage.signOut();\nconst isAuthVisible = await authPage.isAuthScreenDisplayed();\nexpect(isAuthVisible).to.be.true;",
+              "err": {
+                "message": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10290ms",
+                "estack": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10290ms\n    at C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\node_modules\\selenium-webdriver\\lib\\webdriver.js:929:22\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+                "diff": null
+              },
+              "uuid": "d27303a5-49b5-4fe9-9f07-a86bc6a07898",
+              "parentUUID": "7586c2d9-491f-4c6f-8141-574e3caf0624",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "AUTH-006: Validate session persistence on page refresh",
+              "fullTitle": "Authentication & Session Management Suite AUTH-006: Validate session persistence on page refresh",
+              "timedOut": false,
+              "duration": 10280,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const patientUser = authData.validUsers.patient;\nawait authPage.login(patientUser.email, patientUser.password, 'patient');\nawait patientPage.isWorkspaceDisplayed();\n\nawait patientPage.refreshPage();\nconst isWorkspaceStillVisible = await patientPage.isWorkspaceDisplayed();\nexpect(isWorkspaceStillVisible).to.be.true;\n// Clean up session\nawait patientPage.signOut();",
+              "err": {
+                "message": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10279ms",
+                "estack": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10279ms\n    at C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\node_modules\\selenium-webdriver\\lib\\webdriver.js:929:22\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+                "diff": null
+              },
+              "uuid": "5890c813-03fb-456c-bd92-58c2af6bc6da",
+              "parentUUID": "7586c2d9-491f-4c6f-8141-574e3caf0624",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "f5525b4d-af69-493e-9a50-e3b790552edc",
+            "667026f1-56cc-4f0a-8932-e87458d7a732"
+          ],
+          "failures": [
+            "8341e487-daa3-49b7-9a33-8e20b08494e7",
+            "c643ee85-d466-41ab-807a-5496dcc0bb4e",
+            "d27303a5-49b5-4fe9-9f07-a86bc6a07898",
+            "5890c813-03fb-456c-bd92-58c2af6bc6da"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 45998,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 60000
+        },
+        {
+          "uuid": "843413cc-b84f-45fe-83ea-d5bad0d334a5",
+          "title": "Dynamic Form Validation & Route Discovery Suite",
+          "fullFile": "C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\tests\\dynamicForms.test.js",
+          "file": "\\tests\\dynamicForms.test.js",
+          "beforeHooks": [
+            {
+              "title": "\"before all\" hook in \"Dynamic Form Validation & Route Discovery Suite\"",
+              "fullTitle": "Dynamic Form Validation & Route Discovery Suite \"before all\" hook in \"Dynamic Form Validation & Route Discovery Suite\"",
+              "timedOut": false,
+              "duration": 16,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "driver = await driverManager.getDriver(config.browser, config.headless);\nauthPage = new AuthPage(driver);\npatientPage = new PatientWorkspacePage(driver);\ndoctorPage = new DoctorWorkspacePage(driver);\nopsPage = new OperationsWorkspacePage(driver);\n\n// Auto-discover React routes, forms, and input rules dynamically\ndiscovery = discoverRoutesAndForms();",
+              "err": {},
+              "uuid": "9b838ab9-abc8-475a-be80-ce5b5d064753",
+              "parentUUID": "843413cc-b84f-45fe-83ea-d5bad0d334a5",
+              "isHook": true,
+              "skipped": false
+            },
+            {
+              "title": "\"before each\" hook in \"Dynamic Form Validation & Route Discovery Suite\"",
+              "fullTitle": "Dynamic Form Validation & Route Discovery Suite \"before each\" hook in \"Dynamic Form Validation & Route Discovery Suite\"",
+              "timedOut": false,
+              "duration": 1135,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await authPage.open();",
+              "err": {},
+              "uuid": "ac0bf17c-1d85-4bf2-905c-bfa8fbd7708d",
+              "parentUUID": "843413cc-b84f-45fe-83ea-d5bad0d334a5",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "FORM-DYN-001: Validate discovered React routes configuration exists",
+              "fullTitle": "Dynamic Form Validation & Route Discovery Suite FORM-DYN-001: Validate discovered React routes configuration exists",
+              "timedOut": false,
+              "duration": 2,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "expect(discovery.routes.roles).to.have.property('patient');\nexpect(discovery.routes.roles).to.have.property('doctor');\nexpect(discovery.routes.roles).to.have.property('operations');",
+              "err": {},
+              "uuid": "3b407844-773d-4a76-947d-a31c1eaf5e7d",
+              "parentUUID": "843413cc-b84f-45fe-83ea-d5bad0d334a5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "FORM-DYN-002: Dynamic email input format validation on Signup form",
+              "fullTitle": "Dynamic Form Validation & Route Discovery Suite FORM-DYN-002: Dynamic email input format validation on Signup form",
+              "timedOut": false,
+              "duration": 10270,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const invalidEmails = discovery.formData.emailValidation.invalid;\nawait authPage.selectMode('signup');\n\nfor (const invalidEmail of invalidEmails) {\n  await authPage.register('Test User', invalidEmail, 'Password123!', 'Password123!');\n  const isAuthVisible = await authPage.isAuthScreenDisplayed();\n  expect(isAuthVisible).to.be.true;\n}",
+              "err": {
+                "message": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Create account')])\nWait timed out after 10269ms",
+                "estack": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Create account')])\nWait timed out after 10269ms\n    at C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\node_modules\\selenium-webdriver\\lib\\webdriver.js:929:22\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+                "diff": null
+              },
+              "uuid": "1c5b349d-7a3b-4a96-9c15-b444186b8d94",
+              "parentUUID": "843413cc-b84f-45fe-83ea-d5bad0d334a5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "FORM-DYN-003: Dynamic password mismatch validation on Signup form",
+              "fullTitle": "Dynamic Form Validation & Route Discovery Suite FORM-DYN-003: Dynamic password mismatch validation on Signup form",
+              "timedOut": false,
+              "duration": 10290,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "await authPage.selectMode('signup');\nawait authPage.register('Test User', 'valid@carebridge.demo', 'Password123!', 'MismatchPassword!');\nconst errorMsg = await authPage.getErrorMessage();\nexpect(errorMsg).to.include('Passwords do not match');",
+              "err": {
+                "message": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Create account')])\nWait timed out after 10290ms",
+                "estack": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Create account')])\nWait timed out after 10290ms\n    at C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\node_modules\\selenium-webdriver\\lib\\webdriver.js:929:22\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+                "diff": null
+              },
+              "uuid": "663ee0f5-789e-4909-87a3-428fb85bc48a",
+              "parentUUID": "843413cc-b84f-45fe-83ea-d5bad0d334a5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "FORM-DYN-004: Dynamic validation of Patient Symptom Intake form",
+              "fullTitle": "Dynamic Form Validation & Route Discovery Suite FORM-DYN-004: Dynamic validation of Patient Symptom Intake form",
+              "timedOut": false,
+              "duration": 10287,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "await authPage.login(config.users.patient.email, config.users.patient.password, 'patient');\nawait patientPage.isWorkspaceDisplayed();\n// Run dynamic symptom intake check\nconst validData = discovery.formData.symptomIntake.valid;\nawait patientPage.runSymptomInsights(validData.symptom);\n\nconst isVisible = await patientPage.isWorkspaceDisplayed();\nexpect(isVisible).to.be.true;\nawait patientPage.signOut();",
+              "err": {
+                "message": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10286ms",
+                "estack": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10286ms\n    at C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\node_modules\\selenium-webdriver\\lib\\webdriver.js:929:22\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+                "diff": null
+              },
+              "uuid": "fe6bd19f-4a0b-4d1f-9ff9-15e289ba0b13",
+              "parentUUID": "843413cc-b84f-45fe-83ea-d5bad0d334a5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "FORM-DYN-005: Dynamic validation of Doctor Clinical Notes form",
+              "fullTitle": "Dynamic Form Validation & Route Discovery Suite FORM-DYN-005: Dynamic validation of Doctor Clinical Notes form",
+              "timedOut": false,
+              "duration": 10278,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "await authPage.login(config.users.doctor.email, config.users.doctor.password, 'doctor');\nawait doctorPage.isWorkspaceDisplayed();\nconst noteData = discovery.formData.clinicalNote;\nawait doctorPage.saveClinicalNote(noteData.symptoms, noteData.assessment, noteData.instructions);\nconst isVisible = await doctorPage.isWorkspaceDisplayed();\nexpect(isVisible).to.be.true;\nawait doctorPage.signOut();",
+              "err": {
+                "message": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10277ms",
+                "estack": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10277ms\n    at C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\node_modules\\selenium-webdriver\\lib\\webdriver.js:929:22\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+                "diff": null
+              },
+              "uuid": "60d06353-f8fa-47de-939d-455bd685148d",
+              "parentUUID": "843413cc-b84f-45fe-83ea-d5bad0d334a5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "FORM-DYN-006: Dynamic validation of Doctor Prescription Builder form",
+              "fullTitle": "Dynamic Form Validation & Route Discovery Suite FORM-DYN-006: Dynamic validation of Doctor Prescription Builder form",
+              "timedOut": false,
+              "duration": 10348,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "await authPage.login(config.users.doctor.email, config.users.doctor.password, 'doctor');\nawait doctorPage.isWorkspaceDisplayed();\nconst rxData = discovery.formData.prescription;\nawait doctorPage.createPrescription(rxData.medicine, rxData.strength, rxData.instructions);\nconst isVisible = await doctorPage.isWorkspaceDisplayed();\nexpect(isVisible).to.be.true;\nawait doctorPage.signOut();",
+              "err": {
+                "message": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10346ms",
+                "estack": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10346ms\n    at C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\node_modules\\selenium-webdriver\\lib\\webdriver.js:929:22\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+                "diff": null
+              },
+              "uuid": "696164d3-1298-48ef-b868-9872a9dda0fc",
+              "parentUUID": "843413cc-b84f-45fe-83ea-d5bad0d334a5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "FORM-DYN-007: Dynamic validation of Operations Hospital ICU form",
+              "fullTitle": "Dynamic Form Validation & Route Discovery Suite FORM-DYN-007: Dynamic validation of Operations Hospital ICU form",
+              "timedOut": false,
+              "duration": 10243,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "await authPage.login(config.users.operations.email, config.users.operations.password, 'operations');\nawait opsPage.isWorkspaceDisplayed();\nawait opsPage.updateHospitalAvailability('City General Hospital', 15, 8);\nconst isVisible = await opsPage.isWorkspaceDisplayed();\nexpect(isVisible).to.be.true;\nawait opsPage.signOut();",
+              "err": {
+                "message": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10240ms",
+                "estack": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10240ms\n    at C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\node_modules\\selenium-webdriver\\lib\\webdriver.js:929:22\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+                "diff": null
+              },
+              "uuid": "8dc7036b-0177-4f0a-86eb-2da44fc48560",
+              "parentUUID": "843413cc-b84f-45fe-83ea-d5bad0d334a5",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "3b407844-773d-4a76-947d-a31c1eaf5e7d"
+          ],
+          "failures": [
+            "1c5b349d-7a3b-4a96-9c15-b444186b8d94",
+            "663ee0f5-789e-4909-87a3-428fb85bc48a",
+            "fe6bd19f-4a0b-4d1f-9ff9-15e289ba0b13",
+            "60d06353-f8fa-47de-939d-455bd685148d",
+            "696164d3-1298-48ef-b868-9872a9dda0fc",
+            "8dc7036b-0177-4f0a-86eb-2da44fc48560"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 61718,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 60000
+        },
+        {
+          "uuid": "755e4373-b4c1-46c1-ad99-fd74bd5bd72a",
+          "title": "End-to-End Multi-Role Healthcare Workflow Suite",
+          "fullFile": "C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\tests\\e2eWorkflow.test.js",
+          "file": "\\tests\\e2eWorkflow.test.js",
+          "beforeHooks": [
+            {
+              "title": "\"before all\" hook in \"End-to-End Multi-Role Healthcare Workflow Suite\"",
+              "fullTitle": "End-to-End Multi-Role Healthcare Workflow Suite \"before all\" hook in \"End-to-End Multi-Role Healthcare Workflow Suite\"",
+              "timedOut": false,
+              "duration": 0,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "driver = await driverManager.getDriver(config.browser, config.headless);\nauthPage = new AuthPage(driver);\npatientPage = new PatientWorkspacePage(driver);\ndoctorPage = new DoctorWorkspacePage(driver);\nopsPage = new OperationsWorkspacePage(driver);",
+              "err": {},
+              "uuid": "9eaf5081-0f68-4df4-9de8-b0cf1518e7e7",
+              "parentUUID": "755e4373-b4c1-46c1-ad99-fd74bd5bd72a",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "E2E-001: Execute complete End-to-End patient consultation workflow",
+              "fullTitle": "End-to-End Multi-Role Healthcare Workflow Suite E2E-001: Execute complete End-to-End patient consultation workflow",
+              "timedOut": false,
+              "duration": 11425,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "// 1. Patient Login & Booking\nawait authPage.open();\nawait authPage.login(config.users.patient.email, config.users.patient.password, 'patient');\nexpect(await patientPage.isWorkspaceDisplayed()).to.be.true;\nawait patientPage.bookAppointment('Dr. Ananya Kumar', '10:30 AM');\nawait patientPage.runSymptomInsights('High fever and sore throat since yesterday');\nawait patientPage.signOut();\n// 2. Doctor Login & Clinical Documentation\nawait authPage.login(config.users.doctor.email, config.users.doctor.password, 'doctor');\nexpect(await doctorPage.isWorkspaceDisplayed()).to.be.true;\nawait doctorPage.saveClinicalNote(\n  'Patient reports high fever and sore throat for 1 day.',\n  'Acute pharyngitis, mild URI.',\n  'Paracetamol 650mg, salt water gargles, hydration.'\n);\nawait doctorPage.createPrescription('Paracetamol', '650 mg', '1 tablet after meals as needed');\nawait doctorPage.signOut();\n// 3. Operations Admin Login & Verification Audit\nawait authPage.login(config.users.operations.email, config.users.operations.password, 'operations');\nexpect(await opsPage.isWorkspaceDisplayed()).to.be.true;\nawait opsPage.approveDoctorVerification('Dr. Arjun Mehta');\nawait opsPage.updateHospitalAvailability('City General Hospital', 18, 10);\nawait opsPage.signOut();\n// Final Assertion: Returned to clean Auth Screen\nexpect(await authPage.isAuthScreenDisplayed()).to.be.true;",
+              "err": {
+                "message": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10360ms",
+                "estack": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10360ms\n    at C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\node_modules\\selenium-webdriver\\lib\\webdriver.js:929:22\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+                "diff": null
+              },
+              "uuid": "e6021af3-597e-45c8-84d4-dd971aab1de4",
+              "parentUUID": "755e4373-b4c1-46c1-ad99-fd74bd5bd72a",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "e6021af3-597e-45c8-84d4-dd971aab1de4"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 11425,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 60000
+        },
+        {
+          "uuid": "f0519f73-cc49-4a52-a9ef-29320ae60cb3",
+          "title": "Navigation & Internal Routing Validation Suite",
+          "fullFile": "C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\tests\\navigation.test.js",
+          "file": "\\tests\\navigation.test.js",
+          "beforeHooks": [
+            {
+              "title": "\"before all\" hook in \"Navigation & Internal Routing Validation Suite\"",
+              "fullTitle": "Navigation & Internal Routing Validation Suite \"before all\" hook in \"Navigation & Internal Routing Validation Suite\"",
+              "timedOut": false,
+              "duration": 0,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "driver = await driverManager.getDriver(config.browser, config.headless);\nauthPage = new AuthPage(driver);\npatientPage = new PatientWorkspacePage(driver);\ndoctorPage = new DoctorWorkspacePage(driver);\nopsPage = new OperationsWorkspacePage(driver);",
+              "err": {},
+              "uuid": "8792a919-9410-46af-ad08-0b7fbd3c6073",
+              "parentUUID": "f0519f73-cc49-4a52-a9ef-29320ae60cb3",
+              "isHook": true,
+              "skipped": false
+            },
+            {
+              "title": "\"before each\" hook in \"Navigation & Internal Routing Validation Suite\"",
+              "fullTitle": "Navigation & Internal Routing Validation Suite \"before each\" hook in \"Navigation & Internal Routing Validation Suite\"",
+              "timedOut": false,
+              "duration": 1106,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await authPage.open();",
+              "err": {},
+              "uuid": "93006c95-de40-4071-b7e9-e5ad468b9995",
+              "parentUUID": "f0519f73-cc49-4a52-a9ef-29320ae60cb3",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "NAV-001: Validate navigation through all Patient workspace links",
+              "fullTitle": "Navigation & Internal Routing Validation Suite NAV-001: Validate navigation through all Patient workspace links",
+              "timedOut": false,
+              "duration": 10253,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "await authPage.login(config.users.patient.email, config.users.patient.password, 'patient');\nawait patientPage.isWorkspaceDisplayed();\nconst patientRoutes = routesData.roles.patient.routes;\nfor (const route of patientRoutes.slice(0, 5)) {\n  await patientPage.navigateToTab(route.id);\n  const isVisible = await patientPage.isWorkspaceDisplayed();\n  expect(isVisible).to.be.true;\n}\nawait patientPage.signOut();",
+              "err": {
+                "message": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10251ms",
+                "estack": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10251ms\n    at C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\node_modules\\selenium-webdriver\\lib\\webdriver.js:929:22\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+                "diff": null
+              },
+              "uuid": "46b52e3b-6298-4343-9b4c-02e0d20536d4",
+              "parentUUID": "f0519f73-cc49-4a52-a9ef-29320ae60cb3",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "NAV-002: Validate navigation through Doctor workspace tabs",
+              "fullTitle": "Navigation & Internal Routing Validation Suite NAV-002: Validate navigation through Doctor workspace tabs",
+              "timedOut": false,
+              "duration": 10334,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "await authPage.login(config.users.doctor.email, config.users.doctor.password, 'doctor');\nawait doctorPage.isWorkspaceDisplayed();\nconst doctorRoutes = routesData.roles.doctor.routes;\nfor (const route of doctorRoutes.slice(0, 4)) {\n  await doctorPage.navigateToTab(route.id);\n  const isVisible = await doctorPage.isWorkspaceDisplayed();\n  expect(isVisible).to.be.true;\n}\nawait doctorPage.signOut();",
+              "err": {
+                "message": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10332ms",
+                "estack": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10332ms\n    at C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\node_modules\\selenium-webdriver\\lib\\webdriver.js:929:22\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+                "diff": null
+              },
+              "uuid": "21605020-e731-4142-b209-cfbc1658b431",
+              "parentUUID": "f0519f73-cc49-4a52-a9ef-29320ae60cb3",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "NAV-003: Validate navigation through Operations workspace tabs",
+              "fullTitle": "Navigation & Internal Routing Validation Suite NAV-003: Validate navigation through Operations workspace tabs",
+              "timedOut": false,
+              "duration": 10283,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "await authPage.login(config.users.operations.email, config.users.operations.password, 'operations');\nawait opsPage.isWorkspaceDisplayed();\nconst opsRoutes = routesData.roles.operations.routes;\nfor (const route of opsRoutes.slice(0, 4)) {\n  await opsPage.navigateToTab(route.id);\n  const isVisible = await opsPage.isWorkspaceDisplayed();\n  expect(isVisible).to.be.true;\n}\nawait opsPage.signOut();",
+              "err": {
+                "message": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10281ms",
+                "estack": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10281ms\n    at C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\node_modules\\selenium-webdriver\\lib\\webdriver.js:929:22\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+                "diff": null
+              },
+              "uuid": "084f823e-1608-467d-8f3a-502545a68553",
+              "parentUUID": "f0519f73-cc49-4a52-a9ef-29320ae60cb3",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "NAV-004: Validate browser refresh, back, and forward navigation",
+              "fullTitle": "Navigation & Internal Routing Validation Suite NAV-004: Validate browser refresh, back, and forward navigation",
+              "timedOut": false,
+              "duration": 10230,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "await authPage.login(config.users.patient.email, config.users.patient.password, 'patient');\nawait patientPage.isWorkspaceDisplayed();\nawait patientPage.navigateToTab('consult');\nawait patientPage.refreshPage();\nlet isVisible = await patientPage.isWorkspaceDisplayed();\nexpect(isVisible).to.be.true;\nawait patientPage.navigateBack();\nisVisible = await patientPage.isWorkspaceDisplayed();\nexpect(isVisible).to.be.true;\nawait patientPage.navigateForward();\nisVisible = await patientPage.isWorkspaceDisplayed();\nexpect(isVisible).to.be.true;\nawait patientPage.signOut();",
+              "err": {
+                "message": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10228ms",
+                "estack": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10228ms\n    at C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\node_modules\\selenium-webdriver\\lib\\webdriver.js:929:22\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+                "diff": null
+              },
+              "uuid": "42972999-1a06-4ce4-91d5-9af8b95192ce",
+              "parentUUID": "f0519f73-cc49-4a52-a9ef-29320ae60cb3",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "46b52e3b-6298-4343-9b4c-02e0d20536d4",
+            "21605020-e731-4142-b209-cfbc1658b431",
+            "084f823e-1608-467d-8f3a-502545a68553",
+            "42972999-1a06-4ce4-91d5-9af8b95192ce"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 41100,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 60000
+        },
+        {
+          "uuid": "d5909a92-275d-4d05-a66d-686abf61013e",
+          "title": "UI & Interactive Elements Validation Suite",
+          "fullFile": "C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\tests\\ui.test.js",
+          "file": "\\tests\\ui.test.js",
+          "beforeHooks": [
+            {
+              "title": "\"before all\" hook in \"UI & Interactive Elements Validation Suite\"",
+              "fullTitle": "UI & Interactive Elements Validation Suite \"before all\" hook in \"UI & Interactive Elements Validation Suite\"",
+              "timedOut": false,
+              "duration": 0,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "driver = await driverManager.getDriver(config.browser, config.headless);\nauthPage = new AuthPage(driver);\npatientPage = new PatientWorkspacePage(driver);\ndoctorPage = new DoctorWorkspacePage(driver);\nopsPage = new OperationsWorkspacePage(driver);",
+              "err": {},
+              "uuid": "5501e9f9-3c60-4a1c-8762-71bc587add73",
+              "parentUUID": "d5909a92-275d-4d05-a66d-686abf61013e",
+              "isHook": true,
+              "skipped": false
+            },
+            {
+              "title": "\"before each\" hook in \"UI & Interactive Elements Validation Suite\"",
+              "fullTitle": "UI & Interactive Elements Validation Suite \"before each\" hook in \"UI & Interactive Elements Validation Suite\"",
+              "timedOut": false,
+              "duration": 1092,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await authPage.open();",
+              "err": {},
+              "uuid": "36b68ce5-b6a3-4c71-b2b8-fda0ef35e461",
+              "parentUUID": "d5909a92-275d-4d05-a66d-686abf61013e",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "UI-001: Validate Theme Toggle (Dark / Light mode)",
+              "fullTitle": "UI & Interactive Elements Validation Suite UI-001: Validate Theme Toggle (Dark / Light mode)",
+              "timedOut": false,
+              "duration": 5356,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await authPage.toggleTheme();\nawait driver.sleep(300);\nconst htmlTheme = await driver.executeScript('return document.documentElement.dataset.theme;');\nexpect(['dark', 'light']).to.include(htmlTheme);",
+              "err": {},
+              "uuid": "30f77029-a40b-4050-a7a6-1c8b1007b153",
+              "parentUUID": "d5909a92-275d-4d05-a66d-686abf61013e",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "UI-002: Validate Language Selector Dropdown",
+              "fullTitle": "UI & Interactive Elements Validation Suite UI-002: Validate Language Selector Dropdown",
+              "timedOut": false,
+              "duration": 294,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "await authPage.switchLanguage('ta');\nawait driver.sleep(300);\nconst lang = await driver.executeScript('return document.documentElement.lang;');\nexpect(lang).to.equal('ta');",
+              "err": {
+                "message": "InvalidElementStateError: invalid element state\n  (Session info: chrome=151.0.7922.72)",
+                "estack": "InvalidElementStateError: invalid element state\n  (Session info: chrome=151.0.7922.72)\n    at Object.throwDecodedError (node_modules\\selenium-webdriver\\lib\\error.js:523:15)\n    at parseHttpResponse (node_modules\\selenium-webdriver\\lib\\http.js:527:13)\n    at Executor.execute (node_modules\\selenium-webdriver\\lib\\http.js:459:28)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async Driver.execute (node_modules\\selenium-webdriver\\lib\\webdriver.js:745:17)\n    at async SeleniumUtils.type (file:///C:/Users/navee/Downloads/CareBridge-One-Naveen/carebridge-one/utilities/seleniumUtils.js:37:7)\n    at async AuthPage.switchLanguage (file:///C:/Users/navee/Downloads/CareBridge-One-Naveen/carebridge-one/pages/BasePage.js:60:7)\n    at async Context.<anonymous> (file:///C:/Users/navee/Downloads/CareBridge-One-Naveen/carebridge-one/tests/ui.test.js:36:5)",
+                "diff": null
+              },
+              "uuid": "3a030e00-6520-4f87-ac9f-3d0539306c79",
+              "parentUUID": "d5909a92-275d-4d05-a66d-686abf61013e",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "UI-003: Validate Forgot Password Modal open and close",
+              "fullTitle": "UI & Interactive Elements Validation Suite UI-003: Validate Forgot Password Modal open and close",
+              "timedOut": false,
+              "duration": 10254,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "await authPage.openForgotPasswordModal();\nconst isModalOpen = await authPage.isElementVisible('.provider-dialog');\nexpect(isModalOpen).to.be.true;\n// Close modal by clicking back button\nawait authPage.utils.click('.provider-dialog__back');\nawait driver.sleep(300);\nconst isModalClosed = await authPage.isElementVisible('.provider-dialog', 1000);\nexpect(isModalClosed).to.be.false;",
+              "err": {
+                "message": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10253ms",
+                "estack": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10253ms\n    at C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\node_modules\\selenium-webdriver\\lib\\webdriver.js:929:22\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+                "diff": null
+              },
+              "uuid": "44c2f5cc-6d18-4dc2-b092-c3703ebd5ce6",
+              "parentUUID": "d5909a92-275d-4d05-a66d-686abf61013e",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "UI-004: Validate Doctor Search Bar filtering in Patient Workspace",
+              "fullTitle": "UI & Interactive Elements Validation Suite UI-004: Validate Doctor Search Bar filtering in Patient Workspace",
+              "timedOut": false,
+              "duration": 10276,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "await authPage.login(config.users.patient.email, config.users.patient.password, 'patient');\nawait patientPage.isWorkspaceDisplayed();\nawait patientPage.navigateToTab('consult');\nconst searchInput = '.doctor-search input';\nif (await patientPage.isElementVisible(searchInput)) {\n  await patientPage.utils.type(searchInput, 'Ananya');\n  await driver.sleep(300);\n  const isDoctorCardVisible = await patientPage.isElementVisible('.doctor-list-card');\n  expect(isDoctorCardVisible).to.be.true;\n}\nawait patientPage.signOut();",
+              "err": {
+                "message": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10274ms",
+                "estack": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10274ms\n    at C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\node_modules\\selenium-webdriver\\lib\\webdriver.js:929:22\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+                "diff": null
+              },
+              "uuid": "4c495edd-f0a2-4188-ba21-5ece48a1941e",
+              "parentUUID": "d5909a92-275d-4d05-a66d-686abf61013e",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "UI-005: Validate Operations Doctor Verification Data Table and Review Modal",
+              "fullTitle": "UI & Interactive Elements Validation Suite UI-005: Validate Operations Doctor Verification Data Table and Review Modal",
+              "timedOut": false,
+              "duration": 10244,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "await authPage.login(config.users.operations.email, config.users.operations.password, 'operations');\nawait opsPage.isWorkspaceDisplayed();\nawait opsPage.navigateToTab('doctors');\nconst isTableVisible = await opsPage.isElementVisible('.data-table');\nexpect(isTableVisible).to.be.true;\nawait opsPage.signOut();",
+              "err": {
+                "message": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10243ms",
+                "estack": "TimeoutError: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])\nWait timed out after 10243ms\n    at C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\node_modules\\selenium-webdriver\\lib\\webdriver.js:929:22\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+                "diff": null
+              },
+              "uuid": "d87ea091-1745-4303-a2dd-19f44fdbbd08",
+              "parentUUID": "d5909a92-275d-4d05-a66d-686abf61013e",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "30f77029-a40b-4050-a7a6-1c8b1007b153"
+          ],
+          "failures": [
+            "3a030e00-6520-4f87-ac9f-3d0539306c79",
+            "44c2f5cc-6d18-4dc2-b092-c3703ebd5ce6",
+            "4c495edd-f0a2-4188-ba21-5ece48a1941e",
+            "d87ea091-1745-4303-a2dd-19f44fdbbd08"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 36424,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 60000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 60000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "11.7.6"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "8.0.1"
+    },
+    "marge": {
+      "options": {
+        "[object Object]": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}

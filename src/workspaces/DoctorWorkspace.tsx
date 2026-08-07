@@ -42,9 +42,13 @@ import { useToast } from "../components/Toast";
 import { DocumentExporter, PrescriptionDocData } from "../components/DocumentExporter";
 import { recordAuditEvent } from "../services/audit";
 import { saveUserDataToSupabase, getUserDataFromSupabase } from "../lib/supabase";
+import { VideoConsultation } from "../components/VideoConsultation";
+import { getTranslator } from "../i18n";
+import type { LanguageCode } from "../types";
 
 interface DoctorWorkspaceProps {
   active: string;
+  language: LanguageCode;
   onNavigate: (id: string) => void;
 }
 
@@ -85,15 +89,19 @@ const patientRows = [
 ];
 
 function TodayDashboard({
+  language,
   online,
   setOnline,
   onNavigate,
 }: {
+  language: LanguageCode;
   online: boolean;
   setOnline: (value: boolean) => void;
   onNavigate: (id: string) => void;
 }) {
+  const t = useMemo(() => getTranslator(language), [language]);
   const [callOpen, setCallOpen] = useState(false);
+  const [inCall, setInCall] = useState(false);
   const queue = [
     { time: "10:30 AM", patient: "Riya Sharma", type: "Video", reason: "Fever and sore throat" },
     { time: "11:15 AM", patient: "Arjun Mehta", type: "Follow-up", reason: "Review care plan" },
@@ -107,36 +115,36 @@ function TodayDashboard({
         <div className="doctor-hero__identity">
           <Avatar initials="AK" size="large" tone="teal" />
           <div>
-            <p>Good morning,</p>
+            <p>{t("greeting")}</p>
             <h1>Dr. Ananya Kumar</h1>
             <span>
-              <ShieldCheck size={16} /> Verified General Physician
+              <ShieldCheck size={16} /> {t("verified")} {t("generalPhysician")}
             </span>
           </div>
         </div>
-        <Toggle checked={online} onChange={setOnline} label={online ? "Online" : "Offline"} />
+        <Toggle checked={online} onChange={setOnline} label={online ? t("available") : t("offline")} />
       </section>
 
       <div className="metric-grid">
-        <Metric label="Appointments today" value="8" icon={<Calendar size={21} />} />
+        <Metric label={t("yourAppointments")} value="8" icon={<Calendar size={21} />} />
         <Metric
-          label="Reports to review"
+          label={t("records")}
           value="2"
           icon={<FileText size={21} />}
           tone="amber"
         />
         <Metric
-          label="Follow-up due"
+          label={t("today")}
           value="1"
           icon={<Activity size={21} />}
           tone="green"
         />
-        <Metric label="Patient rating" value="4.9" icon={<Star size={21} />} tone="green" />
+        <Metric label={t("verified")} value="4.9" icon={<Star size={21} />} tone="green" />
       </div>
 
       <div className="doctor-dashboard-grid">
         <Card className="next-consultation">
-          <Badge tone="blue">Next appointment</Badge>
+          <Badge tone="blue">{t("nextAppointment")}</Badge>
           <div className="next-consultation__patient">
             <Avatar initials="RS" size="large" />
             <div>
@@ -147,19 +155,19 @@ function TodayDashboard({
           </div>
           <div className="consent-line">
             <ShieldCheck size={17} />
-            <span>Patient consent is active for this consultation</span>
+            <span>{t("protectedSessionActive")}</span>
           </div>
           <Button icon={<Video size={18} />} onClick={() => setCallOpen(true)}>
-            Open consultation
+            {t("open")}
           </Button>
         </Card>
 
         <Card>
           <SectionHeading
-            title="Today’s schedule"
+            title={t("today")}
             action={
               <button className="text-button" onClick={() => onNavigate("patients")}>
-                View queue
+                {t("viewAll")}
               </button>
             }
           />
@@ -199,13 +207,13 @@ function TodayDashboard({
         ))}
       </div>
 
-      <Modal open={callOpen} title="Secure consultation" onClose={() => setCallOpen(false)} wide>
+      <Modal open={callOpen} title="Secure consultation lobby" onClose={() => setCallOpen(false)} wide>
         <div className="video-room">
           <div className="video-room__stage">
             <span className="video-room__avatar">RS</span>
             <h2>Riya Sharma</h2>
-            <p>Demo consultation room</p>
-            <Badge tone="amber">No live media connection</Badge>
+            <p>10:30 AM • Video consultation</p>
+            <Badge tone="green">Encrypted WebRTC Room</Badge>
           </div>
           <aside>
             <h3>Pre-consultation summary</h3>
@@ -229,12 +237,24 @@ function TodayDashboard({
             </dl>
             <Card tone="blue" className="inline-alert">
               <ShieldCheck size={18} />
-              <span>Production calls require short-lived WebRTC room tokens.</span>
+              <span>WebRTC encrypted audio/video stream ready for consultation.</span>
             </Card>
-            <Button onClick={() => setCallOpen(false)}>End demo room</Button>
+            <div className="button-row">
+              <Button icon={<Video size={18} />} onClick={() => { setCallOpen(false); setInCall(true); }}>
+                Launch Live Consultation
+              </Button>
+              <Button variant="secondary" onClick={() => setCallOpen(false)}>Close Lobby</Button>
+            </div>
           </aside>
         </div>
       </Modal>
+
+      <VideoConsultation
+        open={inCall}
+        doctorName="Riya Sharma (Patient)"
+        specialty="Telehealth Consultation"
+        onClose={() => setInCall(false)}
+      />
     </div>
   );
 }
@@ -388,8 +408,13 @@ function ClinicalNotes() {
     });
   }, []);
 
-  const update = (setter: (value: string) => void, value: string) => {
+  const update = (setter: React.Dispatch<React.SetStateAction<string>>, value: string) => {
     setter(value);
+    setSaved(false);
+  };
+
+  const appendItem = (setter: React.Dispatch<React.SetStateAction<string>>, extra: string) => {
+    setter((prev) => prev + "\n" + extra);
     setSaved(false);
   };
 
@@ -442,13 +467,28 @@ function ClinicalNotes() {
           />
         </label>
         <div className="clinical-actions">
-          <button onClick={() => showToast("Medicine Entry Added", "Added item to draft clinical notes.", "info")}>
+          <button
+            onClick={() => {
+              appendItem(setSymptoms, "- Prescribed Paracetamol 650mg TDS.");
+              showToast("Medicine Entry Added", "Added item to draft clinical notes.", "info");
+            }}
+          >
             <Pill size={20} /> Add medicine
           </button>
-          <button onClick={() => showToast("Lab Test Order", "Added diagnostic order entry to draft notes.", "info")}>
+          <button
+            onClick={() => {
+              appendItem(setAssessment, "- Ordered Complete Blood Count (CBC) test.");
+              showToast("Lab Test Order", "Added diagnostic order entry to draft notes.", "info");
+            }}
+          >
             <FlaskConical size={20} /> Add lab test
           </button>
-          <button onClick={() => showToast("Attachment Upload", "Attachment picker ready.", "info")}>
+          <button
+            onClick={() => {
+              appendItem(setInstructions, "- Attached chest X-ray guidelines.");
+              showToast("Attachment Upload", "Attachment entry added to notes.", "info");
+            }}
+          >
             <Paperclip size={20} /> Add attachment
           </button>
         </div>
@@ -625,8 +665,13 @@ function PrescriptionBuilder() {
 
 function DoctorMessages() {
   const { showToast } = useToast();
+  const [selectedId, setSelectedId] = useState("pt-riya");
   const [message, setMessage] = useState("");
-  const [sent, setSent] = useState<string[]>([]);
+  const [sentMap, setSentMap] = useState<Record<string, string[]>>({});
+
+  const activePatient = patientRows.find((pt) => pt.id === selectedId) || patientRows[0];
+  const activeSent = sentMap[selectedId] || [];
+
   return (
     <div className="page-stack">
       <SectionHeading
@@ -635,35 +680,39 @@ function DoctorMessages() {
       />
       <div className="message-layout">
         <Card className="thread-list">
-          {patientRows.map((patient, index) => (
-            <button key={patient.id} className={index === 0 ? "is-active" : ""} onClick={() => showToast("Thread Opened", `Active conversation for ${patient.name}.`, "info")}>
+          {patientRows.map((patient) => (
+            <button
+              key={patient.id}
+              className={selectedId === patient.id ? "is-active" : ""}
+              onClick={() => setSelectedId(patient.id)}
+            >
               <Avatar initials={patient.initials} />
               <div>
                 <strong>{patient.name}</strong>
-                <small>{index === 0 ? "Thank you, doctor." : patient.concern}</small>
+                <small>{patient.concern}</small>
               </div>
-              {index === 0 ? <Badge tone="blue">1</Badge> : null}
+              {patient.id === "pt-riya" ? <Badge tone="blue">1</Badge> : null}
             </button>
           ))}
         </Card>
         <Card className="message-thread">
           <header>
-            <Avatar initials="RS" />
+            <Avatar initials={activePatient.initials} />
             <div>
-              <strong>Riya Sharma</strong>
+              <strong>{activePatient.name}</strong>
               <small>Follow-up thread • Consent active</small>
             </div>
           </header>
           <div className="message-thread__body">
             <div className="chat-bubble">
-              <p>I have uploaded the laboratory report for review.</p>
+              <p>Hello Dr. Ananya, regarding my concern: {activePatient.concern}.</p>
               <small>9:18 AM</small>
             </div>
             <div className="chat-bubble chat-bubble--doctor">
-              <p>The report is visible. I will review it during the scheduled follow-up.</p>
+              <p>I have reviewed your details ({activePatient.age}, {activePatient.sex}). We will monitor your symptoms closely.</p>
               <small>9:24 AM</small>
             </div>
-            {sent.map((text, index) => (
+            {activeSent.map((text, index) => (
               <div key={`${text}-${index}`} className="chat-bubble chat-bubble--doctor">
                 <p>{text}</p>
                 <small>Now</small>
@@ -677,15 +726,18 @@ function DoctorMessages() {
             <input
               value={message}
               onChange={(event) => setMessage(event.target.value)}
-              placeholder="Write a follow-up message"
+              placeholder={`Write a follow-up message to ${activePatient.name}`}
             />
             <button
               className="send-button"
               onClick={() => {
                 if (!message.trim()) return;
-                setSent((current) => [...current, message.trim()]);
+                setSentMap((prev) => ({
+                  ...prev,
+                  [selectedId]: [...(prev[selectedId] || []), message.trim()],
+                }));
                 setMessage("");
-                showToast("Message Sent", "Message delivered to patient thread.", "success");
+                showToast("Message Sent", `Message delivered to ${activePatient.name}.`, "success");
               }}
             >
               <Send size={18} />
@@ -702,6 +754,22 @@ function DoctorProfile() {
   const [mfa, setMfa] = useState(true);
   const [loginAlerts, setLoginAlerts] = useState(true);
   const [autoAccept, setAutoAccept] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
+
+  const [profile, setProfile] = useState({
+    registration: "TNMC-DEMO-28471",
+    languages: "English, Tamil, Hindi",
+    fee: "499",
+  });
+  const [draft, setDraft] = useState(profile);
+
+  const handleSave = () => {
+    setProfile(draft);
+    setEditOpen(false);
+    showToast("Profile Updated", "Doctor credentials and fee structure updated.", "success");
+    recordAuditEvent("Doctor Profile Updated", "Dr. Ananya Kumar", "clinical", "Updated professional registration & fee");
+  };
+
   return (
     <div className="page-stack">
       <SectionHeading title="Professional profile and reports" />
@@ -716,19 +784,50 @@ function DoctorProfile() {
           <dl className="facts-list">
             <div>
               <dt>Registration</dt>
-              <dd>TNMC-DEMO-28471</dd>
+              <dd>{profile.registration}</dd>
             </div>
             <div>
               <dt>Languages</dt>
-              <dd>English, Tamil, Hindi</dd>
+              <dd>{profile.languages}</dd>
             </div>
             <div>
               <dt>Video fee</dt>
-              <dd>₹499</dd>
+              <dd>₹{profile.fee}</dd>
             </div>
           </dl>
-          <Button variant="outline" onClick={() => showToast("Edit Profile", "Professional licence and credentials editor initialized.", "info")}>Edit professional profile</Button>
+          <Button variant="outline" onClick={() => { setDraft(profile); setEditOpen(true); }}>Edit professional profile</Button>
         </Card>
+
+        <Modal open={editOpen} title="Edit professional profile" onClose={() => setEditOpen(false)}>
+          <div className="page-stack">
+            <label>
+              Medical Registration Number
+              <input
+                value={draft.registration}
+                onChange={(e) => setDraft((p) => ({ ...p, registration: e.target.value }))}
+              />
+            </label>
+            <label>
+              Languages Spoken
+              <input
+                value={draft.languages}
+                onChange={(e) => setDraft((p) => ({ ...p, languages: e.target.value }))}
+              />
+            </label>
+            <label>
+              Consultation Fee (₹)
+              <input
+                type="number"
+                value={draft.fee}
+                onChange={(e) => setDraft((p) => ({ ...p, fee: e.target.value }))}
+              />
+            </label>
+            <div className="modal-actions">
+              <Button variant="secondary" onClick={() => setEditOpen(false)}>Cancel</Button>
+              <Button onClick={handleSave}>Save changes</Button>
+            </div>
+          </div>
+        </Modal>
         <div className="page-stack">
           <div className="metric-grid metric-grid--three">
             <Metric label="Consultations" value="248" icon={<Stethoscope size={20} />} />
@@ -770,7 +869,7 @@ function DoctorProfile() {
   );
 }
 
-export function DoctorWorkspace({ active, onNavigate }: DoctorWorkspaceProps) {
+export function DoctorWorkspace({ active, language, onNavigate }: DoctorWorkspaceProps) {
   const [online, setOnline] = useState(true);
   switch (active) {
     case "patients":
@@ -784,6 +883,6 @@ export function DoctorWorkspace({ active, onNavigate }: DoctorWorkspaceProps) {
     case "profile":
       return <DoctorProfile />;
     default:
-      return <TodayDashboard online={online} setOnline={setOnline} onNavigate={onNavigate} />;
+      return <TodayDashboard language={language} online={online} setOnline={setOnline} onNavigate={onNavigate} />;
   }
 }

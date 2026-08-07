@@ -59,18 +59,18 @@ function getNav(role: Role, t: ReturnType<typeof getTranslator>): NavItem[] {
       { id: "today", label: t("today"), icon: <Calendar size={19} /> },
       { id: "patients", label: t("patients"), icon: <Users size={19} /> },
       { id: "messages", label: t("messages"), icon: <MessageCircle size={19} /> },
-      { id: "prescriptions", label: "Prescriptions", icon: <Pill size={19} /> },
+      { id: "prescriptions", label: t("prescriptions"), icon: <Pill size={19} /> },
       { id: "profile", label: t("profile"), icon: <UserCheck size={19} /> },
-      { id: "notes", label: "Clinical notes", icon: <ClipboardList size={19} /> },
+      { id: "notes", label: t("clinicalNotes"), icon: <ClipboardList size={19} /> },
     ];
   }
   return [
     { id: "overview", label: t("overview"), icon: <Activity size={19} /> },
-    { id: "doctors", label: "Doctor verification", icon: <UserCheck size={19} /> },
+    { id: "doctors", label: t("doctorVerification"), icon: <UserCheck size={19} /> },
     { id: "emergencies", label: t("emergencies"), icon: <Ambulance size={19} /> },
-    { id: "hospitals", label: "ICU availability", icon: <BedDouble size={19} /> },
-    { id: "safety", label: "Clinical & AI safety", icon: <ShieldCheck size={19} /> },
-    { id: "audit", label: "Audit & users", icon: <FileText size={19} /> },
+    { id: "hospitals", label: t("icuAvailability"), icon: <BedDouble size={19} /> },
+    { id: "safety", label: t("clinicalSafety"), icon: <ShieldCheck size={19} /> },
+    { id: "audit", label: t("auditUsers"), icon: <FileText size={19} /> },
     { id: "settings", label: t("settings"), icon: <Settings size={19} /> },
   ];
 }
@@ -118,19 +118,38 @@ export default function App() {
   }, [language]);
 
   useEffect(() => {
-    if (!session) return;
-    const verify = () => {
+    const syncState = (e?: StorageEvent) => {
+      if (!e || e.key === "carebridge.auth.session.v2") {
+        const currentSession = authService.getSession();
+        setSession(currentSession);
+        if (!currentSession) setMobileMenuOpen(false);
+      }
+      if (!e || e.key === "carebridge.theme") {
+        const savedTheme = localStorage.getItem("carebridge.theme") as ThemeMode | null;
+        if (savedTheme && (savedTheme === "dark" || savedTheme === "light" || savedTheme === "system")) {
+          setThemeMode(savedTheme);
+        }
+      }
+      if (!e || e.key === "carebridge.language") {
+        const savedLang = localStorage.getItem("carebridge.language") as LanguageCode | null;
+        if (savedLang && languageOptions.some((opt) => opt.code === savedLang)) {
+          setLanguage(savedLang);
+        }
+      }
+    };
+
+    const timer = window.setInterval(() => {
       const current = authService.getSession();
-      if (!current) {
+      if (!current && session) {
         setSession(null);
         setMobileMenuOpen(false);
       }
-    };
-    const timer = window.setInterval(verify, 60_000);
-    window.addEventListener("storage", verify);
+    }, 30_000);
+
+    window.addEventListener("storage", syncState);
     return () => {
       window.clearInterval(timer);
-      window.removeEventListener("storage", verify);
+      window.removeEventListener("storage", syncState);
     };
   }, [session]);
 
@@ -187,7 +206,7 @@ export default function App() {
             onNavigate={navigate}
           />
         ) : role === "doctor" ? (
-          <DoctorWorkspace active={active} onNavigate={navigate} />
+          <DoctorWorkspace active={active} language={language} onNavigate={navigate} />
         ) : (
           <OperationsWorkspace active={active} onNavigate={navigate} />
         )}

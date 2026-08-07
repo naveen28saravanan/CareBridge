@@ -9,3 +9,5 @@ ml/__pycache__/
 qa/.DS_Store
 
 server/data/
+
+.vercel

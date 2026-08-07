@@ -38,13 +38,26 @@ export function Badge({
 
 export function Avatar({
   initials,
+  src,
   size = "medium",
   tone = "blue",
 }: {
   initials: string;
+  src?: string;
   size?: "small" | "medium" | "large";
   tone?: "blue" | "teal" | "violet" | "rose";
 }) {
+  if (src) {
+    return (
+      <span className={`avatar avatar--${size} avatar--${tone} avatar--has-image`}>
+        <img
+          src={src}
+          alt="Profile photo"
+          style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "inherit" }}
+        />
+      </span>
+    );
+  }
   return <span className={`avatar avatar--${size} avatar--${tone}`}>{initials}</span>;
 }
 

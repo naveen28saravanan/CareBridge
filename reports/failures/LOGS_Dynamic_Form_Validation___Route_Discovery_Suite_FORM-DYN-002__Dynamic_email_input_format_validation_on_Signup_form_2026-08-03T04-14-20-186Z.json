@@ -1,0 +1,81 @@
+{
+  "testTitle": "Dynamic Form Validation & Route Discovery Suite FORM-DYN-002: Dynamic email input format validation on Signup form",
+  "error": "Waiting for element to be located By(css selector, input[placeholder=\"Your full name\"])\nWait timed out after 10309ms",
+  "stack": "TimeoutError: Waiting for element to be located By(css selector, input[placeholder=\"Your full name\"])\nWait timed out after 10309ms\n    at C:\\Users\\navee\\Downloads\\CareBridge-One-Naveen\\carebridge-one\\node_modules\\selenium-webdriver\\lib\\webdriver.js:929:22\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+  "currentUrl": "http://localhost:4173/CareBridge/",
+  "consoleLogs": [
+    {
+      "level": "SEVERE",
+      "message": "network - A bad HTTP response code (404) was received when fetching the script.",
+      "timestamp": 1785730445143,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "http://localhost:4173/carebridge-mark.svg - Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "timestamp": 1785730445958,
+      "type": ""
+    },
+    {
+      "level": "WARNING",
+      "message": "http://localhost:4173/CareBridge/ - Error while trying to use the following icon from the Manifest: http://localhost:4173/carebridge-mark.svg (Download error or resource isn't a valid image)",
+      "timestamp": 1785730445958,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "network - A bad HTTP response code (404) was received when fetching the script.",
+      "timestamp": 1785730446035,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "http://localhost:4173/carebridge-mark.svg - Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "timestamp": 1785730446869,
+      "type": ""
+    },
+    {
+      "level": "WARNING",
+      "message": "http://localhost:4173/CareBridge/ - Error while trying to use the following icon from the Manifest: http://localhost:4173/carebridge-mark.svg (Download error or resource isn't a valid image)",
+      "timestamp": 1785730446869,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "network - A bad HTTP response code (404) was received when fetching the script.",
+      "timestamp": 1785730446922,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "http://localhost:4173/carebridge-mark.svg - Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "timestamp": 1785730447744,
+      "type": ""
+    },
+    {
+      "level": "WARNING",
+      "message": "http://localhost:4173/CareBridge/ - Error while trying to use the following icon from the Manifest: http://localhost:4173/carebridge-mark.svg (Download error or resource isn't a valid image)",
+      "timestamp": 1785730447744,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "network - A bad HTTP response code (404) was received when fetching the script.",
+      "timestamp": 1785730447803,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "http://localhost:4173/carebridge-mark.svg - Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "timestamp": 1785730448616,
+      "type": ""
+    },
+    {
+      "level": "WARNING",
+      "message": "http://localhost:4173/CareBridge/ - Error while trying to use the following icon from the Manifest: http://localhost:4173/carebridge-mark.svg (Download error or resource isn't a valid image)",
+      "timestamp": 1785730448616,
+      "type": ""
+    }
+  ],
+  "timestamp": "2026-08-03T04-14-20-186Z"
+}

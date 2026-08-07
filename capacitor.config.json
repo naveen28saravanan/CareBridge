@@ -1,0 +1,10 @@
+{
+  "appId": "com.carebridge.app",
+  "appName": "CareBridge",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https",
+    "cleartext": true
+  }
+}

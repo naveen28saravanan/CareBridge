@@ -1,0 +1,39 @@
+{
+  "validUsers": {
+    "patient": {
+      "email": "patient@carebridge.demo",
+      "password": "Patient@123",
+      "role": "patient",
+      "displayName": "Riya Sharma"
+    },
+    "doctor": {
+      "email": "doctor@carebridge.demo",
+      "password": "Doctor@123",
+      "role": "doctor",
+      "displayName": "Dr. Ananya Kumar"
+    },
+    "operations": {
+      "email": "admin@carebridge.demo",
+      "password": "Admin@123",
+      "role": "operations",
+      "displayName": "Operations Admin"
+    }
+  },
+  "invalidUsers": [
+    {
+      "email": "invalid@carebridge.demo",
+      "password": "WrongPassword123",
+      "expectedError": "Invalid credentials or unauthorized role"
+    },
+    {
+      "email": "",
+      "password": "Patient@123",
+      "expectedError": "Email address is required"
+    },
+    {
+      "email": "patient@carebridge.demo",
+      "password": "",
+      "expectedError": "Password is required"
+    }
+  ]
+}

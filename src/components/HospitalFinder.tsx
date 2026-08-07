@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Ambulance,
   BedDouble,
@@ -9,11 +9,13 @@ import {
   MapPin,
   Phone,
   RefreshCw,
+  Search,
   ShieldCheck,
   TriangleAlert,
 } from "lucide-react";
 import {
   findNearbyHospitals,
+  geocodeLocation,
   getCurrentLocation,
   isAvailabilityCurrent,
   osmEmbedUrl,
@@ -29,6 +31,7 @@ export function HospitalFinder() {
   const [loading, setLoading] = useState(false);
   const [emergencyOnly, setEmergencyOnly] = useState(false);
   const [verifiedIcuOnly, setVerifiedIcuOnly] = useState(false);
+  const [searchCity, setSearchCity] = useState("");
 
   const visible = useMemo(
     () =>
@@ -46,10 +49,10 @@ export function HospitalFinder() {
     [emergencyOnly, hospitals, verifiedIcuOnly],
   );
 
-  const locate = async () => {
+  const locate = async (targetLoc?: { latitude: number; longitude: number }) => {
     setLoading(true);
     setWarning(null);
-    const location = await getCurrentLocation();
+    const location = targetLoc ?? (await getCurrentLocation());
     setOrigin(location);
     const result = await findNearbyHospitals(location);
     setHospitals(result.hospitals);
@@ -58,13 +61,30 @@ export function HospitalFinder() {
     setLoading(false);
   };
 
+  useEffect(() => {
+    void locate();
+  }, []);
+
+  const handleSearchSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!searchCity.trim()) return;
+    setLoading(true);
+    const geo = await geocodeLocation(searchCity.trim());
+    if (geo) {
+      void locate({ latitude: geo.latitude, longitude: geo.longitude });
+    } else {
+      setWarning(`Location "${searchCity}" not found on map. Showing nearest default hospitals.`);
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="page-stack">
       <SectionHeading
         title="Nearby hospitals"
         subtitle="Keyless OpenStreetMap discovery with a separate verified ICU-availability layer."
         action={
-          <Button icon={<LocateFixed size={18} />} onClick={locate} disabled={loading}>
+          <Button icon={<LocateFixed size={18} />} onClick={() => locate()} disabled={loading}>
             {loading ? "Locating…" : "Find hospitals near me"}
           </Button>
         }
@@ -83,6 +103,27 @@ export function HospitalFinder() {
           <Phone size={18} />
           <span>Call 112</span>
         </a>
+      </Card>
+
+      <Card className="filter-card" style={{ marginBottom: "16px" }}>
+        <form onSubmit={handleSearchSubmit} className="search-form-row" style={{ display: "flex", gap: "10px", width: "100%" }}>
+          <div style={{ flex: 1, display: "flex", alignItems: "center", gap: "8px", border: "1px solid var(--border)", borderRadius: "10px", padding: "6px 12px", background: "var(--surface-solid)" }}>
+            <Search size={18} style={{ color: "var(--muted)" }} />
+            <input
+              type="text"
+              value={searchCity}
+              onChange={(e) => setSearchCity(e.target.value)}
+              placeholder="Search hospitals by city, address, or pincode (e.g. Chennai, London, Mumbai)..."
+              style={{ border: "none", background: "transparent", outline: "none", width: "100%", fontSize: "0.88rem" }}
+            />
+          </div>
+          <Button type="submit" icon={<Search size={17} />} disabled={loading}>
+            {loading ? "Searching..." : "Search Location"}
+          </Button>
+          <Button type="button" variant="outline" icon={<LocateFixed size={17} />} onClick={() => locate()} disabled={loading}>
+            GPS Near Me
+          </Button>
+        </form>
       </Card>
 
       <div className="hospital-layout">
@@ -153,7 +194,7 @@ export function HospitalFinder() {
                 Allow location access and run the nearby search. Chennai is used as the safe
                 demonstration fallback.
               </p>
-              <Button icon={<RefreshCw size={17} />} onClick={locate} disabled={loading}>
+              <Button icon={<RefreshCw size={17} />} onClick={() => locate()} disabled={loading}>
                 Load nearby hospitals
               </Button>
             </Card>

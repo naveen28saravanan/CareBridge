@@ -1,0 +1,45 @@
+{
+  "testTitle": "Dynamic Form Validation & Route Discovery Suite FORM-DYN-007: Dynamic validation of Operations Hospital ICU form",
+  "error": "expected false to be true",
+  "stack": "AssertionError: expected false to be true\n    at Context.<anonymous> (file:///C:/Users/navee/Downloads/CareBridge-One-Naveen/carebridge-one/tests/dynamicForms.test.js:106:28)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+  "currentUrl": "http://localhost:4173/CareBridge/",
+  "consoleLogs": [
+    {
+      "level": "SEVERE",
+      "message": "network - A bad HTTP response code (404) was received when fetching the script.",
+      "timestamp": 1785730451476,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "http://localhost:4173/carebridge-mark.svg - Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "timestamp": 1785730452298,
+      "type": ""
+    },
+    {
+      "level": "WARNING",
+      "message": "http://localhost:4173/CareBridge/ - Error while trying to use the following icon from the Manifest: http://localhost:4173/carebridge-mark.svg (Download error or resource isn't a valid image)",
+      "timestamp": 1785730452298,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "network - A bad HTTP response code (404) was received when fetching the script.",
+      "timestamp": 1785730452386,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "http://localhost:4173/carebridge-mark.svg - Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "timestamp": 1785730453405,
+      "type": ""
+    },
+    {
+      "level": "WARNING",
+      "message": "http://localhost:4173/CareBridge/ - Error while trying to use the following icon from the Manifest: http://localhost:4173/carebridge-mark.svg (Download error or resource isn't a valid image)",
+      "timestamp": 1785730453405,
+      "type": ""
+    }
+  ],
+  "timestamp": "2026-08-03T04-14-42-500Z"
+}

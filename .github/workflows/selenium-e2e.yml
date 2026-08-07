@@ -1,0 +1,98 @@
+name: CareBridge E2E Selenium Automation & Live Deployment
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  e2e-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 2. Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: 3. Install Dependencies
+        run: npm ci
+
+      - name: 4. Verify & Build Application
+        run: |
+          npm run verify
+          npm run build
+        env:
+          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
+          VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+
+      - name: 5. Install Chrome Browser & ChromeDriver
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+
+      - name: 6. Start Backend API Server
+        run: |
+          node server/index.mjs &
+          sleep 3
+          echo "Backend server online."
+        env:
+          NODE_ENV: test
+
+      - name: 7. Start Vite Preview Web Server
+        run: |
+          npx vite preview --port 4173 --host 0.0.0.0 &
+          sleep 4
+          echo "Web application server running at http://localhost:4173/CareBridge/"
+
+      - name: 8. Run Production Selenium E2E Automation Suite
+        run: npm run test:e2e
+        env:
+          TEST_APP_URL: http://localhost:4173/CareBridge/
+          BROWSER: chrome
+          HEADLESS: true
+
+      - name: 9. Upload Excel Report Artifact (E2E_Report.xlsx)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Excel-E2E-Report
+          path: excel/E2E_Report.xlsx
+
+      - name: 10. Upload Mochawesome HTML Report Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Mochawesome-HTML-Report
+          path: reports/html/
+
+      - name: 11. Upload Failure Screenshots & Logs Artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Failure-Screenshots-And-Logs
+          path: |
+            reports/failures/
+            logs/
+
+      - name: 12. Deploy Live Application to GitHub Pages
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist
+          branch: gh-pages

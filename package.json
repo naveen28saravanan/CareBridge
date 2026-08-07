@@ -5,23 +5,31 @@
   "homepage": "https://naveen28saravanan.github.io/CareBridge",
   "type": "module",
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
+    "dev": "node scripts/start-all.mjs",
+    "dev:vite": "vite --host 0.0.0.0",
+    "start": "node scripts/start-all.mjs",
     "build": "tsc -b && vite build",
     "preview": "vite preview --host 0.0.0.0",
+    "cap:sync": "npm run build && npx cap sync",
+    "cap:open:android": "npx cap open android",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "mocha selenium-tests/tests/*.test.js --timeout 60000",
+    "test:e2e": "mocha --config config/mocha.config.json tests/*.test.js",
+    "test:e2e:headed": "cross-env HEADLESS=false mocha --config config/mocha.config.json tests/*.test.js",
+    "test:e2e:firefox": "cross-env BROWSER=firefox mocha --config config/mocha.config.json tests/*.test.js",
+    "test:e2e:edge": "cross-env BROWSER=edge mocha --config config/mocha.config.json tests/*.test.js",
     "ml:train": "python ml/train_symptom_model.py",
     "ml:test": "python -m unittest ml/test_symptom_model.py",
     "server": "node server/index.mjs",
     "check": "tsc -b --pretty false",
     "audit:buttons": "node scripts/audit-buttons.mjs",
-    "db:setup": "node scripts/setup-db.mjs",
     "verify": "npm run check && npm test && npm run audit:buttons"
   },
   "dependencies": {
+    "@capacitor/android": "^8.5.0",
+    "@capacitor/core": "^8.5.0",
     "@supabase/supabase-js": "^2.111.0",
     "firebase": "^12.17.0",
     "lucide-react": "^0.468.0",
@@ -29,17 +37,22 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@capacitor/cli": "^8.5.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
     "@types/react": "^19.0.3",
     "@types/react-dom": "^19.0.2",
     "@vitejs/plugin-react": "^4.3.4",
+    "chai": "^6.2.2",
+    "exceljs": "^4.4.0",
     "gh-pages": "^6.3.0",
     "jsdom": "^25.0.1",
     "mocha": "^11.7.6",
+    "mochawesome": "^8.0.1",
     "selenium-webdriver": "^4.46.0",
     "typescript": "~5.7.2",
     "vite": "^6.0.5",
-    "vitest": "^2.1.8"
+    "vitest": "^2.1.8",
+    "winston": "^3.19.0"
   }
 }

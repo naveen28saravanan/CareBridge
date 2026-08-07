@@ -330,7 +330,7 @@ export function AuthScreen({
             {mode === "signup" ? (
               <label>
                 Full name
-                <span className="auth-input"><UserRound size={18} /><input value={name} onChange={(event) => setName(event.target.value)} placeholder="Your full name" autoComplete="name" /></span>
+                <span className="auth-input"><UserRound size={18} /><input id="signup-name" value={name} onChange={(event) => setName(event.target.value)} placeholder="Your full name" autoComplete="name" /></span>
               </label>
             ) : null}
             <label>

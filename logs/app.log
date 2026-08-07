@@ -1,0 +1,1006 @@
+[2026-08-03 09:38:37] [INFO]: ================================================================
+[2026-08-03 09:38:37] [INFO]:    CAREBRIDGE E2E ENTERPRISE AUTOMATION SUITE STARTED           
+[2026-08-03 09:38:37] [INFO]:    Target Base URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:38:37] [INFO]:    Browser: chrome (Headless: true)
+[2026-08-03 09:38:37] [INFO]: ================================================================
+[2026-08-03 09:38:37] [INFO]: Initializing WebDriver session (chrome, headless=true)
+[2026-08-03 09:38:39] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:38:41] [INFO]: Performing login for role=patient, email=
+[2026-08-03 09:38:45] [INFO]: [Authentication & Session Management Suite AUTH-001: Validate login with empty email field] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:38:45] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:38:46] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:38:49] [INFO]: [Authentication & Session Management Suite AUTH-002: Validate login with empty password field] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:38:49] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:38:50] [INFO]: Performing login for role=patient, email=wrong@carebridge.demo
+[2026-08-03 09:38:59] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Authentication___Session_Management_Suite_AUTH-003__Validate_login_with_invalid_credentials_2026-08-03T04-08-59-178Z.png
+[2026-08-03 09:38:59] [ERROR]: TEST FAILED: Authentication & Session Management Suite AUTH-003: Validate login with invalid credentials
+[2026-08-03 09:38:59] [ERROR]: Reason: expected false to be true
+[2026-08-03 09:38:59] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:38:59] [INFO]: [Authentication & Session Management Suite AUTH-003: Validate login with invalid credentials] Test Execution - FAILED (expected false to be true)
+[2026-08-03 09:38:59] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:39:00] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:39:11] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10298ms
+[2026-08-03 09:39:11] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Authentication___Session_Management_Suite_AUTH-004__Validate_successful_Patient_authentication_flow_2026-08-03T04-09-11-101Z.png
+[2026-08-03 09:39:11] [ERROR]: TEST FAILED: Authentication & Session Management Suite AUTH-004: Validate successful Patient authentication flow
+[2026-08-03 09:39:11] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10298ms
+[2026-08-03 09:39:11] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:39:11] [INFO]: [Authentication & Session Management Suite AUTH-004: Validate successful Patient authentication flow] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10298ms)
+[2026-08-03 09:39:11] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:39:12] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:39:22] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10264ms
+[2026-08-03 09:39:23] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Authentication___Session_Management_Suite_AUTH-005__Validate_Patient_logout_flow_2026-08-03T04-09-22-806Z.png
+[2026-08-03 09:39:23] [ERROR]: TEST FAILED: Authentication & Session Management Suite AUTH-005: Validate Patient logout flow
+[2026-08-03 09:39:23] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10264ms
+[2026-08-03 09:39:23] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:39:23] [INFO]: [Authentication & Session Management Suite AUTH-005: Validate Patient logout flow] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10264ms)
+[2026-08-03 09:39:23] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:39:24] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:39:34] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10288ms
+[2026-08-03 09:39:34] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Authentication___Session_Management_Suite_AUTH-006__Validate_session_persistence_on_page_refresh_2026-08-03T04-09-34-588Z.png
+[2026-08-03 09:39:34] [ERROR]: TEST FAILED: Authentication & Session Management Suite AUTH-006: Validate session persistence on page refresh
+[2026-08-03 09:39:34] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10288ms
+[2026-08-03 09:39:34] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:39:34] [INFO]: [Authentication & Session Management Suite AUTH-006: Validate session persistence on page refresh] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10288ms)
+[2026-08-03 09:39:35] [INFO]: RouteScanner discovered 28 dynamic form input rules from React source.
+[2026-08-03 09:39:35] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:39:36] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-001: Validate discovered React routes configuration exists] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:39:36] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:39:39] [INFO]: ================================================================
+[2026-08-03 09:39:39] [INFO]:    CAREBRIDGE E2E ENTERPRISE AUTOMATION SUITE STARTED           
+[2026-08-03 09:39:39] [INFO]:    Target Base URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:39:39] [INFO]:    Browser: chrome (Headless: true)
+[2026-08-03 09:39:39] [INFO]: ================================================================
+[2026-08-03 09:39:39] [INFO]: Initializing WebDriver session (chrome, headless=true)
+[2026-08-03 09:39:40] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:39:41] [INFO]: Performing login for role=patient, email=
+[2026-08-03 09:39:45] [INFO]: [Authentication & Session Management Suite AUTH-001: Validate login with empty email field] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:39:45] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:39:46] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:39:47] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Create account')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Create account')])
+Wait timed out after 10305ms
+[2026-08-03 09:39:47] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-002__Dynamic_email_input_format_validation_on_Signup_form_2026-08-03T04-09-47-541Z.png
+[2026-08-03 09:39:47] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-002: Dynamic email input format validation on Signup form
+[2026-08-03 09:39:47] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Create account')])
+Wait timed out after 10305ms
+[2026-08-03 09:39:47] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:39:47] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-002: Dynamic email input format validation on Signup form] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Create account')])
+Wait timed out after 10305ms)
+[2026-08-03 09:39:47] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:39:49] [INFO]: [Authentication & Session Management Suite AUTH-002: Validate login with empty password field] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:39:49] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:39:50] [INFO]: Performing login for role=patient, email=wrong@carebridge.demo
+[2026-08-03 09:39:59] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Create account')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Create account')])
+Wait timed out after 10288ms
+[2026-08-03 09:39:59] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Authentication___Session_Management_Suite_AUTH-003__Validate_login_with_invalid_credentials_2026-08-03T04-09-59-389Z.png
+[2026-08-03 09:39:59] [ERROR]: TEST FAILED: Authentication & Session Management Suite AUTH-003: Validate login with invalid credentials
+[2026-08-03 09:39:59] [ERROR]: Reason: expected false to be true
+[2026-08-03 09:39:59] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:39:59] [INFO]: [Authentication & Session Management Suite AUTH-003: Validate login with invalid credentials] Test Execution - FAILED (expected false to be true)
+[2026-08-03 09:39:59] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:00] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-003__Dynamic_password_mismatch_validation_on_Signup_form_2026-08-03T04-09-59-587Z.png
+[2026-08-03 09:40:00] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-003: Dynamic password mismatch validation on Signup form
+[2026-08-03 09:40:00] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Create account')])
+Wait timed out after 10288ms
+[2026-08-03 09:40:00] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:00] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-003: Dynamic password mismatch validation on Signup form] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Create account')])
+Wait timed out after 10288ms)
+[2026-08-03 09:40:00] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:00] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:40:01] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:40:10] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10244ms
+[2026-08-03 09:40:11] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Authentication___Session_Management_Suite_AUTH-004__Validate_successful_Patient_authentication_flow_2026-08-03T04-10-10-973Z.png
+[2026-08-03 09:40:11] [ERROR]: TEST FAILED: Authentication & Session Management Suite AUTH-004: Validate successful Patient authentication flow
+[2026-08-03 09:40:11] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10244ms
+[2026-08-03 09:40:11] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:11] [INFO]: [Authentication & Session Management Suite AUTH-004: Validate successful Patient authentication flow] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10244ms)
+[2026-08-03 09:40:11] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:11] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10286ms
+[2026-08-03 09:40:11] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-004__Dynamic_validation_of_Patient_Symptom_Intake_form_2026-08-03T04-10-11-437Z.png
+[2026-08-03 09:40:11] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-004: Dynamic validation of Patient Symptom Intake form
+[2026-08-03 09:40:11] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10286ms
+[2026-08-03 09:40:11] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:11] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-004: Dynamic validation of Patient Symptom Intake form] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10286ms)
+[2026-08-03 09:40:11] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:12] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:40:12] [INFO]: Performing login for role=doctor, email=doctor@carebridge.demo
+[2026-08-03 09:40:22] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10290ms
+[2026-08-03 09:40:23] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Authentication___Session_Management_Suite_AUTH-005__Validate_Patient_logout_flow_2026-08-03T04-10-22-786Z.png
+[2026-08-03 09:40:23] [ERROR]: TEST FAILED: Authentication & Session Management Suite AUTH-005: Validate Patient logout flow
+[2026-08-03 09:40:23] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10290ms
+[2026-08-03 09:40:23] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:23] [INFO]: [Authentication & Session Management Suite AUTH-005: Validate Patient logout flow] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10290ms)
+[2026-08-03 09:40:23] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:23] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10296ms
+[2026-08-03 09:40:23] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-005__Dynamic_validation_of_Doctor_Clinical_Notes_form_2026-08-03T04-10-23-195Z.png
+[2026-08-03 09:40:23] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-005: Dynamic validation of Doctor Clinical Notes form
+[2026-08-03 09:40:23] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10296ms
+[2026-08-03 09:40:23] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:23] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-005: Dynamic validation of Doctor Clinical Notes form] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10296ms)
+[2026-08-03 09:40:23] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:24] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:40:24] [INFO]: Performing login for role=doctor, email=doctor@carebridge.demo
+[2026-08-03 09:40:34] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10279ms
+[2026-08-03 09:40:34] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Authentication___Session_Management_Suite_AUTH-006__Validate_session_persistence_on_page_refresh_2026-08-03T04-10-34-566Z.png
+[2026-08-03 09:40:34] [ERROR]: TEST FAILED: Authentication & Session Management Suite AUTH-006: Validate session persistence on page refresh
+[2026-08-03 09:40:34] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10279ms
+[2026-08-03 09:40:34] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:34] [INFO]: [Authentication & Session Management Suite AUTH-006: Validate session persistence on page refresh] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10279ms)
+[2026-08-03 09:40:34] [INFO]: RouteScanner discovered 28 dynamic form input rules from React source.
+[2026-08-03 09:40:34] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:34] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10285ms
+[2026-08-03 09:40:35] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-006__Dynamic_validation_of_Doctor_Prescription_Builder_form_2026-08-03T04-10-34-952Z.png
+[2026-08-03 09:40:35] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-006: Dynamic validation of Doctor Prescription Builder form
+[2026-08-03 09:40:35] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10285ms
+[2026-08-03 09:40:35] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:35] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-006: Dynamic validation of Doctor Prescription Builder form] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10285ms)
+[2026-08-03 09:40:35] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:36] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-001: Validate discovered React routes configuration exists] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:40:36] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:36] [INFO]: Performing login for role=operations, email=ops@carebridge.demo
+[2026-08-03 09:40:46] [INFO]: ================================================================
+[2026-08-03 09:40:46] [INFO]:    CAREBRIDGE E2E ENTERPRISE AUTOMATION SUITE STARTED           
+[2026-08-03 09:40:46] [INFO]:    Target Base URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:46] [INFO]:    Browser: chrome (Headless: true)
+[2026-08-03 09:40:46] [INFO]: ================================================================
+[2026-08-03 09:40:46] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10284ms
+[2026-08-03 09:40:46] [INFO]: Initializing WebDriver session (chrome, headless=true)
+[2026-08-03 09:40:47] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-007__Dynamic_validation_of_Operations_Hospital_ICU_form_2026-08-03T04-10-46-719Z.png
+[2026-08-03 09:40:47] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-007: Dynamic validation of Operations Hospital ICU form
+[2026-08-03 09:40:47] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10284ms
+[2026-08-03 09:40:47] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:47] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-007: Dynamic validation of Operations Hospital ICU form] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10284ms)
+[2026-08-03 09:40:47] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:47] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Create account')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Create account')])
+Wait timed out after 10269ms
+[2026-08-03 09:40:47] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:47] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-002__Dynamic_email_input_format_validation_on_Signup_form_2026-08-03T04-10-47-403Z.png
+[2026-08-03 09:40:47] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-002: Dynamic email input format validation on Signup form
+[2026-08-03 09:40:47] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Create account')])
+Wait timed out after 10269ms
+[2026-08-03 09:40:47] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:47] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-002: Dynamic email input format validation on Signup form] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Create account')])
+Wait timed out after 10269ms)
+[2026-08-03 09:40:47] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:48] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:40:49] [INFO]: Refreshing page
+[2026-08-03 09:40:50] [INFO]: Performing login for role=patient, email=
+[2026-08-03 09:40:53] [INFO]: [Authentication & Session Management Suite AUTH-001: Validate login with empty email field] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:40:53] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:54] [INFO]: Refreshing page
+[2026-08-03 09:40:55] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:40:58] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10308ms
+[2026-08-03 09:40:58] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_End-to-End_Multi-Role_Healthcare_Workflow_Suite_E2E-001__Execute_complete_End-to-End_patient_consultation_workflow_2026-08-03T04-10-58-502Z.png
+[2026-08-03 09:40:58] [ERROR]: TEST FAILED: End-to-End Multi-Role Healthcare Workflow Suite E2E-001: Execute complete End-to-End patient consultation workflow
+[2026-08-03 09:40:58] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10308ms
+[2026-08-03 09:40:58] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:58] [INFO]: [End-to-End Multi-Role Healthcare Workflow Suite E2E-001: Execute complete End-to-End patient consultation workflow] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10308ms)
+[2026-08-03 09:40:58] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:59] [INFO]: [Authentication & Session Management Suite AUTH-002: Validate login with empty password field] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:40:59] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:59] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Create account')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Create account')])
+Wait timed out after 10290ms
+[2026-08-03 09:40:59] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-003__Dynamic_password_mismatch_validation_on_Signup_form_2026-08-03T04-10-59-530Z.png
+[2026-08-03 09:40:59] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-003: Dynamic password mismatch validation on Signup form
+[2026-08-03 09:40:59] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Create account')])
+Wait timed out after 10290ms
+[2026-08-03 09:40:59] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:59] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-003: Dynamic password mismatch validation on Signup form] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Create account')])
+Wait timed out after 10290ms)
+[2026-08-03 09:40:59] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:40:59] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:41:00] [INFO]: Refreshing page
+[2026-08-03 09:41:01] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:41:01] [INFO]: Performing login for role=patient, email=wrong@carebridge.demo
+[2026-08-03 09:41:09] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Authentication___Session_Management_Suite_AUTH-003__Validate_login_with_invalid_credentials_2026-08-03T04-11-09-715Z.png
+[2026-08-03 09:41:09] [ERROR]: TEST FAILED: Authentication & Session Management Suite AUTH-003: Validate login with invalid credentials
+[2026-08-03 09:41:09] [ERROR]: Reason: expected false to be true
+[2026-08-03 09:41:09] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:09] [INFO]: [Authentication & Session Management Suite AUTH-003: Validate login with invalid credentials] Test Execution - FAILED (expected false to be true)
+[2026-08-03 09:41:09] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:10] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10288ms
+[2026-08-03 09:41:10] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Navigation___Internal_Routing_Validation_Suite_NAV-001__Validate_navigation_through_all_Patient_workspace_links_2026-08-03T04-11-10-248Z.png
+[2026-08-03 09:41:10] [ERROR]: TEST FAILED: Navigation & Internal Routing Validation Suite NAV-001: Validate navigation through all Patient workspace links
+[2026-08-03 09:41:10] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10288ms
+[2026-08-03 09:41:10] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:10] [INFO]: [Navigation & Internal Routing Validation Suite NAV-001: Validate navigation through all Patient workspace links] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10288ms)
+[2026-08-03 09:41:10] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:11] [INFO]: Refreshing page
+[2026-08-03 09:41:11] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10286ms
+[2026-08-03 09:41:11] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-004__Dynamic_validation_of_Patient_Symptom_Intake_form_2026-08-03T04-11-11-340Z.png
+[2026-08-03 09:41:11] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-004: Dynamic validation of Patient Symptom Intake form
+[2026-08-03 09:41:11] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10286ms
+[2026-08-03 09:41:11] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:11] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-004: Dynamic validation of Patient Symptom Intake form] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10286ms)
+[2026-08-03 09:41:11] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:11] [INFO]: Performing login for role=doctor, email=doctor@carebridge.demo
+[2026-08-03 09:41:12] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:41:12] [INFO]: Performing login for role=doctor, email=doctor@carebridge.demo
+[2026-08-03 09:41:20] [INFO]: [Authentication & Session Management Suite AUTH-004: Validate successful Patient authentication flow] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:41:20] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:21] [INFO]: Refreshing page
+[2026-08-03 09:41:22] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10281ms
+[2026-08-03 09:41:22] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Navigation___Internal_Routing_Validation_Suite_NAV-002__Validate_navigation_through_Doctor_workspace_tabs_2026-08-03T04-11-22-019Z.png
+[2026-08-03 09:41:22] [ERROR]: TEST FAILED: Navigation & Internal Routing Validation Suite NAV-002: Validate navigation through Doctor workspace tabs
+[2026-08-03 09:41:22] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10281ms
+[2026-08-03 09:41:22] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:22] [INFO]: [Navigation & Internal Routing Validation Suite NAV-002: Validate navigation through Doctor workspace tabs] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10281ms)
+[2026-08-03 09:41:22] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:22] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:41:23] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10277ms
+[2026-08-03 09:41:23] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-005__Dynamic_validation_of_Doctor_Clinical_Notes_form_2026-08-03T04-11-23-064Z.png
+[2026-08-03 09:41:23] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-005: Dynamic validation of Doctor Clinical Notes form
+[2026-08-03 09:41:23] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10277ms
+[2026-08-03 09:41:23] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:23] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-005: Dynamic validation of Doctor Clinical Notes form] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10277ms)
+[2026-08-03 09:41:23] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:23] [INFO]: Performing login for role=operations, email=ops@carebridge.demo
+[2026-08-03 09:41:24] [INFO]: Performing login for role=doctor, email=doctor@carebridge.demo
+[2026-08-03 09:41:33] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10259ms
+[2026-08-03 09:41:34] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Navigation___Internal_Routing_Validation_Suite_NAV-003__Validate_navigation_through_Operations_workspace_tabs_2026-08-03T04-11-33-775Z.png
+[2026-08-03 09:41:34] [ERROR]: TEST FAILED: Navigation & Internal Routing Validation Suite NAV-003: Validate navigation through Operations workspace tabs
+[2026-08-03 09:41:34] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10259ms
+[2026-08-03 09:41:34] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:34] [INFO]: [Navigation & Internal Routing Validation Suite NAV-003: Validate navigation through Operations workspace tabs] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10259ms)
+[2026-08-03 09:41:34] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:34] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10346ms
+[2026-08-03 09:41:35] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-006__Dynamic_validation_of_Doctor_Prescription_Builder_form_2026-08-03T04-11-34-873Z.png
+[2026-08-03 09:41:35] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:41:35] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-006: Dynamic validation of Doctor Prescription Builder form
+[2026-08-03 09:41:35] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10346ms
+[2026-08-03 09:41:35] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:35] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-006: Dynamic validation of Doctor Prescription Builder form] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10346ms)
+[2026-08-03 09:41:35] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:36] [INFO]: Performing login for role=operations, email=admin@carebridge.demo
+[2026-08-03 09:41:36] [INFO]: Signing out patient
+[2026-08-03 09:41:42] [INFO]: [Authentication & Session Management Suite AUTH-005: Validate Patient logout flow] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:41:42] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:43] [INFO]: Refreshing page
+[2026-08-03 09:41:44] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:41:45] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10253ms
+[2026-08-03 09:41:45] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Navigation___Internal_Routing_Validation_Suite_NAV-004__Validate_browser_refresh__back__and_forward_navigation_2026-08-03T04-11-45-473Z.png
+[2026-08-03 09:41:45] [ERROR]: TEST FAILED: Navigation & Internal Routing Validation Suite NAV-004: Validate browser refresh, back, and forward navigation
+[2026-08-03 09:41:45] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10253ms
+[2026-08-03 09:41:45] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:45] [INFO]: [Navigation & Internal Routing Validation Suite NAV-004: Validate browser refresh, back, and forward navigation] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10253ms)
+[2026-08-03 09:41:45] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:46] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10240ms
+[2026-08-03 09:41:46] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-007__Dynamic_validation_of_Operations_Hospital_ICU_form_2026-08-03T04-11-46-605Z.png
+[2026-08-03 09:41:46] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-007: Dynamic validation of Operations Hospital ICU form
+[2026-08-03 09:41:46] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10240ms
+[2026-08-03 09:41:46] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:46] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-007: Dynamic validation of Operations Hospital ICU form] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10240ms)
+[2026-08-03 09:41:46] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:47] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:41:51] [INFO]: ================================================================
+[2026-08-03 09:41:51] [INFO]:    CAREBRIDGE E2E ENTERPRISE AUTOMATION SUITE STARTED           
+[2026-08-03 09:41:51] [INFO]:    Target Base URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:51] [INFO]:    Browser: chrome (Headless: true)
+[2026-08-03 09:41:51] [INFO]: ================================================================
+[2026-08-03 09:41:51] [INFO]: Initializing WebDriver session (chrome, headless=true)
+[2026-08-03 09:41:52] [INFO]: [UI & Interactive Elements Validation Suite UI-001: Validate Theme Toggle (Dark / Light mode)] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:41:52] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:53] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:54] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_UI___Interactive_Elements_Validation_Suite_UI-002__Validate_Language_Selector_Dropdown_2026-08-03T04-11-53-893Z.png
+[2026-08-03 09:41:54] [ERROR]: TEST FAILED: UI & Interactive Elements Validation Suite UI-002: Validate Language Selector Dropdown
+[2026-08-03 09:41:54] [ERROR]: Reason: invalid element state
+  (Session info: chrome=151.0.7922.72)
+[2026-08-03 09:41:54] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:54] [INFO]: [UI & Interactive Elements Validation Suite UI-002: Validate Language Selector Dropdown] Test Execution - FAILED (invalid element state
+  (Session info: chrome=151.0.7922.72))
+[2026-08-03 09:41:54] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:55] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:56] [INFO]: Performing login for role=patient, email=
+[2026-08-03 09:41:58] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10360ms
+[2026-08-03 09:41:58] [INFO]: Refreshing page
+[2026-08-03 09:41:58] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_End-to-End_Multi-Role_Healthcare_Workflow_Suite_E2E-001__Execute_complete_End-to-End_patient_consultation_workflow_2026-08-03T04-11-58-356Z.png
+[2026-08-03 09:41:58] [ERROR]: TEST FAILED: End-to-End Multi-Role Healthcare Workflow Suite E2E-001: Execute complete End-to-End patient consultation workflow
+[2026-08-03 09:41:58] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10360ms
+[2026-08-03 09:41:58] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:58] [INFO]: [End-to-End Multi-Role Healthcare Workflow Suite E2E-001: Execute complete End-to-End patient consultation workflow] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10360ms)
+[2026-08-03 09:41:58] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:59] [INFO]: [Authentication & Session Management Suite AUTH-001: Validate login with empty email field] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:41:59] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:41:59] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:42:00] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:01] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:42:04] [INFO]: [Authentication & Session Management Suite AUTH-002: Validate login with empty password field] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:42:04] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:05] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:05] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10303ms
+[2026-08-03 09:42:06] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_UI___Interactive_Elements_Validation_Suite_UI-003__Validate_Forgot_Password_Modal_open_and_close_2026-08-03T04-12-05-834Z.png
+[2026-08-03 09:42:06] [ERROR]: TEST FAILED: UI & Interactive Elements Validation Suite UI-003: Validate Forgot Password Modal open and close
+[2026-08-03 09:42:06] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10303ms
+[2026-08-03 09:42:06] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:06] [INFO]: [UI & Interactive Elements Validation Suite UI-003: Validate Forgot Password Modal open and close] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10303ms)
+[2026-08-03 09:42:06] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:06] [INFO]: Performing login for role=patient, email=wrong@carebridge.demo
+[2026-08-03 09:42:07] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:42:09] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Authentication___Session_Management_Suite_AUTH-006__Validate_session_persistence_on_page_refresh_2026-08-03T04-12-09-554Z.png
+[2026-08-03 09:42:09] [ERROR]: TEST FAILED: Authentication & Session Management Suite AUTH-006: Validate session persistence on page refresh
+[2026-08-03 09:42:09] [ERROR]: Reason: expected false to be true
+[2026-08-03 09:42:09] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:09] [INFO]: [Authentication & Session Management Suite AUTH-006: Validate session persistence on page refresh] Test Execution - FAILED (expected false to be true)
+[2026-08-03 09:42:10] [INFO]: RouteScanner discovered 28 dynamic form input rules from React source.
+[2026-08-03 09:42:10] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:10] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10251ms
+[2026-08-03 09:42:10] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Navigation___Internal_Routing_Validation_Suite_NAV-001__Validate_navigation_through_all_Patient_workspace_links_2026-08-03T04-12-10-085Z.png
+[2026-08-03 09:42:10] [ERROR]: TEST FAILED: Navigation & Internal Routing Validation Suite NAV-001: Validate navigation through all Patient workspace links
+[2026-08-03 09:42:10] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10251ms
+[2026-08-03 09:42:10] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:10] [INFO]: [Navigation & Internal Routing Validation Suite NAV-001: Validate navigation through all Patient workspace links] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10251ms)
+[2026-08-03 09:42:10] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:10] [INFO]: Refreshing page
+[2026-08-03 09:42:11] [INFO]: Performing login for role=doctor, email=doctor@carebridge.demo
+[2026-08-03 09:42:12] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-001: Validate discovered React routes configuration exists] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:42:12] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:12] [INFO]: Refreshing page
+[2026-08-03 09:42:14] [INFO]: Performing registration for name=Test User, email=invalid-email
+[2026-08-03 09:42:15] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Authentication___Session_Management_Suite_AUTH-003__Validate_login_with_invalid_credentials_2026-08-03T04-12-15-194Z.png
+[2026-08-03 09:42:15] [ERROR]: TEST FAILED: Authentication & Session Management Suite AUTH-003: Validate login with invalid credentials
+[2026-08-03 09:42:15] [ERROR]: Reason: expected false to be true
+[2026-08-03 09:42:15] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:15] [INFO]: [Authentication & Session Management Suite AUTH-003: Validate login with invalid credentials] Test Execution - FAILED (expected false to be true)
+[2026-08-03 09:42:15] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:16] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:17] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:42:17] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10244ms
+[2026-08-03 09:42:18] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_UI___Interactive_Elements_Validation_Suite_UI-004__Validate_Doctor_Search_Bar_filtering_in_Patient_Workspace_2026-08-03T04-12-17-838Z.png
+[2026-08-03 09:42:18] [ERROR]: TEST FAILED: UI & Interactive Elements Validation Suite UI-004: Validate Doctor Search Bar filtering in Patient Workspace
+[2026-08-03 09:42:18] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10244ms
+[2026-08-03 09:42:18] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:18] [INFO]: [UI & Interactive Elements Validation Suite UI-004: Validate Doctor Search Bar filtering in Patient Workspace] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10244ms)
+[2026-08-03 09:42:18] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:19] [INFO]: Performing login for role=operations, email=ops@carebridge.demo
+[2026-08-03 09:42:22] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10332ms
+[2026-08-03 09:42:22] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Navigation___Internal_Routing_Validation_Suite_NAV-002__Validate_navigation_through_Doctor_workspace_tabs_2026-08-03T04-12-22-011Z.png
+[2026-08-03 09:42:22] [ERROR]: TEST FAILED: Navigation & Internal Routing Validation Suite NAV-002: Validate navigation through Doctor workspace tabs
+[2026-08-03 09:42:22] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10332ms
+[2026-08-03 09:42:22] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:22] [INFO]: [Navigation & Internal Routing Validation Suite NAV-002: Validate navigation through Doctor workspace tabs] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10332ms)
+[2026-08-03 09:42:22] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:23] [INFO]: Performing login for role=operations, email=admin@carebridge.demo
+[2026-08-03 09:42:25] [ERROR]: Element not visible/located: By(css selector, input[placeholder="Your full name"]) - Waiting for element to be located By(css selector, input[placeholder="Your full name"])
+Wait timed out after 10301ms
+[2026-08-03 09:42:26] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-002__Dynamic_email_input_format_validation_on_Signup_form_2026-08-03T04-12-25-603Z.png
+[2026-08-03 09:42:26] [INFO]: [Authentication & Session Management Suite AUTH-004: Validate successful Patient authentication flow] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:42:26] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:26] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-002: Dynamic email input format validation on Signup form
+[2026-08-03 09:42:26] [ERROR]: Reason: Waiting for element to be located By(css selector, input[placeholder="Your full name"])
+Wait timed out after 10301ms
+[2026-08-03 09:42:26] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:26] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-002: Dynamic email input format validation on Signup form] Test Execution - FAILED (Waiting for element to be located By(css selector, input[placeholder="Your full name"])
+Wait timed out after 10301ms)
+[2026-08-03 09:42:26] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:27] [INFO]: Refreshing page
+[2026-08-03 09:42:27] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:28] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:42:28] [INFO]: Performing registration for name=Test User, email=valid@carebridge.demo
+[2026-08-03 09:42:29] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10328ms
+[2026-08-03 09:42:30] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_UI___Interactive_Elements_Validation_Suite_UI-005__Validate_Operations_Doctor_Verification_Data_Table_and_Review_Modal_2026-08-03T04-12-29-689Z.png
+[2026-08-03 09:42:30] [ERROR]: TEST FAILED: UI & Interactive Elements Validation Suite UI-005: Validate Operations Doctor Verification Data Table and Review Modal
+[2026-08-03 09:42:30] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10328ms
+[2026-08-03 09:42:30] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:30] [INFO]: [UI & Interactive Elements Validation Suite UI-005: Validate Operations Doctor Verification Data Table and Review Modal] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10328ms)
+[2026-08-03 09:42:30] [INFO]: Closing driver instance...
+[2026-08-03 09:42:30] [INFO]: Closing WebDriver session
+[2026-08-03 09:42:30] [INFO]: Generating final Excel report (E2E_Report.xlsx)...
+[2026-08-03 09:42:30] [INFO]: Excel E2E Report generated successfully at C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\excel\E2E_Report.xlsx
+[2026-08-03 09:42:30] [INFO]: E2E_Report.xlsx successfully saved to: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\excel\E2E_Report.xlsx
+[2026-08-03 09:42:30] [INFO]: ================================================================
+[2026-08-03 09:42:30] [INFO]:    CAREBRIDGE E2E ENTERPRISE AUTOMATION SUITE FINISHED          
+[2026-08-03 09:42:30] [INFO]: ================================================================
+[2026-08-03 09:42:33] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10281ms
+[2026-08-03 09:42:34] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Navigation___Internal_Routing_Validation_Suite_NAV-003__Validate_navigation_through_Operations_workspace_tabs_2026-08-03T04-12-33-753Z.png
+[2026-08-03 09:42:34] [ERROR]: TEST FAILED: Navigation & Internal Routing Validation Suite NAV-003: Validate navigation through Operations workspace tabs
+[2026-08-03 09:42:34] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10281ms
+[2026-08-03 09:42:34] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:34] [INFO]: [Navigation & Internal Routing Validation Suite NAV-003: Validate navigation through Operations workspace tabs] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10281ms)
+[2026-08-03 09:42:34] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:35] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:42:39] [ERROR]: Element not visible/located: By(css selector, input[placeholder="Your full name"]) - Waiting for element to be located By(css selector, input[placeholder="Your full name"])
+Wait timed out after 10302ms
+[2026-08-03 09:42:40] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-003__Dynamic_password_mismatch_validation_on_Signup_form_2026-08-03T04-12-39-846Z.png
+[2026-08-03 09:42:40] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-003: Dynamic password mismatch validation on Signup form
+[2026-08-03 09:42:40] [ERROR]: Reason: Waiting for element to be located By(css selector, input[placeholder="Your full name"])
+Wait timed out after 10302ms
+[2026-08-03 09:42:40] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:40] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-003: Dynamic password mismatch validation on Signup form] Test Execution - FAILED (Waiting for element to be located By(css selector, input[placeholder="Your full name"])
+Wait timed out after 10302ms)
+[2026-08-03 09:42:40] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:41] [INFO]: Refreshing page
+[2026-08-03 09:42:41] [INFO]: Signing out patient
+[2026-08-03 09:42:42] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:42:45] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10228ms
+[2026-08-03 09:42:45] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Navigation___Internal_Routing_Validation_Suite_NAV-004__Validate_browser_refresh__back__and_forward_navigation_2026-08-03T04-12-45-451Z.png
+[2026-08-03 09:42:45] [ERROR]: TEST FAILED: Navigation & Internal Routing Validation Suite NAV-004: Validate browser refresh, back, and forward navigation
+[2026-08-03 09:42:45] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10228ms
+[2026-08-03 09:42:45] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:45] [INFO]: [Navigation & Internal Routing Validation Suite NAV-004: Validate browser refresh, back, and forward navigation] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10228ms)
+[2026-08-03 09:42:45] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:47] [INFO]: [Authentication & Session Management Suite AUTH-005: Validate Patient logout flow] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:42:47] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:48] [INFO]: ================================================================
+[2026-08-03 09:42:48] [INFO]:    CAREBRIDGE E2E ENTERPRISE AUTOMATION SUITE STARTED           
+[2026-08-03 09:42:48] [INFO]:    Target Base URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:48] [INFO]:    Browser: chrome (Headless: true)
+[2026-08-03 09:42:48] [INFO]: ================================================================
+[2026-08-03 09:42:48] [INFO]: Initializing WebDriver session (chrome, headless=true)
+[2026-08-03 09:42:48] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:49] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:49] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:42:51] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:52] [INFO]: Performing login for role=patient, email=
+[2026-08-03 09:42:52] [INFO]: [UI & Interactive Elements Validation Suite UI-001: Validate Theme Toggle (Dark / Light mode)] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:42:52] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:54] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_UI___Interactive_Elements_Validation_Suite_UI-002__Validate_Language_Selector_Dropdown_2026-08-03T04-12-53-837Z.png
+[2026-08-03 09:42:54] [ERROR]: TEST FAILED: UI & Interactive Elements Validation Suite UI-002: Validate Language Selector Dropdown
+[2026-08-03 09:42:54] [ERROR]: Reason: invalid element state
+  (Session info: chrome=151.0.7922.72)
+[2026-08-03 09:42:54] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:54] [INFO]: [UI & Interactive Elements Validation Suite UI-002: Validate Language Selector Dropdown] Test Execution - FAILED (invalid element state
+  (Session info: chrome=151.0.7922.72))
+[2026-08-03 09:42:54] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:55] [INFO]: [Authentication & Session Management Suite AUTH-001: Validate login with empty email field] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:42:55] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:56] [INFO]: Patient navigating to tab: symptoms
+[2026-08-03 09:42:56] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:42:57] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:43:00] [INFO]: [Authentication & Session Management Suite AUTH-002: Validate login with empty password field] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:43:00] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:01] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:02] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:43:03] [INFO]: Refreshing page
+[2026-08-03 09:43:05] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10253ms
+[2026-08-03 09:43:05] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_UI___Interactive_Elements_Validation_Suite_UI-003__Validate_Forgot_Password_Modal_open_and_close_2026-08-03T04-13-05-583Z.png
+[2026-08-03 09:43:05] [ERROR]: TEST FAILED: UI & Interactive Elements Validation Suite UI-003: Validate Forgot Password Modal open and close
+[2026-08-03 09:43:05] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10253ms
+[2026-08-03 09:43:05] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:05] [INFO]: [UI & Interactive Elements Validation Suite UI-003: Validate Forgot Password Modal open and close] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10253ms)
+[2026-08-03 09:43:05] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:06] [INFO]: [Authentication & Session Management Suite AUTH-003: Validate login with invalid credentials] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:43:06] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:06] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:07] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:43:07] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:43:15] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Authentication___Session_Management_Suite_AUTH-006__Validate_session_persistence_on_page_refresh_2026-08-03T04-13-14-653Z.png
+[2026-08-03 09:43:15] [ERROR]: TEST FAILED: Authentication & Session Management Suite AUTH-006: Validate session persistence on page refresh
+[2026-08-03 09:43:15] [ERROR]: Reason: expected false to be true
+[2026-08-03 09:43:15] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:15] [INFO]: [Authentication & Session Management Suite AUTH-006: Validate session persistence on page refresh] Test Execution - FAILED (expected false to be true)
+[2026-08-03 09:43:15] [INFO]: RouteScanner discovered 28 dynamic form input rules from React source.
+[2026-08-03 09:43:15] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:15] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:16] [INFO]: [Authentication & Session Management Suite AUTH-004: Validate successful Patient authentication flow] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:43:16] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:16] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-001: Validate discovered React routes configuration exists] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:43:16] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:17] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-004__Dynamic_validation_of_Patient_Symptom_Intake_form_2026-08-03T04-13-16-888Z.png
+[2026-08-03 09:43:17] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-004: Dynamic validation of Patient Symptom Intake form
+[2026-08-03 09:43:17] [ERROR]: Reason: expected false to be true
+[2026-08-03 09:43:17] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:17] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-004: Dynamic validation of Patient Symptom Intake form] Test Execution - FAILED (expected false to be true)
+[2026-08-03 09:43:17] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:17] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:17] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10274ms
+[2026-08-03 09:43:17] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:18] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_UI___Interactive_Elements_Validation_Suite_UI-004__Validate_Doctor_Search_Bar_filtering_in_Patient_Workspace_2026-08-03T04-13-17-643Z.png
+[2026-08-03 09:43:18] [ERROR]: TEST FAILED: UI & Interactive Elements Validation Suite UI-004: Validate Doctor Search Bar filtering in Patient Workspace
+[2026-08-03 09:43:18] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10274ms
+[2026-08-03 09:43:18] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:18] [INFO]: [UI & Interactive Elements Validation Suite UI-004: Validate Doctor Search Bar filtering in Patient Workspace] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10274ms)
+[2026-08-03 09:43:18] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:18] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:43:18] [INFO]: Refreshing page
+[2026-08-03 09:43:19] [INFO]: Performing login for role=operations, email=admin@carebridge.demo
+[2026-08-03 09:43:19] [INFO]: Performing registration for name=Test User, email=invalid-email
+[2026-08-03 09:43:19] [INFO]: Performing login for role=doctor, email=doctor@carebridge.demo
+[2026-08-03 09:43:29] [ERROR]: Element not visible/located: By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')]) - Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10243ms
+[2026-08-03 09:43:29] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_UI___Interactive_Elements_Validation_Suite_UI-005__Validate_Operations_Doctor_Verification_Data_Table_and_Review_Modal_2026-08-03T04-13-29-361Z.png
+[2026-08-03 09:43:29] [ERROR]: TEST FAILED: UI & Interactive Elements Validation Suite UI-005: Validate Operations Doctor Verification Data Table and Review Modal
+[2026-08-03 09:43:29] [ERROR]: Reason: Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10243ms
+[2026-08-03 09:43:29] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:29] [INFO]: [UI & Interactive Elements Validation Suite UI-005: Validate Operations Doctor Verification Data Table and Review Modal] Test Execution - FAILED (Waiting for element to be located By(xpath, //div[contains(@class, 'auth-tabs')]/button[contains(text(), 'Sign in')])
+Wait timed out after 10243ms)
+[2026-08-03 09:43:29] [INFO]: Closing driver instance...
+[2026-08-03 09:43:29] [INFO]: Closing WebDriver session
+[2026-08-03 09:43:29] [INFO]: Generating final Excel report (E2E_Report.xlsx)...
+[2026-08-03 09:43:29] [INFO]: Excel E2E Report generated successfully at C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\excel\E2E_Report.xlsx
+[2026-08-03 09:43:29] [INFO]: E2E_Report.xlsx successfully saved to: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\excel\E2E_Report.xlsx
+[2026-08-03 09:43:29] [INFO]: ================================================================
+[2026-08-03 09:43:29] [INFO]:    CAREBRIDGE E2E ENTERPRISE AUTOMATION SUITE FINISHED          
+[2026-08-03 09:43:29] [INFO]: ================================================================
+[2026-08-03 09:43:30] [ERROR]: Element not visible/located: By(css selector, input[placeholder="Your full name"]) - Waiting for element to be located By(css selector, input[placeholder="Your full name"])
+Wait timed out after 10293ms
+[2026-08-03 09:43:30] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-002__Dynamic_email_input_format_validation_on_Signup_form_2026-08-03T04-13-30-154Z.png
+[2026-08-03 09:43:30] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-002: Dynamic email input format validation on Signup form
+[2026-08-03 09:43:30] [ERROR]: Reason: Waiting for element to be located By(css selector, input[placeholder="Your full name"])
+Wait timed out after 10293ms
+[2026-08-03 09:43:30] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:30] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-002: Dynamic email input format validation on Signup form] Test Execution - FAILED (Waiting for element to be located By(css selector, input[placeholder="Your full name"])
+Wait timed out after 10293ms)
+[2026-08-03 09:43:30] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:31] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:31] [INFO]: Signing out patient
+[2026-08-03 09:43:33] [INFO]: Doctor navigating to tab: notes
+[2026-08-03 09:43:33] [INFO]: Performing registration for name=Test User, email=valid@carebridge.demo
+[2026-08-03 09:43:37] [INFO]: [Authentication & Session Management Suite AUTH-005: Validate Patient logout flow] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:43:37] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:39] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:39] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:43:43] [ERROR]: Element not visible/located: By(xpath, //label[contains(., 'Symptoms')]/textarea) - Waiting for element to be located By(xpath, //label[contains(., 'Symptoms')]/textarea)
+Wait timed out after 10271ms
+[2026-08-03 09:43:44] [ERROR]: Element not visible/located: By(css selector, input[placeholder="Your full name"]) - Waiting for element to be located By(css selector, input[placeholder="Your full name"])
+Wait timed out after 10285ms
+[2026-08-03 09:43:44] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-005__Dynamic_validation_of_Doctor_Clinical_Notes_form_2026-08-03T04-13-43-899Z.png
+[2026-08-03 09:43:44] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-005: Dynamic validation of Doctor Clinical Notes form
+[2026-08-03 09:43:44] [ERROR]: Reason: Waiting for element to be located By(xpath, //label[contains(., 'Symptoms')]/textarea)
+Wait timed out after 10271ms
+[2026-08-03 09:43:44] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:44] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-005: Dynamic validation of Doctor Clinical Notes form] Test Execution - FAILED (Waiting for element to be located By(xpath, //label[contains(., 'Symptoms')]/textarea)
+Wait timed out after 10271ms)
+[2026-08-03 09:43:44] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:44] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-003__Dynamic_password_mismatch_validation_on_Signup_form_2026-08-03T04-13-44-165Z.png
+[2026-08-03 09:43:44] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-003: Dynamic password mismatch validation on Signup form
+[2026-08-03 09:43:44] [ERROR]: Reason: Waiting for element to be located By(css selector, input[placeholder="Your full name"])
+Wait timed out after 10285ms
+[2026-08-03 09:43:44] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:44] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-003: Dynamic password mismatch validation on Signup form] Test Execution - FAILED (Waiting for element to be located By(css selector, input[placeholder="Your full name"])
+Wait timed out after 10285ms)
+[2026-08-03 09:43:44] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:45] [INFO]: Refreshing page
+[2026-08-03 09:43:45] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:43:46] [INFO]: Performing login for role=doctor, email=doctor@carebridge.demo
+[2026-08-03 09:43:46] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:43:53] [INFO]: Refreshing page
+[2026-08-03 09:43:59] [INFO]: Doctor navigating to tab: prescriptions
+[2026-08-03 09:43:59] [INFO]: Patient navigating to tab: symptoms
+[2026-08-03 09:44:05] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Authentication___Session_Management_Suite_AUTH-006__Validate_session_persistence_on_page_refresh_2026-08-03T04-14-04-647Z.png
+[2026-08-03 09:44:05] [ERROR]: TEST FAILED: Authentication & Session Management Suite AUTH-006: Validate session persistence on page refresh
+[2026-08-03 09:44:05] [ERROR]: Reason: expected false to be true
+[2026-08-03 09:44:05] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:44:05] [INFO]: [Authentication & Session Management Suite AUTH-006: Validate session persistence on page refresh] Test Execution - FAILED (expected false to be true)
+[2026-08-03 09:44:05] [INFO]: RouteScanner discovered 28 dynamic form input rules from React source.
+[2026-08-03 09:44:05] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:44:05] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:44:06] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-001: Validate discovered React routes configuration exists] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:44:06] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:44:07] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:44:09] [INFO]: Performing registration for name=Test User, email=invalid-email
+[2026-08-03 09:44:10] [ERROR]: Element not visible/located: By(xpath, //label[contains(., 'Medicine name')]/input) - Waiting for element to be located By(xpath, //label[contains(., 'Medicine name')]/input)
+Wait timed out after 10308ms
+[2026-08-03 09:44:11] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-006__Dynamic_validation_of_Doctor_Prescription_Builder_form_2026-08-03T04-14-10-717Z.png
+[2026-08-03 09:44:11] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-006: Dynamic validation of Doctor Prescription Builder form
+[2026-08-03 09:44:11] [ERROR]: Reason: Waiting for element to be located By(xpath, //label[contains(., 'Medicine name')]/input)
+Wait timed out after 10308ms
+[2026-08-03 09:44:11] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:44:11] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-006: Dynamic validation of Doctor Prescription Builder form] Test Execution - FAILED (Waiting for element to be located By(xpath, //label[contains(., 'Medicine name')]/input)
+Wait timed out after 10308ms)
+[2026-08-03 09:44:11] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:44:12] [INFO]: Refreshing page
+[2026-08-03 09:44:13] [INFO]: Performing login for role=operations, email=admin@carebridge.demo
+[2026-08-03 09:44:20] [ERROR]: Element not visible/located: By(css selector, input[placeholder="Your full name"]) - Waiting for element to be located By(css selector, input[placeholder="Your full name"])
+Wait timed out after 10309ms
+[2026-08-03 09:44:20] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-002__Dynamic_email_input_format_validation_on_Signup_form_2026-08-03T04-14-20-186Z.png
+[2026-08-03 09:44:20] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-002: Dynamic email input format validation on Signup form
+[2026-08-03 09:44:20] [ERROR]: Reason: Waiting for element to be located By(css selector, input[placeholder="Your full name"])
+Wait timed out after 10309ms
+[2026-08-03 09:44:20] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:44:20] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-002: Dynamic email input format validation on Signup form] Test Execution - FAILED (Waiting for element to be located By(css selector, input[placeholder="Your full name"])
+Wait timed out after 10309ms)
+[2026-08-03 09:44:20] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:44:21] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-004__Dynamic_validation_of_Patient_Symptom_Intake_form_2026-08-03T04-14-20-576Z.png
+[2026-08-03 09:44:21] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-004: Dynamic validation of Patient Symptom Intake form
+[2026-08-03 09:44:21] [ERROR]: Reason: expected false to be true
+[2026-08-03 09:44:21] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:44:21] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-004: Dynamic validation of Patient Symptom Intake form] Test Execution - FAILED (expected false to be true)
+[2026-08-03 09:44:21] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:44:21] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:44:22] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:44:23] [INFO]: Performing login for role=doctor, email=doctor@carebridge.demo
+[2026-08-03 09:44:23] [INFO]: Performing registration for name=Test User, email=valid@carebridge.demo
+[2026-08-03 09:44:26] [INFO]: Operations navigating to tab: hospitals
+[2026-08-03 09:44:34] [ERROR]: Element not visible/located: By(css selector, input[placeholder="Your full name"]) - Waiting for element to be located By(css selector, input[placeholder="Your full name"])
+Wait timed out after 10252ms
+[2026-08-03 09:44:34] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-003__Dynamic_password_mismatch_validation_on_Signup_form_2026-08-03T04-14-34-205Z.png
+[2026-08-03 09:44:34] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-003: Dynamic password mismatch validation on Signup form
+[2026-08-03 09:44:34] [ERROR]: Reason: Waiting for element to be located By(css selector, input[placeholder="Your full name"])
+Wait timed out after 10252ms
+[2026-08-03 09:44:34] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:44:34] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-003: Dynamic password mismatch validation on Signup form] Test Execution - FAILED (Waiting for element to be located By(css selector, input[placeholder="Your full name"])
+Wait timed out after 10252ms)
+[2026-08-03 09:44:34] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:44:35] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:44:36] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:44:36] [INFO]: Doctor navigating to tab: notes
+[2026-08-03 09:44:42] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-007__Dynamic_validation_of_Operations_Hospital_ICU_form_2026-08-03T04-14-42-500Z.png
+[2026-08-03 09:44:42] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-007: Dynamic validation of Operations Hospital ICU form
+[2026-08-03 09:44:42] [ERROR]: Reason: expected false to be true
+[2026-08-03 09:44:42] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:44:42] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-007: Dynamic validation of Operations Hospital ICU form] Test Execution - FAILED (expected false to be true)
+[2026-08-03 09:44:42] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:44:43] [INFO]: Refreshing page
+[2026-08-03 09:44:44] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:44:45] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:44:47] [ERROR]: Element not visible/located: By(xpath, //label[contains(., 'Symptoms')]/textarea) - Waiting for element to be located By(xpath, //label[contains(., 'Symptoms')]/textarea)
+Wait timed out after 10339ms
+[2026-08-03 09:44:47] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-005__Dynamic_validation_of_Doctor_Clinical_Notes_form_2026-08-03T04-14-47-503Z.png
+[2026-08-03 09:44:47] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-005: Dynamic validation of Doctor Clinical Notes form
+[2026-08-03 09:44:47] [ERROR]: Reason: Waiting for element to be located By(xpath, //label[contains(., 'Symptoms')]/textarea)
+Wait timed out after 10339ms
+[2026-08-03 09:44:47] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:44:47] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-005: Dynamic validation of Doctor Clinical Notes form] Test Execution - FAILED (Waiting for element to be located By(xpath, //label[contains(., 'Symptoms')]/textarea)
+Wait timed out after 10339ms)
+[2026-08-03 09:44:47] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:44:48] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:44:49] [INFO]: Performing login for role=doctor, email=doctor@carebridge.demo
+[2026-08-03 09:44:50] [INFO]: Patient navigating to tab: symptoms
+[2026-08-03 09:44:59] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_End-to-End_Multi-Role_Healthcare_Workflow_Suite_E2E-001__Execute_complete_End-to-End_patient_consultation_workflow_2026-08-03T04-14-59-520Z.png
+[2026-08-03 09:44:59] [ERROR]: TEST FAILED: End-to-End Multi-Role Healthcare Workflow Suite E2E-001: Execute complete End-to-End patient consultation workflow
+[2026-08-03 09:44:59] [ERROR]: Reason: expected false to be true
+[2026-08-03 09:44:59] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:44:59] [INFO]: [End-to-End Multi-Role Healthcare Workflow Suite E2E-001: Execute complete End-to-End patient consultation workflow] Test Execution - FAILED (expected false to be true)
+[2026-08-03 09:44:59] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:45:01] [INFO]: Refreshing page
+[2026-08-03 09:45:02] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:45:03] [INFO]: Doctor navigating to tab: prescriptions
+[2026-08-03 09:45:11] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-004__Dynamic_validation_of_Patient_Symptom_Intake_form_2026-08-03T04-15-10-708Z.png
+[2026-08-03 09:45:11] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-004: Dynamic validation of Patient Symptom Intake form
+[2026-08-03 09:45:11] [ERROR]: Reason: expected false to be true
+[2026-08-03 09:45:11] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:45:11] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-004: Dynamic validation of Patient Symptom Intake form] Test Execution - FAILED (expected false to be true)
+[2026-08-03 09:45:11] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:45:12] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:45:13] [INFO]: Performing login for role=doctor, email=doctor@carebridge.demo
+[2026-08-03 09:45:14] [ERROR]: Element not visible/located: By(xpath, //label[contains(., 'Medicine name')]/input) - Waiting for element to be located By(xpath, //label[contains(., 'Medicine name')]/input)
+Wait timed out after 10312ms
+[2026-08-03 09:45:14] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-006__Dynamic_validation_of_Doctor_Prescription_Builder_form_2026-08-03T04-15-14-077Z.png
+[2026-08-03 09:45:14] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-006: Dynamic validation of Doctor Prescription Builder form
+[2026-08-03 09:45:14] [ERROR]: Reason: Waiting for element to be located By(xpath, //label[contains(., 'Medicine name')]/input)
+Wait timed out after 10312ms
+[2026-08-03 09:45:14] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:45:14] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-006: Dynamic validation of Doctor Prescription Builder form] Test Execution - FAILED (Waiting for element to be located By(xpath, //label[contains(., 'Medicine name')]/input)
+Wait timed out after 10312ms)
+[2026-08-03 09:45:14] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:45:15] [INFO]: Patient navigating to tab: home
+[2026-08-03 09:45:15] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:45:16] [INFO]: Performing login for role=operations, email=admin@carebridge.demo
+[2026-08-03 09:45:26] [INFO]: Doctor navigating to tab: notes
+[2026-08-03 09:45:30] [INFO]: Operations navigating to tab: hospitals
+[2026-08-03 09:45:31] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Navigation___Internal_Routing_Validation_Suite_NAV-001__Validate_navigation_through_all_Patient_workspace_links_2026-08-03T04-15-31-250Z.png
+[2026-08-03 09:45:31] [ERROR]: TEST FAILED: Navigation & Internal Routing Validation Suite NAV-001: Validate navigation through all Patient workspace links
+[2026-08-03 09:45:31] [ERROR]: Reason: expected false to be true
+[2026-08-03 09:45:31] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:45:31] [INFO]: [Navigation & Internal Routing Validation Suite NAV-001: Validate navigation through all Patient workspace links] Test Execution - FAILED (expected false to be true)
+[2026-08-03 09:45:31] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:45:32] [INFO]: Refreshing page
+[2026-08-03 09:45:33] [INFO]: Performing login for role=doctor, email=doctor@carebridge.demo
+[2026-08-03 09:45:37] [ERROR]: Element not visible/located: By(xpath, //label[contains(., 'Symptoms')]/textarea) - Waiting for element to be located By(xpath, //label[contains(., 'Symptoms')]/textarea)
+Wait timed out after 10271ms
+[2026-08-03 09:45:37] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-005__Dynamic_validation_of_Doctor_Clinical_Notes_form_2026-08-03T04-15-37-538Z.png
+[2026-08-03 09:45:37] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-005: Dynamic validation of Doctor Clinical Notes form
+[2026-08-03 09:45:37] [ERROR]: Reason: Waiting for element to be located By(xpath, //label[contains(., 'Symptoms')]/textarea)
+Wait timed out after 10271ms
+[2026-08-03 09:45:37] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:45:37] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-005: Dynamic validation of Doctor Clinical Notes form] Test Execution - FAILED (Waiting for element to be located By(xpath, //label[contains(., 'Symptoms')]/textarea)
+Wait timed out after 10271ms)
+[2026-08-03 09:45:37] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:45:38] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:45:39] [INFO]: Performing login for role=doctor, email=doctor@carebridge.demo
+[2026-08-03 09:45:41] [INFO]: ================================================================
+[2026-08-03 09:45:41] [INFO]:    CAREBRIDGE E2E ENTERPRISE AUTOMATION SUITE STARTED           
+[2026-08-03 09:45:41] [INFO]:    Target Base URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:45:41] [INFO]:    Browser: chrome (Headless: true)
+[2026-08-03 09:45:41] [INFO]: ================================================================
+[2026-08-03 09:45:41] [INFO]: Initializing WebDriver session (chrome, headless=true)
+[2026-08-03 09:45:42] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:45:44] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:45:45] [INFO]: Performing login for role=patient, email=
+[2026-08-03 09:45:46] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-007__Dynamic_validation_of_Operations_Hospital_ICU_form_2026-08-03T04-15-45-717Z.png
+[2026-08-03 09:45:46] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-007: Dynamic validation of Operations Hospital ICU form
+[2026-08-03 09:45:46] [ERROR]: Reason: expected false to be true
+[2026-08-03 09:45:46] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:45:46] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-007: Dynamic validation of Operations Hospital ICU form] Test Execution - FAILED (expected false to be true)
+[2026-08-03 09:45:46] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:45:47] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:45:47] [INFO]: Doctor navigating to tab: today
+[2026-08-03 09:45:47] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:45:48] [INFO]: [Authentication & Session Management Suite AUTH-001: Validate login with empty email field] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:45:48] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:45:48] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:45:49] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:45:50] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:45:53] [INFO]: Doctor navigating to tab: prescriptions
+[2026-08-03 09:45:53] [INFO]: [Authentication & Session Management Suite AUTH-002: Validate login with empty password field] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:45:53] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:45:54] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:45:55] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:45:58] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Navigation___Internal_Routing_Validation_Suite_NAV-002__Validate_navigation_through_Doctor_workspace_tabs_2026-08-03T04-15-57-843Z.png
+[2026-08-03 09:45:58] [ERROR]: TEST FAILED: Navigation & Internal Routing Validation Suite NAV-002: Validate navigation through Doctor workspace tabs
+[2026-08-03 09:45:58] [ERROR]: Reason: expected false to be true
+[2026-08-03 09:45:58] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:45:58] [INFO]: [Navigation & Internal Routing Validation Suite NAV-002: Validate navigation through Doctor workspace tabs] Test Execution - FAILED (expected false to be true)
+[2026-08-03 09:45:58] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:45:58] [INFO]: [Authentication & Session Management Suite AUTH-003: Validate login with invalid credentials] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:45:58] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:45:59] [INFO]: Refreshing page
+[2026-08-03 09:45:59] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:00] [INFO]: Performing login for role=operations, email=admin@carebridge.demo
+[2026-08-03 09:46:00] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:46:02] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_End-to-End_Multi-Role_Healthcare_Workflow_Suite_E2E-001__Execute_complete_End-to-End_patient_consultation_workflow_2026-08-03T04-16-02-342Z.png
+[2026-08-03 09:46:02] [ERROR]: TEST FAILED: End-to-End Multi-Role Healthcare Workflow Suite E2E-001: Execute complete End-to-End patient consultation workflow
+[2026-08-03 09:46:02] [ERROR]: Reason: expected false to be true
+[2026-08-03 09:46:02] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:02] [INFO]: [End-to-End Multi-Role Healthcare Workflow Suite E2E-001: Execute complete End-to-End patient consultation workflow] Test Execution - FAILED (expected false to be true)
+[2026-08-03 09:46:02] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:03] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:04] [ERROR]: Element not visible/located: By(xpath, //label[contains(., 'Medicine name')]/input) - Waiting for element to be located By(xpath, //label[contains(., 'Medicine name')]/input)
+Wait timed out after 10306ms
+[2026-08-03 09:46:04] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-006__Dynamic_validation_of_Doctor_Prescription_Builder_form_2026-08-03T04-16-04-094Z.png
+[2026-08-03 09:46:04] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-006: Dynamic validation of Doctor Prescription Builder form
+[2026-08-03 09:46:04] [ERROR]: Reason: Waiting for element to be located By(xpath, //label[contains(., 'Medicine name')]/input)
+Wait timed out after 10306ms
+[2026-08-03 09:46:04] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:04] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-006: Dynamic validation of Doctor Prescription Builder form] Test Execution - FAILED (Waiting for element to be located By(xpath, //label[contains(., 'Medicine name')]/input)
+Wait timed out after 10306ms)
+[2026-08-03 09:46:04] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:04] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:46:05] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:06] [INFO]: Performing login for role=operations, email=admin@carebridge.demo
+[2026-08-03 09:46:09] [INFO]: [Authentication & Session Management Suite AUTH-004: Validate successful Patient authentication flow] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:46:09] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:10] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:11] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:46:14] [INFO]: Operations navigating to tab: overview
+[2026-08-03 09:46:18] [INFO]: Patient navigating to tab: home
+[2026-08-03 09:46:20] [INFO]: Operations navigating to tab: hospitals
+[2026-08-03 09:46:24] [INFO]: Signing out patient
+[2026-08-03 09:46:25] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Navigation___Internal_Routing_Validation_Suite_NAV-003__Validate_navigation_through_Operations_workspace_tabs_2026-08-03T04-16-24-756Z.png
+[2026-08-03 09:46:25] [ERROR]: TEST FAILED: Navigation & Internal Routing Validation Suite NAV-003: Validate navigation through Operations workspace tabs
+[2026-08-03 09:46:25] [ERROR]: Reason: expected false to be true
+[2026-08-03 09:46:25] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:25] [INFO]: [Navigation & Internal Routing Validation Suite NAV-003: Validate navigation through Operations workspace tabs] Test Execution - FAILED (expected false to be true)
+[2026-08-03 09:46:25] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:26] [INFO]: Refreshing page
+[2026-08-03 09:46:27] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:46:30] [INFO]: [Authentication & Session Management Suite AUTH-005: Validate Patient logout flow] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:46:30] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:31] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:32] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:46:34] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Navigation___Internal_Routing_Validation_Suite_NAV-001__Validate_navigation_through_all_Patient_workspace_links_2026-08-03T04-16-33-922Z.png
+[2026-08-03 09:46:34] [ERROR]: TEST FAILED: Navigation & Internal Routing Validation Suite NAV-001: Validate navigation through all Patient workspace links
+[2026-08-03 09:46:34] [ERROR]: Reason: expected false to be true
+[2026-08-03 09:46:34] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:34] [INFO]: [Navigation & Internal Routing Validation Suite NAV-001: Validate navigation through all Patient workspace links] Test Execution - FAILED (expected false to be true)
+[2026-08-03 09:46:34] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:35] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:36] [INFO]: Performing login for role=doctor, email=doctor@carebridge.demo
+[2026-08-03 09:46:36] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-007__Dynamic_validation_of_Operations_Hospital_ICU_form_2026-08-03T04-16-35-812Z.png
+[2026-08-03 09:46:36] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-007: Dynamic validation of Operations Hospital ICU form
+[2026-08-03 09:46:36] [ERROR]: Reason: expected false to be true
+[2026-08-03 09:46:36] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:36] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-007: Dynamic validation of Operations Hospital ICU form] Test Execution - FAILED (expected false to be true)
+[2026-08-03 09:46:36] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:37] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:38] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:38] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:46:40] [INFO]: Patient navigating to tab: consult
+[2026-08-03 09:46:46] [INFO]: Refreshing page
+[2026-08-03 09:46:46] [INFO]: Refreshing page
+[2026-08-03 09:46:49] [INFO]: Doctor navigating to tab: today
+[2026-08-03 09:46:52] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_End-to-End_Multi-Role_Healthcare_Workflow_Suite_E2E-001__Execute_complete_End-to-End_patient_consultation_workflow_2026-08-03T04-16-52-434Z.png
+[2026-08-03 09:46:52] [ERROR]: TEST FAILED: End-to-End Multi-Role Healthcare Workflow Suite E2E-001: Execute complete End-to-End patient consultation workflow
+[2026-08-03 09:46:52] [ERROR]: Reason: expected false to be true
+[2026-08-03 09:46:52] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:52] [INFO]: [End-to-End Multi-Role Healthcare Workflow Suite E2E-001: Execute complete End-to-End patient consultation workflow] Test Execution - FAILED (expected false to be true)
+[2026-08-03 09:46:52] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:54] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:54] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:46:58] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Navigation___Internal_Routing_Validation_Suite_NAV-004__Validate_browser_refresh__back__and_forward_navigation_2026-08-03T04-16-57-922Z.png
+[2026-08-03 09:46:58] [ERROR]: TEST FAILED: Navigation & Internal Routing Validation Suite NAV-004: Validate browser refresh, back, and forward navigation
+[2026-08-03 09:46:58] [ERROR]: Reason: expected false to be true
+[2026-08-03 09:46:58] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:58] [INFO]: [Navigation & Internal Routing Validation Suite NAV-004: Validate browser refresh, back, and forward navigation] Test Execution - FAILED (expected false to be true)
+[2026-08-03 09:46:58] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:58] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Authentication___Session_Management_Suite_AUTH-006__Validate_session_persistence_on_page_refresh_2026-08-03T04-16-58-519Z.png
+[2026-08-03 09:46:58] [ERROR]: TEST FAILED: Authentication & Session Management Suite AUTH-006: Validate session persistence on page refresh
+[2026-08-03 09:46:58] [ERROR]: Reason: expected false to be true
+[2026-08-03 09:46:58] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:58] [INFO]: [Authentication & Session Management Suite AUTH-006: Validate session persistence on page refresh] Test Execution - FAILED (expected false to be true)
+[2026-08-03 09:46:58] [INFO]: RouteScanner discovered 28 dynamic form input rules from React source.
+[2026-08-03 09:46:58] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:46:59] [INFO]: Refreshing page
+[2026-08-03 09:46:59] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:00] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Navigation___Internal_Routing_Validation_Suite_NAV-002__Validate_navigation_through_Doctor_workspace_tabs_2026-08-03T04-17-00-210Z.png
+[2026-08-03 09:47:00] [ERROR]: TEST FAILED: Navigation & Internal Routing Validation Suite NAV-002: Validate navigation through Doctor workspace tabs
+[2026-08-03 09:47:00] [ERROR]: Reason: expected false to be true
+[2026-08-03 09:47:00] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:00] [INFO]: [Navigation & Internal Routing Validation Suite NAV-002: Validate navigation through Doctor workspace tabs] Test Execution - FAILED (expected false to be true)
+[2026-08-03 09:47:00] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:00] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-001: Validate discovered React routes configuration exists] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:47:00] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:00] [INFO]: [UI & Interactive Elements Validation Suite UI-001: Validate Theme Toggle (Dark / Light mode)] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:47:00] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:01] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:01] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:01] [INFO]: Refreshing page
+[2026-08-03 09:47:02] [INFO]: Performing login for role=operations, email=admin@carebridge.demo
+[2026-08-03 09:47:03] [INFO]: Performing registration for name=Test User, email=invalid-email
+[2026-08-03 09:47:03] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_UI___Interactive_Elements_Validation_Suite_UI-002__Validate_Language_Selector_Dropdown_2026-08-03T04-17-03-236Z.png
+[2026-08-03 09:47:03] [ERROR]: TEST FAILED: UI & Interactive Elements Validation Suite UI-002: Validate Language Selector Dropdown
+[2026-08-03 09:47:03] [ERROR]: Reason: invalid element state
+  (Session info: chrome=151.0.7922.72)
+[2026-08-03 09:47:03] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:03] [INFO]: [UI & Interactive Elements Validation Suite UI-002: Validate Language Selector Dropdown] Test Execution - FAILED (invalid element state
+  (Session info: chrome=151.0.7922.72))
+[2026-08-03 09:47:03] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:04] [INFO]: Refreshing page
+[2026-08-03 09:47:08] [INFO]: Patient navigating to tab: home
+[2026-08-03 09:47:14] [ERROR]: Element not visible/located: By(css selector, #signup-name) - Waiting for element to be located By(css selector, #signup-name)
+Wait timed out after 10311ms
+[2026-08-03 09:47:14] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-002__Dynamic_email_input_format_validation_on_Signup_form_2026-08-03T04-17-14-038Z.png
+[2026-08-03 09:47:14] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-002: Dynamic email input format validation on Signup form
+[2026-08-03 09:47:14] [ERROR]: Reason: Waiting for element to be located By(css selector, #signup-name)
+Wait timed out after 10311ms
+[2026-08-03 09:47:14] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:14] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-002: Dynamic email input format validation on Signup form] Test Execution - FAILED (Waiting for element to be located By(css selector, #signup-name)
+Wait timed out after 10311ms)
+[2026-08-03 09:47:14] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:15] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:16] [INFO]: Operations navigating to tab: overview
+[2026-08-03 09:47:16] [ERROR]: Element not visible/located: By(css selector, .provider-dialog) - Waiting for element to be located By(css selector, .provider-dialog)
+Wait timed out after 10279ms
+[2026-08-03 09:47:17] [INFO]: Performing registration for name=Test User, email=valid@carebridge.demo
+[2026-08-03 09:47:17] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_UI___Interactive_Elements_Validation_Suite_UI-003__Validate_Forgot_Password_Modal_open_and_close_2026-08-03T04-17-16-832Z.png
+[2026-08-03 09:47:17] [ERROR]: TEST FAILED: UI & Interactive Elements Validation Suite UI-003: Validate Forgot Password Modal open and close
+[2026-08-03 09:47:17] [ERROR]: Reason: Waiting for element to be located By(css selector, .provider-dialog)
+Wait timed out after 10279ms
+[2026-08-03 09:47:17] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:17] [INFO]: [UI & Interactive Elements Validation Suite UI-003: Validate Forgot Password Modal open and close] Test Execution - FAILED (Waiting for element to be located By(css selector, .provider-dialog)
+Wait timed out after 10279ms)
+[2026-08-03 09:47:17] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:18] [INFO]: Refreshing page
+[2026-08-03 09:47:19] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:47:24] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Navigation___Internal_Routing_Validation_Suite_NAV-001__Validate_navigation_through_all_Patient_workspace_links_2026-08-03T04-17-24-035Z.png
+[2026-08-03 09:47:24] [ERROR]: TEST FAILED: Navigation & Internal Routing Validation Suite NAV-001: Validate navigation through all Patient workspace links
+[2026-08-03 09:47:24] [ERROR]: Reason: expected false to be true
+[2026-08-03 09:47:24] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:24] [INFO]: [Navigation & Internal Routing Validation Suite NAV-001: Validate navigation through all Patient workspace links] Test Execution - FAILED (expected false to be true)
+[2026-08-03 09:47:24] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:25] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:26] [INFO]: Performing login for role=doctor, email=doctor@carebridge.demo
+[2026-08-03 09:47:27] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Navigation___Internal_Routing_Validation_Suite_NAV-003__Validate_navigation_through_Operations_workspace_tabs_2026-08-03T04-17-26-871Z.png
+[2026-08-03 09:47:27] [ERROR]: TEST FAILED: Navigation & Internal Routing Validation Suite NAV-003: Validate navigation through Operations workspace tabs
+[2026-08-03 09:47:27] [ERROR]: Reason: expected false to be true
+[2026-08-03 09:47:27] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:27] [INFO]: [Navigation & Internal Routing Validation Suite NAV-003: Validate navigation through Operations workspace tabs] Test Execution - FAILED (expected false to be true)
+[2026-08-03 09:47:27] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:28] [ERROR]: Element not visible/located: By(css selector, #signup-name) - Waiting for element to be located By(css selector, #signup-name)
+Wait timed out after 10264ms
+[2026-08-03 09:47:28] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:28] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Dynamic_Form_Validation___Route_Discovery_Suite_FORM-DYN-003__Dynamic_password_mismatch_validation_on_Signup_form_2026-08-03T04-17-28-064Z.png
+[2026-08-03 09:47:28] [ERROR]: TEST FAILED: Dynamic Form Validation & Route Discovery Suite FORM-DYN-003: Dynamic password mismatch validation on Signup form
+[2026-08-03 09:47:28] [ERROR]: Reason: Waiting for element to be located By(css selector, #signup-name)
+Wait timed out after 10264ms
+[2026-08-03 09:47:28] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:28] [INFO]: [Dynamic Form Validation & Route Discovery Suite FORM-DYN-003: Dynamic password mismatch validation on Signup form] Test Execution - FAILED (Waiting for element to be located By(css selector, #signup-name)
+Wait timed out after 10264ms)
+[2026-08-03 09:47:28] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:29] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:47:29] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:30] [INFO]: Performing login for role=patient, email=patient@carebridge.demo
+[2026-08-03 09:47:33] [INFO]: Patient navigating to tab: consult
+[2026-08-03 09:47:39] [INFO]: Doctor navigating to tab: today
+[2026-08-03 09:47:42] [INFO]: Patient navigating to tab: consult
+[2026-08-03 09:47:43] [INFO]: Signing out patient
+[2026-08-03 09:47:43] [INFO]: Patient navigating to tab: symptoms
+[2026-08-03 09:47:46] [INFO]: ================================================================
+[2026-08-03 09:47:47] [INFO]:    CAREBRIDGE E2E ENTERPRISE AUTOMATION SUITE STARTED           
+[2026-08-03 09:47:47] [INFO]:    Target Base URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:47] [INFO]:    Browser: chrome (Headless: true)
+[2026-08-03 09:47:47] [INFO]: ================================================================
+[2026-08-03 09:47:47] [INFO]: Initializing WebDriver session (chrome, headless=true)
+[2026-08-03 09:47:48] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:48] [INFO]: Refreshing page
+[2026-08-03 09:47:49] [INFO]: [UI & Interactive Elements Validation Suite UI-004: Validate Doctor Search Bar filtering in Patient Workspace] Test Execution - PASSED (Completed successfully)
+[2026-08-03 09:47:49] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:50] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:50] [INFO]: Refreshing page
+[2026-08-03 09:47:51] [INFO]: Failure screenshot saved: C:\Users\navee\Downloads\CareBridge-One-Naveen\carebridge-one\reports\failures\FAILURE_Navigation___Internal_Routing_Validation_Suite_NAV-002__Validate_navigation_through_Doctor_workspace_tabs_2026-08-03T04-17-50-603Z.png
+[2026-08-03 09:47:51] [ERROR]: TEST FAILED: Navigation & Internal Routing Validation Suite NAV-002: Validate navigation through Doctor workspace tabs
+[2026-08-03 09:47:51] [ERROR]: Reason: expected false to be true
+[2026-08-03 09:47:51] [ERROR]: URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:51] [INFO]: [Navigation & Internal Routing Validation Suite NAV-002: Validate navigation through Doctor workspace tabs] Test Execution - FAILED (expected false to be true)
+[2026-08-03 09:47:51] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:51] [INFO]: Performing login for role=patient, email=
+[2026-08-03 09:47:51] [INFO]: Performing login for role=operations, email=admin@carebridge.demo
+[2026-08-03 09:47:52] [INFO]: Navigating to URL: http://localhost:4173/CareBridge/
+[2026-08-03 09:47:53] [INFO]: Performing login for role=operations, email=admin@carebridge.demo

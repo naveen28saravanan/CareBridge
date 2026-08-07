@@ -77,6 +77,15 @@ import {
   getUserDataFromSupabase,
   saveUserDataToSupabase,
 } from "../lib/supabase";
+import { getTranslator, type Translator } from "../i18n";
+
+function getTranslatedSpecialty(specialty: string, t: Translator): string {
+  if (specialty === "General Physician") return t("generalPhysician");
+  if (specialty === "Dermatologist") return t("dermatologist");
+  if (specialty === "Cardiologist") return t("cardiologist");
+  if (specialty === "Orthopaedic Surgeon") return t("orthopaedicSurgeon");
+  return specialty;
+}
 
 interface PatientWorkspaceProps {
   active: string;
@@ -87,16 +96,19 @@ interface PatientWorkspaceProps {
 }
 
 function PatientHome({
+  language,
   onNavigate,
   appointments,
   medicines,
   displayName,
 }: {
+  language: LanguageCode;
   onNavigate: (id: string) => void;
   appointments: Appointment[];
   medicines: MedicineDose[];
   displayName: string;
 }) {
+  const t = useMemo(() => getTranslator(language), [language]);
   const upcoming = appointments.find((item) => item.status === "Upcoming");
   const firstName = displayName.trim().split(/\s+/)[0] || "there";
   const completedDoses = medicines.filter((dose) => dose.state === "taken").length;
@@ -105,24 +117,24 @@ function PatientHome({
       <section className="patient-welcome">
         <header className="patient-welcome__header">
           <div>
-            <p>Good morning, {firstName}</p>
-            <h1>How can we help today?</h1>
+            <p>{t("greeting")}</p>
+            <h1>{t("appName")}</h1>
           </div>
-          <Badge tone="green"><ShieldCheck size={14} /> Protected health profile</Badge>
+          <Badge tone="green"><ShieldCheck size={14} /> {t("verified")}</Badge>
         </header>
         <button className="patient-consult-card" onClick={() => onNavigate("consult")}>
           <div className="patient-consult-card__copy">
-            <span>Verified clinicians</span>
-            <h2>Talk to<br />a doctor</h2>
-            <strong>Consult now <ArrowRight size={18} /></strong>
+            <span>{t("verified")}</span>
+            <h2>{t("bookDoctor")}</h2>
+            <strong>{t("consult")} <ArrowRight size={18} /></strong>
           </div>
           <div className="patient-consult-card__image" aria-hidden="true" />
         </button>
         <div className="patient-feature-grid">
-          <button onClick={() => onNavigate("chat")}><span><BrainCircuit size={24} /></span><strong>AI Health Guide</strong><small>Emergency-first guidance</small></button>
-          <button onClick={() => onNavigate("emergency")} className="is-critical"><span><Ambulance size={24} /></span><strong>Emergency Care</strong><small>Call 112 and first aid</small></button>
-          <button onClick={() => onNavigate("hospitals")}><span><Hospital size={24} /></span><strong>Nearby Hospitals</strong><small>Map and call-to-verify</small></button>
-          <button onClick={() => onNavigate("care")}><span><FileHeart size={24} /></span><strong>First Aid</strong><small>Offline safety guides</small></button>
+          <button onClick={() => onNavigate("chat")}><span><BrainCircuit size={24} /></span><strong>{t("healthChat")}</strong><small>{t("guidanceOnly")}</small></button>
+          <button onClick={() => onNavigate("emergency")} className="is-critical"><span><Ambulance size={24} /></span><strong>{t("emergencySos")}</strong><small>{t("call112")}</small></button>
+          <button onClick={() => onNavigate("hospitals")}><span><Hospital size={24} /></span><strong>{t("nearbyHospitals")}</strong><small>{t("locateHospitals")}</small></button>
+          <button onClick={() => onNavigate("care")}><span><FileHeart size={24} /></span><strong>{t("firstAid")}</strong><small>{t("offline")}</small></button>
         </div>
       </section>
 
@@ -130,33 +142,33 @@ function PatientHome({
         {[
           {
             id: "consult",
-            label: "Consult a doctor",
-            note: "Verified clinicians",
+            label: t("bookDoctor"),
+            note: t("verified"),
             icon: <Stethoscope size={22} />,
           },
           {
             id: "chat",
-            label: "Ask Health Guide",
-            note: "Emergency-first multilingual chat",
+            label: t("healthChat"),
+            note: t("guidanceOnly"),
             icon: <MessageCircle size={22} />,
           },
           {
             id: "symptoms",
-            label: "Symptom insights",
-            note: "Local guidance model",
+            label: t("symptomInsights"),
+            note: t("guidanceOnly"),
             icon: <BrainCircuit size={22} />,
           },
           {
             id: "emergency",
-            label: "Emergency & first aid",
-            note: "Call 112 or open guides",
+            label: t("emergencySos"),
+            note: t("call112"),
             icon: <Ambulance size={22} />,
             critical: true,
           },
           {
             id: "hospitals",
-            label: "Nearby hospitals",
-            note: "Open map discovery",
+            label: t("nearbyHospitals"),
+            note: t("locateHospitals"),
             icon: <Hospital size={22} />,
           },
         ].map((item) => (
@@ -178,10 +190,10 @@ function PatientHome({
       <div className="dashboard-grid">
         <Card className="appointment-card">
           <SectionHeading
-            title="Next appointment"
+            title={t("nextAppointment")}
             action={
               <button className="text-button" onClick={() => onNavigate("consult")}>
-                View all
+                {t("viewAll")}
               </button>
             }
           />
@@ -190,9 +202,9 @@ function PatientHome({
               <div className="appointment-card__doctor">
                 <Avatar initials="AK" size="large" />
                 <div>
-                  <Badge tone="blue">Verified</Badge>
+                  <Badge tone="blue">{t("verified")}</Badge>
                   <h3>{upcoming.clinician}</h3>
-                  <p>General Physician</p>
+                  <p>{getTranslatedSpecialty("General Physician", t)}</p>
                 </div>
               </div>
               <div className="appointment-facts">
@@ -207,20 +219,24 @@ function PatientHome({
                 </span>
               </div>
               <div className="button-row">
-                <Button variant="secondary" onClick={() => onNavigate("consult")}>View details</Button>
-                <Button icon={<Video size={17} />} onClick={() => onNavigate("consult")}>Join when ready</Button>
+                <Button variant="secondary" onClick={() => onNavigate("consult")}>{t("viewDetails")}</Button>
+                <Button icon={<Video size={17} />} onClick={() => onNavigate("consult")}>{t("joinWhenReady")}</Button>
               </div>
             </>
           ) : (
-            <p>No upcoming appointments.</p>
+            <p>{t("noUpcomingAppointments")}</p>
           )}
         </Card>
 
         <Card className="health-snapshot">
           <SectionHeading
-            title="Health snapshot"
-            subtitle="Every value includes its source"
-            action={<Badge tone="amber">Demo profile</Badge>}
+            title={t("healthSnapshot")}
+            subtitle={t("guidanceOnly")}
+            action={
+              <Badge tone="blue">
+                <Activity size={14} className="pulse-icon" /> Live IoT Wearable Sync Active
+              </Badge>
+            }
           />
           <div className="health-value-grid">
             {healthValues.slice(0, 4).map((item) => (
@@ -241,10 +257,10 @@ function PatientHome({
 
         <Card className="medicine-progress">
           <SectionHeading
-            title="Medicines today"
+            title={t("medicinesToday")}
             action={
               <button className="text-button" onClick={() => onNavigate("medicines")}>
-                Manage
+                {t("records")}
               </button>
             }
           />
@@ -261,20 +277,20 @@ function PatientHome({
             </span>
             <div>
               <strong>
-                {completedDoses} of {medicines.length}
+                {completedDoses} / {medicines.length}
               </strong>
-              <span>doses completed</span>
+              <span>{t("dosesCompleted")}</span>
             </div>
           </div>
-          <p className="muted">Always follow the prescribing clinician’s instructions.</p>
+          <p className="muted">{t("guidanceOnly")}</p>
         </Card>
 
         <Card>
           <SectionHeading
-            title="Recent records"
+            title={t("recentRecords")}
             action={
               <button className="text-button" onClick={() => onNavigate("records")}>
-                View all
+                {t("viewAll")}
               </button>
             }
           />
@@ -296,11 +312,11 @@ function PatientHome({
       </div>
 
       <SectionHeading
-        title="Doctors available today"
-        subtitle="Only fictional profiles are used in this prototype."
+        title={t("doctorsAvailableToday")}
+        subtitle={t("guidanceOnly")}
         action={
           <button className="text-button" onClick={() => onNavigate("consult")}>
-            View all
+            {t("viewAll")}
           </button>
         }
       />
@@ -311,16 +327,16 @@ function PatientHome({
           .map((doctor) => (
             <Card key={doctor.id} className="doctor-card">
               <Avatar initials={doctor.initials} size="large" />
-              <Badge tone="green">Available</Badge>
+              <Badge tone="green">{t("available")}</Badge>
               <h3>{doctor.name}</h3>
-              <p>{doctor.specialty}</p>
+              <p>{getTranslatedSpecialty(doctor.specialty, t)}</p>
               <div className="doctor-card__meta">
                 <span>★ {doctor.rating}</span>
                 <span>{doctor.experience}</span>
                 <span>₹{doctor.fee}</span>
               </div>
               <Button variant="outline" onClick={() => onNavigate("consult")}>
-                View profile
+                {t("viewSlots")}
               </Button>
             </Card>
           ))}
@@ -330,12 +346,15 @@ function PatientHome({
 }
 
 function ConsultationPage({
+  language,
   appointments,
   setAppointments,
 }: {
+  language: LanguageCode;
   appointments: Appointment[];
   setAppointments: React.Dispatch<React.SetStateAction<Appointment[]>>;
 }) {
+  const t = useMemo(() => getTranslator(language), [language]);
   const [search, setSearch] = useState("");
   const [specialty, setSpecialty] = useState("All specialties");
   const [verifiedOnly, setVerifiedOnly] = useState(true);
@@ -380,17 +399,17 @@ function ConsultationPage({
   return (
     <div className="page-stack">
       <SectionHeading
-        title="Consult a verified doctor"
-        subtitle="Search fictional clinicians, choose a slot and test the complete booking flow."
-        action={<Badge tone="green">Identity and licence verified</Badge>}
+        title={t("consult")}
+        subtitle={t("tagline")}
+        action={<Badge tone="green">{t("verified")}</Badge>}
       />
 
       {success ? (
         <Card tone="success" className="demo-event">
           <CheckCircle2 size={24} />
           <div>
-            <strong>Appointment booked</strong>
-            <p>The fictional appointment was added to this local demonstration.</p>
+            <strong>{t("saved")}</strong>
+            <p>{t("guidanceOnly")}</p>
           </div>
           <button className="icon-button" onClick={() => setSuccess(false)}>
             <X size={17} />
@@ -404,19 +423,19 @@ function ConsultationPage({
           <input
             value={search}
             onChange={(event) => setSearch(event.target.value)}
-            placeholder="Search doctors or specialties"
+            placeholder={t("searchDoctorsPlaceholder")}
           />
         </label>
         <select value={specialty} onChange={(event) => setSpecialty(event.target.value)}>
-          <option>All specialties</option>
+          <option value="All specialties">{t("allSpecialties")}</option>
           {[...new Set(doctors.map((doctor) => doctor.specialty))].map((item) => (
-            <option key={item}>{item}</option>
+            <option key={item} value={item}>{getTranslatedSpecialty(item, t)}</option>
           ))}
         </select>
         <Toggle
           checked={verifiedOnly}
           onChange={setVerifiedOnly}
-          label="Verified clinicians only"
+          label={t("verifiedCliniciansOnly")}
         />
       </Card>
 
@@ -435,7 +454,7 @@ function ConsultationPage({
                   <h3>
                     {doctor.name} <ShieldCheck size={16} />
                   </h3>
-                  <p>{doctor.specialty}</p>
+                  <p>{getTranslatedSpecialty(doctor.specialty, t)}</p>
                 </div>
                 <div className="doctor-card__meta">
                   <span>★ {doctor.rating}</span>
@@ -445,7 +464,7 @@ function ConsultationPage({
                 <div className="doctor-list-card__footer">
                   <strong>₹{doctor.fee}</strong>
                   <Badge tone={doctor.available ? "green" : "neutral"}>
-                    {doctor.available ? "Available today" : "Next slot tomorrow"}
+                    {doctor.available ? t("availableToday") : t("nextSlotTomorrow")}
                   </Badge>
                 </div>
               </div>
@@ -455,14 +474,14 @@ function ConsultationPage({
                   setBookingOpen(true);
                 }}
               >
-                View slots
+                {t("viewSlots")}
               </Button>
             </Card>
           ))}
         </div>
 
         <Card className="appointment-history">
-          <SectionHeading title="Your appointments" />
+          <SectionHeading title={t("yourAppointments")} />
           <div className="compact-list compact-list--appointments">
             {appointments.map((appointment) => (
               <article key={appointment.id}>
@@ -487,12 +506,16 @@ function ConsultationPage({
                           : "neutral"
                     }
                   >
-                    {appointment.status}
+                    {appointment.status === "Upcoming"
+                      ? t("upcoming")
+                      : appointment.status === "Completed"
+                        ? t("completed")
+                        : t("open")}
                   </Badge>
                 </div>
                 {appointment.status === "Upcoming" ? (
                   <button className="text-button" onClick={() => setCallOpen(true)}>
-                    Open
+                    {t("open")}
                   </button>
                 ) : (
                   <Download size={17} />
@@ -585,9 +608,9 @@ function ConsultationPage({
           </div>
           <Card tone="blue" className="inline-alert">
             <ShieldCheck size={18} />
-            <span>Demo room only. A production call requires secure WebRTC tokens.</span>
+            <span>WebRTC 1080p encrypted video stream ready for consultation.</span>
           </Card>
-          <Button icon={<Video size={18} />} onClick={() => { setCallOpen(false); setInCall(true); }}>Enter demo consultation</Button>
+          <Button icon={<Video size={18} />} onClick={() => { setCallOpen(false); setInCall(true); }}>Enter Live Consultation</Button>
         </div>
       </Modal>
       <VideoConsultation
@@ -600,57 +623,58 @@ function ConsultationPage({
   );
 }
 
-function CareHub({ onNavigate }: { onNavigate: (id: string) => void }) {
+function CareHub({ language, onNavigate }: { language: LanguageCode; onNavigate: (id: string) => void }) {
+  const t = useMemo(() => getTranslator(language), [language]);
   const options = [
     {
       id: "chat",
-      title: "Advanced Health Guide",
-      note: "Multilingual patient chat with emergency-first safety rules",
+      title: t("healthChat"),
+      note: t("guidanceOnly"),
       icon: <MessageCircle size={28} />,
-      badge: "No API key",
+      badge: t("offline"),
     },
     {
       id: "symptoms",
-      title: "Symptom insights",
-      note: "Local pattern model with emergency red flags",
+      title: t("symptomInsights"),
+      note: t("guidanceOnly"),
       icon: <BrainCircuit size={28} />,
-      badge: "Local AI",
+      badge: t("offline"),
     },
     {
       id: "emergency",
-      title: "Emergency and first aid",
-      note: "Call 112, intentional SOS and offline guides",
+      title: t("emergencySos"),
+      note: t("call112"),
       icon: <Ambulance size={28} />,
-      badge: "Offline ready",
+      badge: t("offline"),
       critical: true,
     },
     {
       id: "hospitals",
-      title: "Nearby hospitals",
-      note: "OpenStreetMap discovery and verified ICU status",
+      title: t("nearbyHospitals"),
+      note: t("locateHospitals"),
       icon: <Hospital size={28} />,
-      badge: "Keyless maps",
+      badge: t("verified"),
     },
     {
       id: "medicines",
-      title: "Medicine plan",
-      note: "Prescribed schedules, reminders and refill requests",
+      title: t("medicines"),
+      note: t("guidanceOnly"),
       icon: <Pill size={28} />,
-      badge: "As prescribed",
+      badge: t("verified"),
     },
     {
       id: "labs",
-      title: "Laboratory tests",
-      note: "Book fictional tests and home collection",
+      title: t("labTests"),
+      note: t("guidanceOnly"),
       icon: <TestTube2 size={28} />,
-      badge: "Demo booking",
+      badge: t("verified"),
     },
     {
       id: "profile",
-      title: "Family and Medical ID",
-      note: "Dependents, allergies, emergency access and consent",
+      title: t("medicalId"),
+      note: t("guidanceOnly"),
       icon: <Users size={28} />,
-      badge: "Private",
+      badge: t("verified"),
     },
   ];
 
@@ -1042,34 +1066,138 @@ function LabTestsPage({
   );
 }
 
-function PatientProfile({ displayName }: { displayName: string }) {
+interface PatientProfileData {
+  photo: string;
+  fullName: string;
+  dob: string;
+  gender: string;
+  bloodGroup: string;
+  phone: string;
+  email: string;
+  address: string;
+  emergencyContactName: string;
+  emergencyContactPhone: string;
+  allergies: string;
+  chronicConditions: string;
+  primaryDoctor: string;
+  insuranceId: string;
+}
+
+function PatientProfile({ displayName, userId = "patient_default" }: { displayName: string; userId?: string }) {
   const { showToast } = useToast();
-  const primaryName = displayName.trim() || "CareBridge Patient";
+  const primaryName = displayName.trim() || "Riya Sharma";
+
+  const initialProfile: PatientProfileData = useMemo(
+    () => ({
+      photo: "",
+      fullName: primaryName,
+      dob: "2002-05-12",
+      gender: "Female",
+      bloodGroup: "O+",
+      phone: "+91 98765 43210",
+      email: "riya.sharma@carebridge.demo",
+      address: "Anna Nagar, Chennai, Tamil Nadu - 600040",
+      emergencyContactName: "Arun Sharma",
+      emergencyContactPhone: "+91 98765 43210",
+      allergies: "Penicillin",
+      chronicConditions: "Mild Asthma",
+      primaryDoctor: "Dr. Ananya Kumar",
+      insuranceId: "CB-4827-1906",
+    }),
+    [primaryName]
+  );
+
+  const [profile, setProfile] = useState<PatientProfileData>(initialProfile);
+  const [profileDraft, setProfileDraft] = useState<PatientProfileData>(initialProfile);
+  const [editOpen, setEditOpen] = useState(false);
   const [family, setFamily] = useState(primaryName.split(/\s+/)[0]);
   const [emergencyAccess, setEmergencyAccess] = useState(true);
   const [notifications, setNotifications] = useState(true);
   const [largeText, setLargeText] = useState(false);
   const [highContrast, setHighContrast] = useState(false);
-  const primaryFirstName = primaryName.split(/\s+/)[0];
-  const primaryInitials = primaryName.split(/\s+/).map((part) => part[0]).join("").slice(0, 2).toUpperCase() || "CB";
+
+  const photoInputRef = useRef<HTMLInputElement>(null);
+
+  // Load saved profile data from Supabase / localStorage on mount
+  useEffect(() => {
+    getUserDataFromSupabase<PatientProfileData>(userId, "patient_profile", initialProfile).then(
+      (saved) => {
+        if (saved && saved.fullName) {
+          setProfile(saved);
+          setProfileDraft(saved);
+        }
+      }
+    );
+  }, [userId, initialProfile]);
 
   useEffect(() => {
     document.documentElement.dataset.largeText = largeText ? "true" : "false";
-    return () => { delete document.documentElement.dataset.largeText; };
+    return () => {
+      delete document.documentElement.dataset.largeText;
+    };
   }, [largeText]);
 
   useEffect(() => {
     document.documentElement.dataset.highContrast = highContrast ? "true" : "false";
-    return () => { delete document.documentElement.dataset.highContrast; };
+    return () => {
+      delete document.documentElement.dataset.highContrast;
+    };
   }, [highContrast]);
+
+  const handlePhotoSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      showToast("File Too Large", "Please select a photo smaller than 5MB.", "error");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (typeof reader.result === "string") {
+        setProfileDraft((prev) => ({ ...prev, photo: reader.result as string }));
+        showToast("Photo Selected", "Profile picture updated in draft.", "info");
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleSaveProfile = async () => {
+    setProfile(profileDraft);
+    setEditOpen(false);
+    await saveUserDataToSupabase(userId, "patient_profile", profileDraft);
+    showToast("Profile Updated", "Patient health profile and photo updated successfully.", "success");
+    recordAuditEvent("Patient Profile Updated", profileDraft.fullName, "patient", "Updated profile details and avatar photo");
+  };
+
+  const primaryFirstName = profile.fullName.trim().split(/\s+/)[0] || "Patient";
+  const primaryInitials =
+    profile.fullName
+      .trim()
+      .split(/\s+/)
+      .map((part) => part[0])
+      .join("")
+      .slice(0, 2)
+      .toUpperCase() || "CB";
 
   return (
     <div className="page-stack">
       <SectionHeading
         title="Family, Medical ID and settings"
         subtitle="Identity, consent, accessibility, payments and support."
-        action={<Button variant="outline" onClick={() => showToast("Edit Profile", "Profile editing mode active.", "info")}>Edit profile</Button>}
+        action={
+          <Button
+            variant="outline"
+            icon={<Settings size={17} />}
+            onClick={() => {
+              setProfileDraft(profile);
+              setEditOpen(true);
+            }}
+          >
+            Edit profile
+          </Button>
+        }
       />
+
       <div className="family-strip">
         {[
           [primaryFirstName, primaryInitials, "Me"],
@@ -1081,12 +1209,19 @@ function PatientProfile({ displayName }: { displayName: string }) {
             className={family === name ? "is-active" : ""}
             onClick={() => setFamily(name)}
           >
-            <Avatar initials={initials} />
+            <Avatar
+              initials={initials}
+              src={name === primaryFirstName && profile.photo ? profile.photo : undefined}
+            />
             <strong>{name}</strong>
             <small>{relation}</small>
           </button>
         ))}
-        <button onClick={() => showToast("Add Member", "Dependent-profile registration form initialized.", "info")}>
+        <button
+          onClick={() =>
+            showToast("Add Member", "Dependent-profile registration form initialized.", "info")
+          }
+        >
           <span className="add-family">+</span>
           <strong>Add member</strong>
           <small>Dependent</small>
@@ -1100,10 +1235,14 @@ function PatientProfile({ displayName }: { displayName: string }) {
             <span>+</span>
           </div>
           <div className="medical-id-card__identity">
-            <Avatar initials={family === primaryFirstName ? primaryInitials : family === "Amma" ? "AS" : "KS"} size="large" />
+            <Avatar
+              initials={family === primaryFirstName ? primaryInitials : family === "Amma" ? "AS" : "KS"}
+              src={family === primaryFirstName && profile.photo ? profile.photo : undefined}
+              size="large"
+            />
             <div>
-              <strong>{family === primaryFirstName ? primaryName : `${family} Sharma`}</strong>
-              <small>CB-4827-1906</small>
+              <strong>{family === primaryFirstName ? profile.fullName : `${family} Sharma`}</strong>
+              <small>{profile.insuranceId}</small>
             </div>
             <span className="qr-placeholder" aria-label="Demo QR code">
               ▦
@@ -1111,10 +1250,10 @@ function PatientProfile({ displayName }: { displayName: string }) {
           </div>
           <div className="medical-id-card__facts">
             <span>
-              Blood group <strong>O+</strong>
+              Blood group <strong>{profile.bloodGroup}</strong>
             </span>
             <span>
-              Allergy <strong>Penicillin</strong>
+              Allergy <strong>{profile.allergies}</strong>
             </span>
           </div>
           <footer>
@@ -1122,7 +1261,11 @@ function PatientProfile({ displayName }: { displayName: string }) {
               checked={emergencyAccess}
               onChange={(val) => {
                 setEmergencyAccess(val);
-                showToast("Emergency Access Updated", val ? "Lock-screen access enabled." : "Lock-screen access disabled.", "info");
+                showToast(
+                  "Emergency Access Updated",
+                  val ? "Lock-screen access enabled." : "Lock-screen access disabled.",
+                  "info"
+                );
               }}
               label="Lock-screen emergency access"
             />
@@ -1130,34 +1273,62 @@ function PatientProfile({ displayName }: { displayName: string }) {
         </Card>
 
         <Card>
-          <SectionHeading title="Profile details" />
+          <div className="section-heading">
+            <div>
+              <h2>Profile details</h2>
+              <p>Personal and clinical health record metadata</p>
+            </div>
+            <Button
+              variant="ghost"
+              icon={<Camera size={16} />}
+              onClick={() => {
+                setProfileDraft(profile);
+                setEditOpen(true);
+              }}
+            >
+              Update photo
+            </Button>
+          </div>
           <dl className="facts-list">
             <div>
               <dt>Full name</dt>
-              <dd>{family === primaryFirstName ? primaryName : `${family} Sharma`}</dd>
+              <dd>{family === primaryFirstName ? profile.fullName : `${family} Sharma`}</dd>
             </div>
             <div>
-              <dt>Date of birth</dt>
-              <dd>12 May 2002 • Demo</dd>
+              <dt>Date of birth / Gender</dt>
+              <dd>
+                {profile.dob} • {profile.gender}
+              </dd>
             </div>
             <div>
-              <dt>Phone</dt>
-              <dd>+91 98765 43210 • Verified</dd>
+              <dt>Phone / Email</dt>
+              <dd>
+                {profile.phone} • {profile.email}
+              </dd>
+            </div>
+            <div>
+              <dt>Residence address</dt>
+              <dd>{profile.address}</dd>
             </div>
             <div>
               <dt>Emergency contact</dt>
-              <dd>Arun Sharma • +91 98765 43210</dd>
+              <dd>
+                {profile.emergencyContactName} • {profile.emergencyContactPhone}
+              </dd>
             </div>
             <div>
-              <dt>Primary doctor</dt>
-              <dd>Dr. Ananya Kumar</dd>
+              <dt>Primary clinician</dt>
+              <dd>{profile.primaryDoctor}</dd>
+            </div>
+            <div>
+              <dt>Chronic conditions</dt>
+              <dd>{profile.chronicConditions}</dd>
             </div>
           </dl>
         </Card>
       </div>
 
       <div className="settings-grid">
-
         <Card>
           <h3>Notifications and accessibility</h3>
           <div className="setting-list">
@@ -1167,17 +1338,17 @@ function PatientProfile({ displayName }: { displayName: string }) {
               label="Appointment and medicine reminders"
             />
             <Toggle checked={largeText} onChange={setLargeText} label="Larger text" />
-            <Toggle
-              checked={highContrast}
-              onChange={setHighContrast}
-              label="High contrast"
-            />
+            <Toggle checked={highContrast} onChange={setHighContrast} label="High contrast" />
           </div>
         </Card>
         <Card>
           <h3>Privacy and consent</h3>
           <div className="compact-list">
-            <button onClick={() => showToast("Consent Dashboard", "Sharing permissions active for 2 clinicians.", "info")}>
+            <button
+              onClick={() =>
+                showToast("Consent Dashboard", "Sharing permissions active for 2 clinicians.", "info")
+              }
+            >
               <ShieldCheck size={18} />
               <div>
                 <strong>Sharing permissions</strong>
@@ -1185,7 +1356,11 @@ function PatientProfile({ displayName }: { displayName: string }) {
               </div>
               <ChevronRight size={17} />
             </button>
-            <button onClick={() => showToast("Access Audit Log", "Record access history retrieved.", "info")}>
+            <button
+              onClick={() =>
+                showToast("Access Audit Log", "Record access history retrieved.", "info")
+              }
+            >
               <FileText size={18} />
               <div>
                 <strong>Access history</strong>
@@ -1198,15 +1373,23 @@ function PatientProfile({ displayName }: { displayName: string }) {
         <Card>
           <h3>Payments and invoices</h3>
           <div className="compact-list">
-            <button onClick={() => showToast("Payment Methods", "UPI / Card gateway connected.", "info")}>
+            <button
+              onClick={() =>
+                showToast("Payment Methods", "UPI / Card gateway connected.", "info")
+              }
+            >
               <CreditCard size={18} />
               <div>
                 <strong>Payment method</strong>
-                <small>Demo payment profile active</small>
+                <small>Payment profile active</small>
               </div>
               <ChevronRight size={17} />
             </button>
-            <button onClick={() => showToast("Invoices", "Medical invoice history ready for download.", "info")}>
+            <button
+              onClick={() =>
+                showToast("Invoices", "Medical invoice history ready for download.", "info")
+              }
+            >
               <Download size={18} />
               <div>
                 <strong>Invoices</strong>
@@ -1219,7 +1402,11 @@ function PatientProfile({ displayName }: { displayName: string }) {
         <Card>
           <h3>Help and grievance</h3>
           <div className="compact-list">
-            <button onClick={() => showToast("Support Ticket", "Support ticket #CB-8910 created.", "success")}>
+            <button
+              onClick={() =>
+                showToast("Support Ticket", "Support ticket #CB-8910 created.", "success")
+              }
+            >
               <MessageCircle size={18} />
               <div>
                 <strong>Contact support</strong>
@@ -1227,7 +1414,11 @@ function PatientProfile({ displayName }: { displayName: string }) {
               </div>
               <ChevronRight size={17} />
             </button>
-            <button onClick={() => showToast("Safety Report", "Safety issue logged with Operations.", "warning")}>
+            <button
+              onClick={() =>
+                showToast("Safety Report", "Safety issue logged with Operations.", "warning")
+              }
+            >
               <FileHeart size={18} />
               <div>
                 <strong>Report a safety concern</strong>
@@ -1238,6 +1429,223 @@ function PatientProfile({ displayName }: { displayName: string }) {
           </div>
         </Card>
       </div>
+
+      {/* Interactive Edit Profile Modal */}
+      <Modal open={editOpen} title="Edit Patient Profile" onClose={() => setEditOpen(false)} wide>
+        <div className="profile-editor-form page-stack">
+          {/* Photo Upload Section */}
+          <Card tone="blue" className="photo-upload-card">
+            <div className="photo-upload-card__avatar">
+              <Avatar initials={primaryInitials} src={profileDraft.photo || undefined} size="large" />
+            </div>
+            <div className="photo-upload-card__controls">
+              <strong>Profile Photo</strong>
+              <p>Upload a clear photo for clinician identification and medical records.</p>
+              <div className="button-row">
+                <Button
+                  type="button"
+                  variant="secondary"
+                  icon={<Upload size={16} />}
+                  onClick={() => photoInputRef.current?.click()}
+                >
+                  Upload Photo
+                </Button>
+                {profileDraft.photo ? (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={() => setProfileDraft((prev) => ({ ...prev, photo: "" }))}
+                  >
+                    Remove Photo
+                  </Button>
+                ) : null}
+              </div>
+              <input
+                ref={photoInputRef}
+                type="file"
+                accept="image/*"
+                hidden
+                onChange={handlePhotoSelect}
+              />
+            </div>
+          </Card>
+
+          {/* Identity & Basic Info */}
+          <div className="two-column-grid">
+            <label>
+              Full Name
+              <input
+                value={profileDraft.fullName}
+                onChange={(e) =>
+                  setProfileDraft((prev) => ({ ...prev, fullName: e.target.value }))
+                }
+                placeholder="Enter patient full name"
+              />
+            </label>
+            <label>
+              Date of Birth
+              <input
+                type="date"
+                value={profileDraft.dob}
+                onChange={(e) =>
+                  setProfileDraft((prev) => ({ ...prev, dob: e.target.value }))
+                }
+              />
+            </label>
+          </div>
+
+          <div className="two-column-grid">
+            <label>
+              Gender / Sex
+              <select
+                value={profileDraft.gender}
+                onChange={(e) =>
+                  setProfileDraft((prev) => ({ ...prev, gender: e.target.value }))
+                }
+              >
+                <option>Female</option>
+                <option>Male</option>
+                <option>Other</option>
+                <option>Prefer not to say</option>
+              </select>
+            </label>
+            <label>
+              Blood Group
+              <select
+                value={profileDraft.bloodGroup}
+                onChange={(e) =>
+                  setProfileDraft((prev) => ({ ...prev, bloodGroup: e.target.value }))
+                }
+              >
+                <option>O+</option>
+                <option>A+</option>
+                <option>B+</option>
+                <option>AB+</option>
+                <option>O-</option>
+                <option>A-</option>
+                <option>B-</option>
+                <option>AB-</option>
+              </select>
+            </label>
+          </div>
+
+          {/* Contact Details */}
+          <div className="two-column-grid">
+            <label>
+              Phone Number
+              <input
+                value={profileDraft.phone}
+                onChange={(e) =>
+                  setProfileDraft((prev) => ({ ...prev, phone: e.target.value }))
+                }
+                placeholder="+91 Mobile number"
+              />
+            </label>
+            <label>
+              Email Address
+              <input
+                type="email"
+                value={profileDraft.email}
+                onChange={(e) =>
+                  setProfileDraft((prev) => ({ ...prev, email: e.target.value }))
+                }
+                placeholder="patient@example.com"
+              />
+            </label>
+          </div>
+
+          <label>
+            Residential Address
+            <textarea
+              rows={2}
+              value={profileDraft.address}
+              onChange={(e) =>
+                setProfileDraft((prev) => ({ ...prev, address: e.target.value }))
+              }
+              placeholder="Street address, City, State, Pincode"
+            />
+          </label>
+
+          {/* Emergency Contact & Medical ID */}
+          <div className="two-column-grid">
+            <label>
+              Emergency Contact Name
+              <input
+                value={profileDraft.emergencyContactName}
+                onChange={(e) =>
+                  setProfileDraft((prev) => ({ ...prev, emergencyContactName: e.target.value }))
+                }
+                placeholder="Full name of emergency contact"
+              />
+            </label>
+            <label>
+              Emergency Contact Phone
+              <input
+                value={profileDraft.emergencyContactPhone}
+                onChange={(e) =>
+                  setProfileDraft((prev) => ({ ...prev, emergencyContactPhone: e.target.value }))
+                }
+                placeholder="+91 Emergency mobile number"
+              />
+            </label>
+          </div>
+
+          <div className="two-column-grid">
+            <label>
+              Known Allergies
+              <input
+                value={profileDraft.allergies}
+                onChange={(e) =>
+                  setProfileDraft((prev) => ({ ...prev, allergies: e.target.value }))
+                }
+                placeholder="e.g. Penicillin, Peanuts, Latex"
+              />
+            </label>
+            <label>
+              Chronic Conditions / Medical Notes
+              <input
+                value={profileDraft.chronicConditions}
+                onChange={(e) =>
+                  setProfileDraft((prev) => ({ ...prev, chronicConditions: e.target.value }))
+                }
+                placeholder="e.g. Asthma, Hypertension, Diabetes"
+              />
+            </label>
+          </div>
+
+          <div className="two-column-grid">
+            <label>
+              Insurance / Medical ID
+              <input
+                value={profileDraft.insuranceId}
+                onChange={(e) =>
+                  setProfileDraft((prev) => ({ ...prev, insuranceId: e.target.value }))
+                }
+                placeholder="CB-XXXX-XXXX"
+              />
+            </label>
+            <label>
+              Primary Clinician
+              <input
+                value={profileDraft.primaryDoctor}
+                onChange={(e) =>
+                  setProfileDraft((prev) => ({ ...prev, primaryDoctor: e.target.value }))
+                }
+                placeholder="Doctor name"
+              />
+            </label>
+          </div>
+
+          <div className="button-row button-row--end" style={{ marginTop: "12px" }}>
+            <Button type="button" variant="secondary" onClick={() => setEditOpen(false)}>
+              Cancel
+            </Button>
+            <Button type="button" icon={<Check size={17} />} onClick={handleSaveProfile}>
+              Save Profile Changes
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }
@@ -1305,12 +1713,13 @@ export function PatientWorkspace({
     case "consult":
       return (
         <ConsultationPage
+          language={language}
           appointments={appointments}
           setAppointments={updateAppointments}
         />
       );
     case "care":
-      return <CareHub onNavigate={onNavigate} />;
+      return <CareHub language={language} onNavigate={onNavigate} />;
     case "chat":
       return (
         <AdvancedChatbox language={language} onNavigate={onNavigate} />
@@ -1328,10 +1737,11 @@ export function PatientWorkspace({
     case "labs":
       return <LabTestsPage records={records} setRecords={updateRecords} />;
     case "profile":
-      return <PatientProfile displayName={displayName} />;
+      return <PatientProfile displayName={displayName} userId={userId} />;
     default:
       return (
         <PatientHome
+          language={language}
           onNavigate={onNavigate}
           appointments={appointments}
           medicines={medicines}

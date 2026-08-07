@@ -5,6 +5,7 @@ import {
   Languages,
   LogOut,
   Menu,
+  Monitor,
   Moon,
   ShieldCheck,
   Sun,
@@ -69,10 +70,6 @@ export function Shell({
 
   return (
     <div className="app-shell">
-      <div className="prototype-banner">
-        <ShieldCheck size={15} />
-        <span>{t("prototype")}</span>
-      </div>
       <aside className={`sidebar ${mobileMenuOpen ? "sidebar--open" : ""}`}>
         <div className="brand">
           <span className="brand__mark">+</span>
@@ -92,9 +89,9 @@ export function Shell({
         <div className="signed-role-card">
           <Avatar initials={userInitials} tone={role === "doctor" ? "teal" : "rose"} />
           <div>
-            <small>Signed in securely</small>
+            <small>{t("signedInSecurly")}</small>
             <strong>{user.displayName}</strong>
-            <span><ShieldCheck size={13} /> {roleLabel} access</span>
+            <span><ShieldCheck size={13} /> {roleLabel}</span>
           </div>
         </div>
 
@@ -118,12 +115,12 @@ export function Shell({
           <div className="security-status">
             <ShieldCheck size={18} />
             <div>
-              <strong>Protected session active</strong>
-              <small>{user.provider} sign-in • role locked</small>
+              <strong>{t("protectedSessionActive")}</strong>
+              <small>{user.provider} sign-in</small>
             </div>
           </div>
           <button className="sidebar-signout" onClick={onSignOut}>
-            <LogOut size={17} /> Sign out
+            <LogOut size={17} /> {t("signOut")}
           </button>
         </div>
       </aside>
@@ -174,6 +171,7 @@ export function Shell({
                 className={themeMode === "light" ? "is-active" : ""}
                 onClick={() => onThemeModeChange("light")}
                 aria-label={t("light")}
+                title="Light Mode (Light Background)"
               >
                 <Sun size={16} />
               </button>
@@ -181,6 +179,7 @@ export function Shell({
                 className={themeMode === "dark" ? "is-active" : ""}
                 onClick={() => onThemeModeChange("dark")}
                 aria-label={t("dark")}
+                title="Dark Mode (Dark Background)"
               >
                 <Moon size={16} />
               </button>
@@ -188,8 +187,9 @@ export function Shell({
                 className={themeMode === "system" ? "is-active" : ""}
                 onClick={() => onThemeModeChange("system")}
                 aria-label={t("system")}
+                title="Auto / System Mode (Syncs with OS theme)"
               >
-                A
+                <Monitor size={15} />
               </button>
             </div>
 

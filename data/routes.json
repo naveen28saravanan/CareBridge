@@ -1,0 +1,43 @@
+{
+  "roles": {
+    "patient": {
+      "defaultRoute": "home",
+      "routes": [
+        { "id": "home", "label": "Home", "selector": ".patient-welcome" },
+        { "id": "consult", "label": "Consult", "selector": ".consult-layout" },
+        { "id": "records", "label": "Records", "selector": ".record-timeline" },
+        { "id": "profile", "label": "Profile", "selector": ".profile-grid" },
+        { "id": "chat", "label": "Health Chat", "selector": ".chat-window" },
+        { "id": "care", "label": "Care", "selector": ".care-option-grid" },
+        { "id": "symptoms", "label": "Symptom Insights", "selector": ".symptom-insights" },
+        { "id": "emergency", "label": "Emergency SOS", "selector": ".emergency-panel" },
+        { "id": "hospitals", "label": "Nearby Hospitals", "selector": ".hospital-finder" },
+        { "id": "medicines", "label": "Medicines", "selector": ".medicine-progress" },
+        { "id": "labs", "label": "Lab Tests", "selector": ".compact-list" }
+      ]
+    },
+    "doctor": {
+      "defaultRoute": "today",
+      "routes": [
+        { "id": "today", "label": "Today", "selector": ".doctor-hero" },
+        { "id": "patients", "label": "Patients", "selector": ".patient-queue-layout" },
+        { "id": "messages", "label": "Messages", "selector": ".message-layout" },
+        { "id": "prescriptions", "label": "Prescriptions", "selector": ".prescription-form" },
+        { "id": "profile", "label": "Profile", "selector": ".doctor-profile-card" },
+        { "id": "notes", "label": "Clinical notes", "selector": ".clinical-note-form" }
+      ]
+    },
+    "operations": {
+      "defaultRoute": "overview",
+      "routes": [
+        { "id": "overview", "label": "Overview", "selector": ".operations-dashboard-grid" },
+        { "id": "doctors", "label": "Doctor verification", "selector": ".data-table" },
+        { "id": "emergencies", "label": "Emergencies", "selector": ".emergency-monitor-layout" },
+        { "id": "hospitals", "label": "ICU availability", "selector": ".availability-admin-grid" },
+        { "id": "safety", "label": "Clinical & AI safety", "selector": ".content-review-list" },
+        { "id": "audit", "label": "Audit & users", "selector": ".activity-list" },
+        { "id": "settings", "label": "Settings", "selector": ".setting-list" }
+      ]
+    }
+  }
+}

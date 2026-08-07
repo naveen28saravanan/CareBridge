@@ -1,0 +1,31 @@
+{
+  "emailValidation": {
+    "valid": ["test@example.com", "user.name+tag@domain.co.in", "doctor@carebridge.demo"],
+    "invalid": ["invalid-email", "user@", "@domain.com", "user@domain..com"]
+  },
+  "phoneValidation": {
+    "valid": ["+91 9876543210", "+1 5550192834"],
+    "invalid": ["123", "abc-def", ""]
+  },
+  "passwordValidation": {
+    "valid": ["Password123!", "Secure#2026", "CareBridge@99"],
+    "invalid": ["short", "no_numbers", "12345678"]
+  },
+  "symptomIntake": {
+    "valid": {
+      "symptom": "High fever and dry cough",
+      "duration": "2 days",
+      "severity": "Moderate"
+    }
+  },
+  "clinicalNote": {
+    "symptoms": "Patient presents with persistent cough for 3 days.",
+    "assessment": "Mild upper respiratory tract inflammation.",
+    "instructions": "Hydration, rest, and follow-up if fever escalates."
+  },
+  "prescription": {
+    "medicine": "Paracetamol",
+    "strength": "650 mg",
+    "instructions": "1 tablet after meals as needed."
+  }
+}

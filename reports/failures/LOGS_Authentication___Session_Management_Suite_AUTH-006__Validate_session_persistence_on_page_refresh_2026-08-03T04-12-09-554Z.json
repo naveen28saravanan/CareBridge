@@ -1,0 +1,189 @@
+{
+  "testTitle": "Authentication & Session Management Suite AUTH-006: Validate session persistence on page refresh",
+  "error": "expected false to be true",
+  "stack": "AssertionError: expected false to be true\n    at Context.<anonymous> (file:///C:/Users/navee/Downloads/CareBridge-One-Naveen/carebridge-one/tests/auth.test.js:69:42)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+  "currentUrl": "http://localhost:4173/CareBridge/",
+  "consoleLogs": [
+    {
+      "level": "SEVERE",
+      "message": "network - A bad HTTP response code (404) was received when fetching the script.",
+      "timestamp": 1785730270350,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "http://localhost:4173/carebridge-mark.svg - Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "timestamp": 1785730271179,
+      "type": ""
+    },
+    {
+      "level": "WARNING",
+      "message": "http://localhost:4173/CareBridge/ - Error while trying to use the following icon from the Manifest: http://localhost:4173/carebridge-mark.svg (Download error or resource isn't a valid image)",
+      "timestamp": 1785730271179,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "https://dgedfbccshbwolcefdwa.supabase.co/rest/v1/user_data?select=content&user_id=eq.patient_cb3b46ca4d14d5373eb0&data_key=eq.appointments - Failed to load resource: the server responded with a status of 401 ()",
+      "timestamp": 1785730271179,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "https://dgedfbccshbwolcefdwa.supabase.co/rest/v1/user_data?select=content&user_id=eq.patient_cb3b46ca4d14d5373eb0&data_key=eq.records - Failed to load resource: the server responded with a status of 401 ()",
+      "timestamp": 1785730271179,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "https://dgedfbccshbwolcefdwa.supabase.co/rest/v1/user_data?select=content&user_id=eq.patient_cb3b46ca4d14d5373eb0&data_key=eq.medicines - Failed to load resource: the server responded with a status of 401 ()",
+      "timestamp": 1785730271179,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "network - A bad HTTP response code (404) was received when fetching the script.",
+      "timestamp": 1785730271244,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "http://localhost:4173/carebridge-mark.svg - Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "timestamp": 1785730272272,
+      "type": ""
+    },
+    {
+      "level": "WARNING",
+      "message": "http://localhost:4173/CareBridge/ - Error while trying to use the following icon from the Manifest: http://localhost:4173/carebridge-mark.svg (Download error or resource isn't a valid image)",
+      "timestamp": 1785730272272,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "https://dgedfbccshbwolcefdwa.supabase.co/rest/v1/user_data?select=content&user_id=eq.demo_patient&data_key=eq.records - Failed to load resource: the server responded with a status of 401 ()",
+      "timestamp": 1785730275797,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "https://dgedfbccshbwolcefdwa.supabase.co/rest/v1/user_data?select=content&user_id=eq.demo_patient&data_key=eq.medicines - Failed to load resource: the server responded with a status of 401 ()",
+      "timestamp": 1785730275797,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "https://dgedfbccshbwolcefdwa.supabase.co/rest/v1/user_data?select=content&user_id=eq.demo_patient&data_key=eq.appointments - Failed to load resource: the server responded with a status of 401 ()",
+      "timestamp": 1785730275797,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "network - A bad HTTP response code (404) was received when fetching the script.",
+      "timestamp": 1785730280935,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "https://dgedfbccshbwolcefdwa.supabase.co/rest/v1/user_data?select=content&user_id=eq.demo_patient&data_key=eq.appointments - Failed to load resource: the server responded with a status of 401 ()",
+      "timestamp": 1785730281776,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "https://dgedfbccshbwolcefdwa.supabase.co/rest/v1/user_data?select=content&user_id=eq.demo_patient&data_key=eq.records - Failed to load resource: the server responded with a status of 401 ()",
+      "timestamp": 1785730281776,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "https://dgedfbccshbwolcefdwa.supabase.co/rest/v1/user_data?select=content&user_id=eq.demo_patient&data_key=eq.medicines - Failed to load resource: the server responded with a status of 401 ()",
+      "timestamp": 1785730281776,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "http://localhost:4173/carebridge-mark.svg - Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "timestamp": 1785730281776,
+      "type": ""
+    },
+    {
+      "level": "WARNING",
+      "message": "http://localhost:4173/CareBridge/ - Error while trying to use the following icon from the Manifest: http://localhost:4173/carebridge-mark.svg (Download error or resource isn't a valid image)",
+      "timestamp": 1785730281776,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "network - A bad HTTP response code (404) was received when fetching the script.",
+      "timestamp": 1785730281846,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "http://localhost:4173/carebridge-mark.svg - Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "timestamp": 1785730282861,
+      "type": ""
+    },
+    {
+      "level": "WARNING",
+      "message": "http://localhost:4173/CareBridge/ - Error while trying to use the following icon from the Manifest: http://localhost:4173/carebridge-mark.svg (Download error or resource isn't a valid image)",
+      "timestamp": 1785730282861,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "network - A bad HTTP response code (404) was received when fetching the script.",
+      "timestamp": 1785730302847,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "http://localhost:4173/carebridge-mark.svg - Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "timestamp": 1785730303655,
+      "type": ""
+    },
+    {
+      "level": "WARNING",
+      "message": "http://localhost:4173/CareBridge/ - Error while trying to use the following icon from the Manifest: http://localhost:4173/carebridge-mark.svg (Download error or resource isn't a valid image)",
+      "timestamp": 1785730303655,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "network - A bad HTTP response code (404) was received when fetching the script.",
+      "timestamp": 1785730303722,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "http://localhost:4173/carebridge-mark.svg - Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "timestamp": 1785730304740,
+      "type": ""
+    },
+    {
+      "level": "WARNING",
+      "message": "http://localhost:4173/CareBridge/ - Error while trying to use the following icon from the Manifest: http://localhost:4173/carebridge-mark.svg (Download error or resource isn't a valid image)",
+      "timestamp": 1785730304740,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "network - A bad HTTP response code (404) was received when fetching the script.",
+      "timestamp": 1785730318471,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "http://localhost:4173/carebridge-mark.svg - Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "timestamp": 1785730319486,
+      "type": ""
+    },
+    {
+      "level": "WARNING",
+      "message": "http://localhost:4173/CareBridge/ - Error while trying to use the following icon from the Manifest: http://localhost:4173/carebridge-mark.svg (Download error or resource isn't a valid image)",
+      "timestamp": 1785730319486,
+      "type": ""
+    }
+  ],
+  "timestamp": "2026-08-03T04-12-09-554Z"
+}

@@ -1,0 +1,81 @@
+{
+  "testTitle": "UI & Interactive Elements Validation Suite UI-002: Validate Language Selector Dropdown",
+  "error": "invalid element state\n  (Session info: chrome=151.0.7922.72)",
+  "stack": "InvalidElementStateError: invalid element state\n  (Session info: chrome=151.0.7922.72)\n    at Object.throwDecodedError (node_modules\\selenium-webdriver\\lib\\error.js:523:15)\n    at parseHttpResponse (node_modules\\selenium-webdriver\\lib\\http.js:527:13)\n    at Executor.execute (node_modules\\selenium-webdriver\\lib\\http.js:459:28)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async Driver.execute (node_modules\\selenium-webdriver\\lib\\webdriver.js:745:17)\n    at async SeleniumUtils.type (file:///C:/Users/navee/Downloads/CareBridge-One-Naveen/carebridge-one/utilities/seleniumUtils.js:37:7)\n    at async AuthPage.switchLanguage (file:///C:/Users/navee/Downloads/CareBridge-One-Naveen/carebridge-one/pages/BasePage.js:60:7)\n    at async Context.<anonymous> (file:///C:/Users/navee/Downloads/CareBridge-One-Naveen/carebridge-one/tests/ui.test.js:36:5)",
+  "currentUrl": "http://localhost:4173/CareBridge/",
+  "consoleLogs": [
+    {
+      "level": "SEVERE",
+      "message": "network - A bad HTTP response code (404) was received when fetching the script.",
+      "timestamp": 1785730305968,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "http://localhost:4173/carebridge-mark.svg - Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "timestamp": 1785730307024,
+      "type": ""
+    },
+    {
+      "level": "WARNING",
+      "message": "http://localhost:4173/CareBridge/ - Error while trying to use the following icon from the Manifest: http://localhost:4173/carebridge-mark.svg (Download error or resource isn't a valid image)",
+      "timestamp": 1785730307024,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "https://dgedfbccshbwolcefdwa.supabase.co/rest/v1/user_data?select=content&user_id=eq.patient_cb3b46ca4d14d5373eb0&data_key=eq.medicines - Failed to load resource: the server responded with a status of 401 ()",
+      "timestamp": 1785730307024,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "https://dgedfbccshbwolcefdwa.supabase.co/rest/v1/user_data?select=content&user_id=eq.patient_cb3b46ca4d14d5373eb0&data_key=eq.appointments - Failed to load resource: the server responded with a status of 401 ()",
+      "timestamp": 1785730307024,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "https://dgedfbccshbwolcefdwa.supabase.co/rest/v1/user_data?select=content&user_id=eq.patient_cb3b46ca4d14d5373eb0&data_key=eq.records - Failed to load resource: the server responded with a status of 401 ()",
+      "timestamp": 1785730307024,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "network - A bad HTTP response code (404) was received when fetching the script.",
+      "timestamp": 1785730312443,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "https://dgedfbccshbwolcefdwa.supabase.co/rest/v1/user_data?select=content&user_id=eq.patient_cb3b46ca4d14d5373eb0&data_key=eq.appointments - Failed to load resource: the server responded with a status of 401 ()",
+      "timestamp": 1785730313495,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "https://dgedfbccshbwolcefdwa.supabase.co/rest/v1/user_data?select=content&user_id=eq.patient_cb3b46ca4d14d5373eb0&data_key=eq.medicines - Failed to load resource: the server responded with a status of 401 ()",
+      "timestamp": 1785730313495,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "https://dgedfbccshbwolcefdwa.supabase.co/rest/v1/user_data?select=content&user_id=eq.patient_cb3b46ca4d14d5373eb0&data_key=eq.records - Failed to load resource: the server responded with a status of 401 ()",
+      "timestamp": 1785730313495,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "http://localhost:4173/carebridge-mark.svg - Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "timestamp": 1785730313495,
+      "type": ""
+    },
+    {
+      "level": "WARNING",
+      "message": "http://localhost:4173/CareBridge/ - Error while trying to use the following icon from the Manifest: http://localhost:4173/carebridge-mark.svg (Download error or resource isn't a valid image)",
+      "timestamp": 1785730313495,
+      "type": ""
+    }
+  ],
+  "timestamp": "2026-08-03T04-11-53-893Z"
+}

@@ -184,6 +184,7 @@ export const authService = {
     });
     if (remote) {
       localStorage.setItem(SESSION_KEY, JSON.stringify(remote));
+      syncUserProfileToSupabase(remote.user).catch(() => {});
       return remote;
     }
 
@@ -237,6 +238,7 @@ export const authService = {
       sessionStorage.removeItem(lockoutKey);
       sessionStorage.removeItem(`failed_${email}`);
       localStorage.setItem(SESSION_KEY, JSON.stringify(remote));
+      syncUserProfileToSupabase(remote.user).catch(() => {});
       return remote;
     }
 
@@ -364,6 +366,7 @@ export const authService = {
       const remote = await apiRequest<AuthSession>("/api/auth/google", { email, displayName, role: requestedRole });
       if (remote) {
         localStorage.setItem(SESSION_KEY, JSON.stringify(remote));
+        syncUserProfileToSupabase(remote.user).catch(() => {});
         return remote;
       }
     }
@@ -404,6 +407,7 @@ export const authService = {
     });
     if (remote) {
       localStorage.setItem(SESSION_KEY, JSON.stringify(remote));
+      syncUserProfileToSupabase(remote.user).catch(() => {});
       return remote;
     }
     if (input.code.trim() !== "123456") throw new Error("Incorrect verification code.");

@@ -15,11 +15,17 @@ import { firstAidTopics } from "../data/demo";
 import { Badge, Button, Card, Modal, SectionHeading } from "./ui";
 import { useToast } from "./Toast";
 
+import { getTranslator } from "../i18n";
+import type { LanguageCode } from "../types";
+
 export function EmergencyPanel({
+  language,
   onOpenHospitals,
 }: {
+  language?: LanguageCode;
   onOpenHospitals: () => void;
 }) {
+  const t = getTranslator(language || "en");
   const { showToast } = useToast();
   const [holdProgress, setHoldProgress] = useState(0);
   const [confirmOpen, setConfirmOpen] = useState(false);
@@ -66,9 +72,9 @@ export function EmergencyPanel({
   return (
     <div className="page-stack">
       <SectionHeading
-        title="Emergency and first aid"
-        subtitle="Direct 112 access, intentional SOS confirmation and offline essential guidance."
-        action={<Badge tone="green">Offline essentials cached</Badge>}
+        title={t("emergencySos")}
+        subtitle={t("guidanceOnly")}
+        action={<Badge tone="green">{t("offline")}</Badge>}
       />
 
       <div className="emergency-grid">
@@ -76,25 +82,22 @@ export function EmergencyPanel({
           <span className="sos-card__shield">
             <ShieldAlert size={42} />
           </span>
-          <Badge tone="red">Immediate danger</Badge>
-          <h2>Call 112 now</h2>
+          <Badge tone="red">{t("urgentHelp")}</Badge>
+          <h2>{t("call112")}</h2>
           <p>
-            If someone is in immediate danger, call emergency services. The app must not
-            delay the call.
+            {t("guidanceOnly")}
           </p>
           <a className="button button--danger button--large" href="tel:112">
             <Phone size={21} />
-            <span>Call 112</span>
+            <span>{t("call112")}</span>
           </a>
         </Card>
 
         <Card className="hold-sos-card">
           <div>
-            <Badge tone="amber">Demo SOS workflow</Badge>
-            <h2>Hold to prepare an SOS request</h2>
+            <h2>{t("emergencySos")}</h2>
             <p>
-              Hold for three seconds, then confirm. This prototype records a local demo
-              event and does not dispatch a real ambulance.
+              {t("guidanceOnly")}
             </p>
           </div>
           <button
@@ -107,22 +110,22 @@ export function EmergencyPanel({
           >
             <span>
               <Radio size={30} />
-              HOLD FOR SOS
+              {t("emergencySos")}
               <small>{Math.round(holdProgress)}%</small>
             </span>
           </button>
           <div className="sos-quick-actions">
             <button onClick={shareLocation}>
               <Share2 size={19} />
-              <span>Safety check-in</span>
+              <span>{t("support")}</span>
             </button>
             <button onClick={onOpenHospitals}>
               <MapPin size={19} />
-              <span>Nearby hospitals</span>
+              <span>{t("nearbyHospitals")}</span>
             </button>
             <button onClick={() => showToast("Medical ID Access", "Medical ID is available in the signed-in patient Profile workspace.", "info")}>
               <ContactRound size={19} />
-              <span>Medical ID</span>
+              <span>{t("medicalId")}</span>
             </button>
           </div>
         </Card>

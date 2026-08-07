@@ -1,0 +1,45 @@
+{
+  "testTitle": "Navigation & Internal Routing Validation Suite NAV-001: Validate navigation through all Patient workspace links",
+  "error": "expected false to be true",
+  "stack": "AssertionError: expected false to be true\n    at Context.<anonymous> (file:///C:/Users/navee/Downloads/CareBridge-One-Naveen/carebridge-one/tests/navigation.test.js:42:30)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+  "currentUrl": "http://localhost:4173/CareBridge/",
+  "consoleLogs": [
+    {
+      "level": "SEVERE",
+      "message": "network - A bad HTTP response code (404) was received when fetching the script.",
+      "timestamp": 1785730563096,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "http://localhost:4173/carebridge-mark.svg - Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "timestamp": 1785730563912,
+      "type": ""
+    },
+    {
+      "level": "WARNING",
+      "message": "http://localhost:4173/CareBridge/ - Error while trying to use the following icon from the Manifest: http://localhost:4173/carebridge-mark.svg (Download error or resource isn't a valid image)",
+      "timestamp": 1785730563912,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "network - A bad HTTP response code (404) was received when fetching the script.",
+      "timestamp": 1785730564771,
+      "type": ""
+    },
+    {
+      "level": "SEVERE",
+      "message": "http://localhost:4173/carebridge-mark.svg - Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "timestamp": 1785730564771,
+      "type": ""
+    },
+    {
+      "level": "WARNING",
+      "message": "http://localhost:4173/CareBridge/ - Error while trying to use the following icon from the Manifest: http://localhost:4173/carebridge-mark.svg (Download error or resource isn't a valid image)",
+      "timestamp": 1785730564771,
+      "type": ""
+    }
+  ],
+  "timestamp": "2026-08-03T04-16-33-922Z"
+}

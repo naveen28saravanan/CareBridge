@@ -82,9 +82,15 @@ function persistAccounts() {
   writeFileSync(accountsPath, JSON.stringify(accounts, null, 2));
 }
 
+function isOriginAllowed(origin) {
+  if (!origin) return false;
+  if (ALLOWED_ORIGINS.has(origin)) return true;
+  return /^http:\/\/(localhost|127\.0\.0\.1|10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|172\.(1[6-9]|2\d|3[0-1])\.\d{1,3}\.\d{1,3})(:\d+)?$/.test(origin);
+}
+
 function headers(req, extra = {}) {
   const incomingOrigin = req?.headers?.origin;
-  const allowOrigin = incomingOrigin && ALLOWED_ORIGINS.has(incomingOrigin) ? incomingOrigin : ORIGIN;
+  const allowOrigin = incomingOrigin && isOriginAllowed(incomingOrigin) ? incomingOrigin : ORIGIN;
   return {
     "Content-Type": "application/json; charset=utf-8",
     "Access-Control-Allow-Origin": allowOrigin,
