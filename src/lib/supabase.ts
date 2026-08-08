@@ -1,32 +1,37 @@
 import { createClient } from "@supabase/supabase-js";
 import type { AuthUser } from "../auth/types";
 
-// Default Supabase project configuration
+// ── FIXED FINDING-06: No hardcoded fallback keys ─────────────────────────────
+// All values must come from environment variables.
 export const SUPABASE_URL =
-  (import.meta.env.VITE_SUPABASE_URL as string | undefined)?.trim() ||
-  "https://dgedfbccshbwolcefdwa.supabase.co";
+  (import.meta.env.VITE_SUPABASE_URL as string | undefined)?.trim() ?? "";
 
 export const SUPABASE_ANON_KEY =
-  (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined)?.trim() ||
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRnZWRmYmNjc2hid29sY2VmZHdhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEwODg4MDAsImV4cCI6MjA2NjY2NDgwMH0.placeholder";
+  (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined)?.trim() ?? "";
 
-// Create Supabase client instance with safe auto-refresh and session storage options
-export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-  auth: {
-    persistSession: true,
-    autoRefreshToken: true,
-    detectSessionInUrl: true,
-  },
-});
+// Supabase is optional — only active when both env vars are set
+const SUPABASE_CONFIGURED = Boolean(SUPABASE_URL && SUPABASE_ANON_KEY);
+
+export const supabase = SUPABASE_CONFIGURED
+  ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+      auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
+    })
+  : null;
+
+// ── FIXED FINDING-20: Allowed data_key values (allowlist) ─────────────────────
+const ALLOWED_DATA_KEYS = new Set([
+  "appointments", "records", "medicines", "vitals",
+  "symptom_checks", "emergency_contacts", "system_audit_events",
+]);
 
 /**
  * Checks connection status to the Supabase endpoint
  */
 export async function checkSupabaseConnection(): Promise<{ ok: boolean; message: string }> {
+  if (!supabase) return { ok: false, message: "Supabase not configured (env vars missing)." };
   try {
-    const { data, error } = await supabase.from("user_profiles").select("count", { count: "exact", head: true });
+    const { error } = await supabase.from("user_profiles").select("count", { count: "exact", head: true });
     if (error && error.code !== "PGRST116" && error.code !== "42P01") {
-      // 42P01 is table doesn't exist yet; endpoint is reachable
       return { ok: true, message: `Connected to Supabase endpoint (${SUPABASE_URL})` };
     }
     return { ok: true, message: `Connected to Supabase (${SUPABASE_URL})` };
@@ -51,18 +56,18 @@ export async function syncUserProfileToSupabase(user: AuthUser): Promise<boolean
     updated_at: new Date().toISOString(),
   };
 
-  // Always back up in localStorage for resilient zero-error offline mode
   try {
     localStorage.setItem(`carebridge.user_profile.${user.id}`, JSON.stringify(profilePayload));
   } catch (e) {
     console.warn("Local storage update warning:", e);
   }
 
+  if (!supabase) return false;
+
   try {
     const { error } = await supabase
       .from("user_profiles")
       .upsert(profilePayload, { onConflict: "id" });
-
     if (error) {
       console.warn("Supabase user_profiles sync notice:", error.message);
       return false;
@@ -84,6 +89,12 @@ export async function saveUserDataToSupabase(
   dataKey: string,
   content: unknown
 ): Promise<boolean> {
+  // FIXED FINDING-20: Reject unknown data_key values
+  if (!ALLOWED_DATA_KEYS.has(dataKey)) {
+    console.warn(`[Supabase] Rejected unknown data_key: ${dataKey}`);
+    return false;
+  }
+
   const time = new Date().toISOString();
   const localKey = `carebridge.data.${userId}.${dataKey}`;
 
@@ -93,18 +104,13 @@ export async function saveUserDataToSupabase(
     console.warn("Local storage cache write warning:", e);
   }
 
-  try {
-    const payload = {
-      user_id: userId,
-      data_key: dataKey,
-      content: content,
-      updated_at: time,
-    };
+  if (!supabase) return false;
 
+  try {
+    const payload = { user_id: userId, data_key: dataKey, content, updated_at: time };
     const { error } = await supabase
       .from("user_data")
       .upsert(payload, { onConflict: "user_id,data_key" });
-
     if (error) {
       console.warn(`Supabase ${dataKey} save notice:`, error.message);
       return false;
@@ -124,36 +130,33 @@ export async function getUserDataFromSupabase<T>(
   dataKey: string,
   fallback: T
 ): Promise<T> {
+  // FIXED FINDING-20: Reject unknown keys
+  if (!ALLOWED_DATA_KEYS.has(dataKey)) return fallback;
+
   const localKey = `carebridge.data.${userId}.${dataKey}`;
 
-  // 1. Try reading from Supabase table first
-  try {
-    const { data, error } = await supabase
-      .from("user_data")
-      .select("content")
-      .eq("user_id", userId)
-      .eq("data_key", dataKey)
-      .maybeSingle();
+  if (supabase) {
+    try {
+      const { data, error } = await supabase
+        .from("user_data")
+        .select("content")
+        .eq("user_id", userId)
+        .eq("data_key", dataKey)
+        .maybeSingle();
 
-    if (!error && data && data.content !== undefined) {
-      // Update local storage cache
-      try {
-        localStorage.setItem(localKey, JSON.stringify(data.content));
-      } catch {}
-      return data.content as T;
+      if (!error && data && data.content !== undefined) {
+        try { localStorage.setItem(localKey, JSON.stringify(data.content)); } catch {}
+        return data.content as T;
+      }
+    } catch (err) {
+      console.warn(`Supabase fetch failed for ${dataKey}, trying local cache...`, err);
     }
-  } catch (err) {
-    console.warn(`Supabase fetch failed for ${dataKey}, trying local cache...`, err);
   }
 
-  // 2. Fallback to localStorage cache
   try {
     const cached = localStorage.getItem(localKey);
-    if (cached) {
-      return JSON.parse(cached) as T;
-    }
+    if (cached) return JSON.parse(cached) as T;
   } catch {}
 
-  // 3. Fallback to default initial value
   return fallback;
 }

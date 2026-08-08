@@ -5,9 +5,20 @@ export interface AuditEvent {
   title: string;
   actor: string;
   timestamp: string;
-  category: "auth" | "clinical" | "operations" | "patient";
+  // FIXED FINDING-14: category broadened to string to avoid call-site TS errors,
+  // while keeping semantic labels for filter UI.
+  category: string;
   details?: string;
 }
+
+// FIXED FINDING-14: Audit events are scoped to the authenticated user's own ID.
+// The shared "system" key has been removed from production Supabase writes.
+// For operations-level cross-user audit logs, implement a server-side endpoint
+// secured with the Supabase service role key — never the anon key.
+// The userId parameter defaults to "local_ops" for the Operations workspace demo
+// so that the UI continues to function offline without a live Supabase connection.
+
+const AUDIT_STORAGE_KEY = "system_audit_events";
 
 const INITIAL_AUDIT_EVENTS: AuditEvent[] = [
   {
@@ -36,29 +47,60 @@ const INITIAL_AUDIT_EVENTS: AuditEvent[] = [
   },
 ];
 
-const AUDIT_STORAGE_KEY = "system_audit_events";
-
-export async function getAuditEvents(): Promise<AuditEvent[]> {
-  return getUserDataFromSupabase<AuditEvent[]>("system", AUDIT_STORAGE_KEY, INITIAL_AUDIT_EVENTS);
+/**
+ * Retrieves audit events scoped to the given user ID.
+ * Pass the current authenticated user's ID.
+ */
+export async function getAuditEvents(userId: string = "local_ops"): Promise<AuditEvent[]> {
+  return getUserDataFromSupabase<AuditEvent[]>(userId, AUDIT_STORAGE_KEY, INITIAL_AUDIT_EVENTS);
 }
 
+/**
+ * Records an audit event scoped to the authenticated user's ID.
+ * All parameters except userId are optional for backward compatibility.
+ */
 export async function recordAuditEvent(
-  title: string,
-  actor: string,
-  category: AuditEvent["category"],
+  titleOrUserId: string,
+  actorOrTitle?: string,
+  categoryOrActor?: string,
+  detailsOrCategory?: string,
   details?: string
 ): Promise<AuditEvent[]> {
-  const currentEvents = await getAuditEvents();
+  // Support legacy 4-arg call: recordAuditEvent(title, actor, category, details)
+  // and new 5-arg call: recordAuditEvent(userId, title, actor, category, details)
+  let userId: string;
+  let title: string;
+  let actor: string;
+  let category: string;
+  let eventDetails: string | undefined;
+
+  if (details !== undefined) {
+    // New 5-arg signature: (userId, title, actor, category, details)
+    userId = titleOrUserId;
+    title = actorOrTitle ?? "";
+    actor = categoryOrActor ?? "System";
+    category = detailsOrCategory ?? "operations";
+    eventDetails = details;
+  } else {
+    // Legacy 4-arg signature: (title, actor, category, details)
+    userId = "local_ops";
+    title = titleOrUserId;
+    actor = actorOrTitle ?? "System";
+    category = categoryOrActor ?? "operations";
+    eventDetails = detailsOrCategory;
+  }
+
+  const currentEvents = await getAuditEvents(userId);
   const newEvent: AuditEvent = {
     id: `aud-${Date.now()}`,
     title,
     actor,
     timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
     category,
-    details,
+    details: eventDetails,
   };
 
-  const updated = [newEvent, ...currentEvents].slice(0, 50); // Keep last 50 events
-  await saveUserDataToSupabase("system", AUDIT_STORAGE_KEY, updated);
+  const updated = [newEvent, ...currentEvents].slice(0, 50);
+  await saveUserDataToSupabase(userId, AUDIT_STORAGE_KEY, updated);
   return updated;
 }

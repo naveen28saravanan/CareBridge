@@ -1,31 +1,59 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
-const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyAq9tq6sleTm05ahNX0G6-AaJG4nLH1YJw",
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "carebridge-5d21a.firebaseapp.com",
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "carebridge-5d21a",
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "carebridge-5d21a.firebasestorage.app",
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "454327633479",
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:454327633479:web:c944ed21893b79d6c0d362",
-};
+// ── FIXED FINDING-05: No hardcoded fallback API keys ──────────────────────────
+// All values must come from environment variables.
+// If VITE_FIREBASE_API_KEY is not set, Firebase auth is simply unavailable.
+const apiKey         = import.meta.env.VITE_FIREBASE_API_KEY as string | undefined;
+const authDomain     = import.meta.env.VITE_FIREBASE_AUTH_DOMAIN as string | undefined;
+const projectId      = import.meta.env.VITE_FIREBASE_PROJECT_ID as string | undefined;
+const storageBucket  = import.meta.env.VITE_FIREBASE_STORAGE_BUCKET as string | undefined;
+const messagingSenderId = import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID as string | undefined;
+const appId          = import.meta.env.VITE_FIREBASE_APP_ID as string | undefined;
 
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-export const auth = getAuth(app);
-export const googleProvider = new GoogleAuthProvider();
+// Firebase is optional — only initialise when all keys are present
+const FIREBASE_CONFIGURED = Boolean(apiKey && authDomain && projectId && appId);
 
-export async function signInWithGoogleFirebase() {
+let auth: ReturnType<typeof getAuth> | null = null;
+let googleProvider: GoogleAuthProvider | null = null;
+
+if (FIREBASE_CONFIGURED) {
+  const firebaseConfig = { apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId };
+  const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+  auth = getAuth(app);
+  googleProvider = new GoogleAuthProvider();
+}
+
+export { auth, googleProvider };
+
+export async function signInWithGoogleFirebase(): Promise<{
+  displayName: string;
+  email: string;
+  photoURL?: string;
+  uid: string;
+  idToken: string;
+}> {
+  if (!auth || !googleProvider) {
+    throw new Error("Firebase is not configured. Set VITE_FIREBASE_API_KEY and related env vars.");
+  }
   try {
     const result = await signInWithPopup(auth, googleProvider);
     const user = result.user;
+    // Always obtain the ID token to send to the backend for server-side verification
+    const idToken = await user.getIdToken();
     return {
       displayName: user.displayName || user.email?.split("@")[0] || "Google User",
       email: user.email || "",
       photoURL: user.photoURL || undefined,
       uid: user.uid,
+      idToken,
     };
   } catch (error: any) {
-    if (error?.code === "auth/configuration-not-found" || error?.code === "auth/invalid-api-key" || error?.code === "auth/api-key-not-valid") {
+    if (
+      error?.code === "auth/configuration-not-found" ||
+      error?.code === "auth/invalid-api-key" ||
+      error?.code === "auth/api-key-not-valid"
+    ) {
       throw new Error("Firebase project keys invalid or missing. Check your VITE_FIREBASE_API_KEY.");
     }
     throw error;

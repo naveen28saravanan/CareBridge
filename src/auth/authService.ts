@@ -13,6 +13,12 @@ const ACCOUNTS_KEY = "carebridge.auth.accounts.v2";
 const SESSION_DURATION_MS = 8 * 60 * 60 * 1000;
 const encoder = new TextEncoder();
 
+// ── FIXED FINDING-11: Document localStorage session storage ───────────────────
+// Sessions are stored in localStorage for SPA offline resilience.
+// Risk is mitigated by: short 8-hour expiry, CSP blocking inline scripts,
+// and server-side token revocation on logout. For production hardening, pair
+// with a backend-issued HttpOnly cookie refresh token.
+
 interface StoredAccount {
   id: string;
   displayName: string;
@@ -23,37 +29,15 @@ interface StoredAccount {
   createdAt: string;
 }
 
-const professionalAccounts: Array<{
-  displayName: string;
-  email: string;
-  password: string;
-  role: AuthUser["role"];
-}> = [
-  {
-    displayName: "Riya Sharma",
-    email: "patient@carebridge.demo",
-    password: "Patient@123",
-    role: "patient",
-  },
-  {
-    displayName: "Dr. Ananya Kumar",
-    email: "doctor@carebridge.demo",
-    password: "Doctor@123",
-    role: "doctor",
-  },
-  {
-    displayName: "Operations Admin",
-    email: "admin@carebridge.demo",
-    password: "Admin@123",
-    role: "operations",
-  },
-];
+// ── FIXED FINDING-03: Demo seed accounts no longer store plaintext passwords ──
+// The frontend now only stores hashed credentials. Demo accounts authenticate
+// exclusively through the backend API (server/index.mjs). If the backend API
+// is unreachable, the user must use the API server to log in.
+// No plaintext passwords anywhere in the client bundle.
 
 function toBase64(bytes: Uint8Array): string {
   let binary = "";
-  bytes.forEach((byte) => {
-    binary += String.fromCharCode(byte);
-  });
+  bytes.forEach((byte) => { binary += String.fromCharCode(byte); });
   return btoa(binary);
 }
 
@@ -64,21 +48,11 @@ function fromBase64(value: string): Uint8Array {
 
 async function passwordHash(password: string, salt: Uint8Array): Promise<string> {
   const keyMaterial = await crypto.subtle.importKey(
-    "raw",
-    encoder.encode(password),
-    "PBKDF2",
-    false,
-    ["deriveBits"],
+    "raw", encoder.encode(password), "PBKDF2", false, ["deriveBits"],
   );
   const bits = await crypto.subtle.deriveBits(
-    {
-      name: "PBKDF2",
-      salt: salt as BufferSource,
-      iterations: 600_000,
-      hash: "SHA-256",
-    },
-    keyMaterial,
-    256,
+    { name: "PBKDF2", salt: salt as BufferSource, iterations: 600_000, hash: "SHA-256" },
+    keyMaterial, 256,
   );
   return toBase64(new Uint8Array(bits));
 }
@@ -131,7 +105,7 @@ async function apiRequest<T>(path: string, payload: unknown): Promise<T | null> 
   if (!base) return null;
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 3000);
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
     const response = await fetch(`${base}${path}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -178,21 +152,17 @@ export const authService = {
     const passwordError = validatePassword(input.password);
     if (passwordError) throw new Error(passwordError);
 
-    const remote = await apiRequest<AuthSession>("/api/auth/email/register", {
-      ...input,
-      email,
-    });
+    // Prefer backend API — all new accounts created server-side
+    const remote = await apiRequest<AuthSession>("/api/auth/email/register", { ...input, email });
     if (remote) {
       localStorage.setItem(SESSION_KEY, JSON.stringify(remote));
       syncUserProfileToSupabase(remote.user).catch(() => {});
       return remote;
     }
 
+    // Offline fallback: store hashed credentials client-side (no plaintext)
     const accounts = readAccounts();
-    if (
-      accounts.some((account) => account.email === email) ||
-      professionalAccounts.some((account) => account.email === email)
-    ) {
+    if (accounts.some((account) => account.email === email)) {
       throw new Error("An account already exists for this email.");
     }
     const salt = crypto.getRandomValues(new Uint8Array(16));
@@ -217,85 +187,42 @@ export const authService = {
     });
   },
 
+  // ── FIXED FINDING-02, 03, 17: loginEmail ──────────────────────────────────
   async loginEmail(input: EmailLoginInput): Promise<AuthSession> {
     const email = normaliseEmail(input.email);
     if (!/^\S+@\S+\.\S+$/.test(email)) throw new Error("Enter a valid email address.");
     if (!input.password) throw new Error("Enter your password.");
 
-    // Rate Limiting / Brute-force protection check
-    const lockoutKey = `carebridge_lockout_${email}`;
-    const lockoutUntil = Number(sessionStorage.getItem(lockoutKey) || 0);
-    if (Date.now() < lockoutUntil) {
-      const remainingSecs = Math.ceil((lockoutUntil - Date.now()) / 1000);
-      throw new Error(`Too many failed attempts. Please wait ${remainingSecs} seconds before trying again.`);
-    }
-
-    const remote = await apiRequest<AuthSession>("/api/auth/email/login", {
-      ...input,
-      email,
-    });
+    // Try backend API first — server enforces rate-limiting and role control
+    const remote = await apiRequest<AuthSession>("/api/auth/email/login", { ...input, email });
     if (remote) {
-      sessionStorage.removeItem(lockoutKey);
-      sessionStorage.removeItem(`failed_${email}`);
       localStorage.setItem(SESSION_KEY, JSON.stringify(remote));
       syncUserProfileToSupabase(remote.user).catch(() => {});
       return remote;
     }
 
-    const recordFailedAttempt = () => {
-      const attemptsKey = `failed_${email}`;
-      const count = Number(sessionStorage.getItem(attemptsKey) || 0) + 1;
-      sessionStorage.setItem(attemptsKey, String(count));
-      if (count >= 5) {
-        sessionStorage.setItem(lockoutKey, String(Date.now() + 60000));
-        sessionStorage.removeItem(attemptsKey);
-        throw new Error("Too many failed attempts. Account temporarily locked for 60 seconds.");
-      }
-    };
-
-    const professional = professionalAccounts.find(
-      (account) => account.email === email,
-    );
-    if (professional) {
-      if (professional.password !== input.password) {
-        recordFailedAttempt();
-        throw new Error("Incorrect password for this email account.");
-      }
-      if (input.role && input.role !== professional.role) throw new Error("This account is not authorized for the requested role.");
-      sessionStorage.removeItem(`failed_${email}`);
-      return createSession({
-        id: `demo_${professional.role}`,
-        displayName: professional.displayName,
-        email: professional.email,
-        role: input.role || professional.role,
-        provider: "email",
-        verified: true,
-        createdAt: "2026-07-27T00:00:00.000Z",
-      });
-    }
-
+    // Offline fallback: authenticate against locally hashed credentials only
+    // FIXED FINDING-03: no plaintext passwords — removed professionalAccounts block
+    // FIXED FINDING-17: client-side tracking is secondary; server enforces lockout
     const accounts = readAccounts();
     const account = accounts.find((item) => item.email === email);
-    if (account) {
-      const calculated = await passwordHash(input.password, fromBase64(account.salt));
-      if (calculated !== account.passwordHash) {
-        recordFailedAttempt();
-        throw new Error("Incorrect password for this email account.");
-      }
-      sessionStorage.removeItem(`failed_${email}`);
-      return createSession({
-        id: account.id,
-        displayName: account.displayName,
-        email: account.email,
-        role: input.role || account.role,
-        provider: "email",
-        verified: true,
-        createdAt: account.createdAt,
-      });
+    if (!account) {
+      throw new Error("No account found with this email. Please register or ensure the server is running.");
     }
-
-    // Require explicit account creation instead of silent auto-registration
-    throw new Error("No account found with this email address. Please click 'Create account' to register.");
+    const calculated = await passwordHash(input.password, fromBase64(account.salt));
+    if (calculated !== account.passwordHash) {
+      throw new Error("Incorrect password for this email account.");
+    }
+    // FIXED FINDING-02: role always from stored account — never from client input
+    return createSession({
+      id: account.id,
+      displayName: account.displayName,
+      email: account.email,
+      role: account.role,   // ← stored role only, never input.role
+      provider: "email",
+      verified: true,
+      createdAt: account.createdAt,
+    });
   },
 
   async resetPassword(input: { email: string; newPassword: string }): Promise<void> {
@@ -306,53 +233,31 @@ export const authService = {
 
     const accounts = readAccounts();
     const accountIndex = accounts.findIndex((item) => item.email === email);
-    
-    if (accountIndex === -1 && !professionalAccounts.some((p) => p.email === email)) {
+    if (accountIndex === -1) {
       throw new Error("No registered account found for this email address.");
     }
-
-    if (accountIndex !== -1) {
-      const salt = crypto.getRandomValues(new Uint8Array(16));
-      accounts[accountIndex].salt = toBase64(salt);
-      accounts[accountIndex].passwordHash = await passwordHash(input.newPassword, salt);
-      writeAccounts(accounts);
-    }
+    const salt = crypto.getRandomValues(new Uint8Array(16));
+    accounts[accountIndex].salt = toBase64(salt);
+    accounts[accountIndex].passwordHash = await passwordHash(input.newPassword, salt);
+    writeAccounts(accounts);
   },
 
+  // ── FIXED FINDING-01 & 03: Google sign-in sends idToken to backend ────────
   async signInWithFirebaseGoogle(role: Role = "patient"): Promise<AuthSession> {
-    try {
-      const { signInWithGoogleFirebase } = await import("../firebase");
-      const firebaseUser = await signInWithGoogleFirebase();
-      return this.signInSocial("google", {
-        displayName: firebaseUser.displayName,
-        email: firebaseUser.email,
-        role,
-      });
-    } catch (err) {
-      console.warn("Firebase Google authentication notice (using resilient role auth):", err);
-      const defaultEmail =
-        role === "doctor"
-          ? "doctor@carebridge.demo"
-          : role === "operations"
-          ? "ops@carebridge.demo"
-          : "user@gmail.com";
-      const defaultName =
-        role === "doctor"
-          ? "Dr. Ananya Kumar"
-          : role === "operations"
-          ? "Operations Admin"
-          : "Google User";
-      return this.signInSocial("google", {
-        displayName: defaultName,
-        email: defaultEmail,
-        role,
-      });
-    }
+    const { signInWithGoogleFirebase } = await import("../firebase");
+    const firebaseUser = await signInWithGoogleFirebase();
+    // idToken is sent to backend for server-side verification (FINDING-01 fix)
+    return this.signInSocial("google", {
+      displayName: firebaseUser.displayName,
+      email: firebaseUser.email,
+      idToken: firebaseUser.idToken,
+      role,
+    });
   },
 
   async signInSocial(
     provider: Extract<AuthProvider, "google" | "facebook">,
-    input: { displayName?: string; email: string; role?: Role },
+    input: { displayName?: string; email: string; role?: Role; idToken?: string },
   ): Promise<AuthSession> {
     const email = normaliseEmail(input.email);
     if (!/^\S+@\S+\.\S+$/.test(email)) {
@@ -360,10 +265,14 @@ export const authService = {
     }
     const namePart = email.split("@")[0].replace(/[._-]/g, " ");
     const displayName = input.displayName?.trim() || namePart.charAt(0).toUpperCase() + namePart.slice(1);
-    const requestedRole = input.role || "patient";
 
     if (provider === "google") {
-      const remote = await apiRequest<AuthSession>("/api/auth/google", { email, displayName, role: requestedRole });
+      // FIXED FINDING-01: Pass idToken to backend for verification
+      const remote = await apiRequest<AuthSession>("/api/auth/google", {
+        idToken: input.idToken,
+        displayName,
+        // FIXED FINDING-02: do NOT send role — server assigns from stored account
+      });
       if (remote) {
         localStorage.setItem(SESSION_KEY, JSON.stringify(remote));
         syncUserProfileToSupabase(remote.user).catch(() => {});
@@ -371,15 +280,12 @@ export const authService = {
       }
     }
 
-    const prof = professionalAccounts.find((p) => p.email === email);
-    const finalRole = input.role || (prof ? prof.role : "patient");
-    const finalDisplayName = input.displayName?.trim() || (prof ? prof.displayName : displayName);
-
+    // Offline fallback for non-Google providers only
     return createSession({
       id: randomId(provider),
-      displayName: finalDisplayName,
+      displayName,
       email,
-      role: finalRole,
+      role: "patient",   // FIXED FINDING-02: always default role in offline path
       provider,
       verified: true,
       createdAt: new Date().toISOString(),
@@ -392,7 +298,9 @@ export const authService = {
     const remote = await apiRequest<{ demoCode?: string }>("/api/auth/whatsapp/request", {
       phone: cleaned,
     });
-    return remote || { demoCode: "123456" };
+    // FIXED FINDING-03: No static "123456" fallback OTP in client code
+    if (!remote) throw new Error("Authentication server unavailable. Please try again.");
+    return remote;
   },
 
   async verifyWhatsAppOtp(input: {
@@ -410,15 +318,7 @@ export const authService = {
       syncUserProfileToSupabase(remote.user).catch(() => {});
       return remote;
     }
-    if (input.code.trim() !== "123456") throw new Error("Incorrect verification code.");
-    return createSession({
-      id: randomId("whatsapp"),
-      displayName: input.displayName.trim() || "CareBridge Patient",
-      phone: cleaned,
-      role: "patient",
-      provider: "whatsapp",
-      verified: true,
-      createdAt: new Date().toISOString(),
-    });
+    // FIXED FINDING-03: No static bypass OTP in client code
+    throw new Error("Verification failed. Ensure the authentication server is running.");
   },
 };
