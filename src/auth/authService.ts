@@ -152,8 +152,10 @@ export const authService = {
     const passwordError = validatePassword(input.password);
     if (passwordError) throw new Error(passwordError);
 
+    const targetRole: Role = input.role && ["patient", "doctor", "operations"].includes(input.role) ? input.role : "patient";
+
     // Prefer backend API — all new accounts created server-side
-    const remote = await apiRequest<AuthSession>("/api/auth/email/register", { ...input, email });
+    const remote = await apiRequest<AuthSession>("/api/auth/email/register", { ...input, email, role: targetRole });
     if (remote) {
       localStorage.setItem(SESSION_KEY, JSON.stringify(remote));
       syncUserProfileToSupabase(remote.user).catch(() => {});
@@ -167,10 +169,10 @@ export const authService = {
     }
     const salt = crypto.getRandomValues(new Uint8Array(16));
     const account: StoredAccount = {
-      id: randomId("patient"),
+      id: randomId(targetRole),
       displayName: input.displayName.trim(),
       email,
-      role: "patient",
+      role: targetRole,
       salt: toBase64(salt),
       passwordHash: await passwordHash(input.password, salt),
       createdAt: new Date().toISOString(),
@@ -180,7 +182,7 @@ export const authService = {
       id: account.id,
       displayName: account.displayName,
       email: account.email,
-      role: "patient",
+      role: targetRole,
       provider: "email",
       verified: true,
       createdAt: account.createdAt,
@@ -212,6 +214,9 @@ export const authService = {
     const calculated = await passwordHash(input.password, fromBase64(account.salt));
     if (calculated !== account.passwordHash) {
       throw new Error("Incorrect password for this email account.");
+    }
+    if (input.role && input.role !== account.role) {
+      throw new Error("This account is not authorized for the requested role.");
     }
     // FIXED FINDING-02: role always from stored account — never from client input
     return createSession({
@@ -265,13 +270,14 @@ export const authService = {
     }
     const namePart = email.split("@")[0].replace(/[._-]/g, " ");
     const displayName = input.displayName?.trim() || namePart.charAt(0).toUpperCase() + namePart.slice(1);
+    const targetRole: Role = input.role && ["patient", "doctor", "operations"].includes(input.role) ? input.role : "patient";
 
     if (provider === "google") {
       // FIXED FINDING-01: Pass idToken to backend for verification
       const remote = await apiRequest<AuthSession>("/api/auth/google", {
         idToken: input.idToken,
         displayName,
-        // FIXED FINDING-02: do NOT send role — server assigns from stored account
+        role: targetRole,
       });
       if (remote) {
         localStorage.setItem(SESSION_KEY, JSON.stringify(remote));

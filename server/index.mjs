@@ -289,11 +289,12 @@ const server = createServer(async (req, res) => {
       if (!validatePassword(body.password)) return sendRes(400, { message: "Password must be 8+ characters with uppercase, lowercase and a number." });
       if (accounts.some((account) => account.email === email)) return sendRes(409, { message: "An account already exists for this email." });
       const result = hashPassword(body.password);
+      const targetRole = body.role && VALID_ROLES.has(body.role) ? body.role : "patient";
       const account = {
-        id: `patient_${randomBytes(10).toString("hex")}`,
+        id: `${targetRole}_${randomBytes(10).toString("hex")}`,
         displayName,
         email,
-        role: "patient",               // ← registration always creates patient
+        role: targetRole,
         passwordHash: result.hash,
         salt: result.salt,
         createdAt: new Date().toISOString(),
@@ -333,7 +334,7 @@ const server = createServer(async (req, res) => {
       // FINDING-02: Role comes ONLY from stored account — never from client body
       clearLoginAttempts(email);
 
-      // Honour role request for seeded accounts — reject mismatches
+      // Honour role request for accounts — reject mismatches
       const requestedRole = body.role && VALID_ROLES.has(body.role) ? body.role : null;
       if (requestedRole && requestedRole !== account.role) {
         return sendRes(403, { message: "This account is not authorized for the requested role." });
@@ -362,14 +363,14 @@ const server = createServer(async (req, res) => {
       const email = googleUser.email;
       const displayName = String(body.displayName || googleUser.name || email.split("@")[0]).trim();
 
-      // FINDING-02: Role from stored account only — new Google users get "patient"
       let account = accounts.find((item) => item.email === email);
       if (!account) {
+        const targetRole = body.role && VALID_ROLES.has(body.role) ? body.role : "patient";
         account = {
           id: `google_${randomBytes(10).toString("hex")}`,
           displayName: displayName || "Google User",
           email,
-          role: "patient",             // ← always patient for new Google accounts
+          role: targetRole,
           passwordHash: "",
           salt: "",
           createdAt: new Date().toISOString(),

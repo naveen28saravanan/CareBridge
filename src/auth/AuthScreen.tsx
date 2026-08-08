@@ -86,15 +86,13 @@ export function AuthScreen({
   const [otpHint, setOtpHint] = useState("");
 
   const roleHint = useMemo(() => {
-    if (mode === "signup") return "New accounts are created as patient accounts.";
-    if (role === "doctor") return "Doctor access is granted only to verified professional accounts.";
-    if (role === "operations") return "Operations access is restricted to authorised administrators.";
-    return "Sign in to continue to your protected care workspace.";
+    if (role === "doctor") return "Doctor workspace for verified clinical accounts.";
+    if (role === "operations") return "Operations workspace for safety and administration.";
+    return mode === "signup" ? "Create an account for your chosen workspace." : "Sign in to continue to your protected workspace.";
   }, [mode, role]);
 
   const switchMode = (next: Mode) => {
     setMode(next);
-    setRole("patient");
     setError("");
     setEmail("");
     setPassword("");
@@ -123,7 +121,7 @@ export function AuthScreen({
     try {
       const session =
         mode === "signup"
-          ? await authService.registerEmail({ displayName: name, email, password })
+          ? await authService.registerEmail({ displayName: name, email, password, role })
           : await authService.loginEmail({ email, password, role });
       onAuthenticated(session);
     } catch (reason) {
@@ -294,7 +292,7 @@ export function AuthScreen({
           <div className="auth-heading">
             <span className="auth-lock"><LockKeyhole size={23} /></span>
             <p>WELCOME TO CAREBRIDGE ONE</p>
-            <h2>{mode === "signin" ? "Sign in to continue" : "Create your patient account"}</h2>
+            <h2>{mode === "signin" ? "Sign in to continue" : `Create your ${roleCopy[role].title.toLowerCase()} account`}</h2>
             <span>{roleHint}</span>
           </div>
 
@@ -303,28 +301,22 @@ export function AuthScreen({
             <button className={mode === "signup" ? "is-active" : ""} onClick={() => switchMode("signup")}>Create account</button>
           </div>
 
-          {mode === "signin" ? (
-            <div className="auth-role-grid">
-              {(["patient", "doctor", "operations"] as Role[]).map((item) => (
-                <button key={item} className={role === item ? "is-active" : ""} onClick={() => chooseRole(item)}>
-                  <span>{roleCopy[item].icon}</span>
-                  <strong>{roleCopy[item].title}</strong>
-                  <small>{roleCopy[item].note}</small>
-                </button>
-              ))}
-            </div>
-          ) : null}
+          <div className="auth-role-grid">
+            {(["patient", "doctor", "operations"] as Role[]).map((item) => (
+              <button key={item} className={role === item ? "is-active" : ""} onClick={() => chooseRole(item)}>
+                <span>{roleCopy[item].icon}</span>
+                <strong>{roleCopy[item].title}</strong>
+                <small>{roleCopy[item].note}</small>
+              </button>
+            ))}
+          </div>
 
-          {mode === "signin" ? (
-            <>
-              <div className="provider-grid">
-                <button onClick={handleFirebaseGoogle} className="provider-button--google">
-                  <span className="provider-logo provider-logo--google">G</span> Continue with Google
-                </button>
-              </div>
-              <div className="auth-divider"><span>or continue with email</span></div>
-            </>
-          ) : null}
+          <div className="provider-grid">
+            <button onClick={handleFirebaseGoogle} className="provider-button--google">
+              <span className="provider-logo provider-logo--google">G</span> Continue with Google
+            </button>
+          </div>
+          <div className="auth-divider"><span>or continue with email</span></div>
 
           <form className="auth-form" onSubmit={submitEmail}>
             {mode === "signup" ? (

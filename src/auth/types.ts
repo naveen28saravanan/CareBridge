@@ -24,6 +24,7 @@ export interface EmailRegistrationInput {
   displayName: string;
   email: string;
   password: string;
+  role?: Role;
 }
 
 export interface EmailLoginInput {
